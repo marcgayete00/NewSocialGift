@@ -1,4 +1,4 @@
-package com.example.socialgiftmobile;
+package com.example.newsocialgift;
 
 import androidx.appcompat.app.AppCompatActivity;
 
