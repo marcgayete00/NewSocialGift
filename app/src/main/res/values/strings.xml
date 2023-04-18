@@ -1,10 +1,17 @@
 <resources>
     <string name="app_name">SocialGiftMobile</string>
+    <!-- Strings Login -->
     <string name="login">Login</string>
     <string name="username">Username...</string>
     <string name="password">Password...</string>
-    <string name="loginString">¿No tienes cuenta?</string>
+    <string name="email">E-mail...</string>
+    <string name="surname">Surname...</string>
+    <string name="loginString">Dont have an account?</string>
+    <string name="registerString">Already have an account?</string>
     <string name="registerbutton">Registrate</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Strings Register-->
+    <string name="pPhoto">Profile photo</string>
+    <string name="next">Next</string>
+
 </resources>
