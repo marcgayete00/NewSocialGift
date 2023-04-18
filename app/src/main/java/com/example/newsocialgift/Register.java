@@ -17,7 +17,7 @@ public class Register extends AppCompatActivity {
     private EditText email;
     private EditText surname;
 
-    private Button Pphoto;
+    private Button photo;
     private Button register;
     private Button backToLogin;
 
@@ -30,7 +30,7 @@ public class Register extends AppCompatActivity {
         password = findViewById(R.id.password);
         email = findViewById(R.id.email);
         surname = findViewById(R.id.surname);
-        Pphoto = findViewById(R.id.Pphoto);
+        photo = findViewById(R.id.photo);
         register = findViewById(R.id.register);
         backToLogin = findViewById(R.id.backToLogin);
 
@@ -41,7 +41,7 @@ public class Register extends AppCompatActivity {
         fragmentTransaction.commit();
 
         //Boton de foto de perfil
-        Pphoto.setOnClickListener(new View.OnClickListener() {
+        photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Aquí puedes agregar el código para manejar el evento de click del botón

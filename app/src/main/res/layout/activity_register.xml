@@ -88,11 +88,12 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/Pphoto"
+        android:id="@+id/photo"
         style="@style/DefaultButton"
         android:layout_width="216dp"
         android:layout_height="57dp"
         android:hint="@string/pPhoto"
+        android:textColorHint="#000000"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -107,6 +108,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/next"
+        android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -132,6 +134,7 @@
         android:layout_height="wrap_content"
         android:text="@string/registerString"
         android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
