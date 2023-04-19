@@ -15,6 +15,8 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class HomeFragment extends Fragment {
     private static final String ARG_ICON = "ARG_ICON";
@@ -38,7 +40,14 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Utilities utilitiesFragment = new Utilities();
+        fragmentTransaction.replace(R.id.fragment_container, utilitiesFragment);
+        fragmentTransaction.commit();
+
         myButton = view.findViewById(R.id.myButton);
+
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
