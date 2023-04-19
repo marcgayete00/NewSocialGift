@@ -38,7 +38,10 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Aquí puedes agregar el código para manejar el evento de click del botón
+                //Codigo de prueba para probar la actividad EditProfile
+                Intent intent = new Intent(Login.this, EditProfile.class);
+                startActivity(intent);
+
             }
         });
 

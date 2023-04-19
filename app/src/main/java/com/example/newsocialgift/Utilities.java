@@ -15,8 +15,6 @@ import android.widget.Switch;
 
 public class Utilities extends Fragment {
 
-    private Spinner languageSpinner;
-    private Switch darkModeSwitch;
     private Switch darkmode;
 
     @Override
@@ -25,6 +23,7 @@ public class Utilities extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_utilities, container, false);
 
+        //Spinner de idioma
         String[] opciones = {"Idioma", "Español", "Ingles"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, opciones);
         Spinner spinner = (Spinner) view.findViewById(R.id.spinner_ejemplo);

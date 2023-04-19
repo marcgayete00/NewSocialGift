@@ -8,10 +8,20 @@
     <string name="surname">Surname...</string>
     <string name="loginString">Dont have an account?</string>
     <string name="registerString">Already have an account?</string>
-    <string name="registerbutton">Registrate</string>
+    <string name="registerbutton">Register</string>
+
 
     <!--Strings Register-->
     <string name="pPhoto">Profile photo</string>
     <string name="next">Next</string>
+
+    <!--String EditProfile-->
+    <string name="deleteAccount">Delete account</string>
+    <string name="editProfile">Edit profile</string>
+    <string name="description">Description</string>
+    <string name="gender">Gender</string>
+    <string name="changePassword">Change password</string>
+    <string name="save">Save</string>
+
 
 </resources>
