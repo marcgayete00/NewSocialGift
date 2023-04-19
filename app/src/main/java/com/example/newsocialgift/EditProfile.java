@@ -1,6 +1,10 @@
 package com.example.newsocialgift;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +18,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class EditProfile extends AppCompatActivity {
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+public class EditProfile extends FragmentActivity {
+
 
     private TextView username;
     private Button deleteAccount;
@@ -24,10 +31,13 @@ public class EditProfile extends AppCompatActivity {
 
     private TextView characterCounter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
 
         username = findViewById(R.id.username);
         deleteAccount = findViewById(R.id.deleteAccount);
@@ -35,6 +45,13 @@ public class EditProfile extends AppCompatActivity {
         characterCounter = findViewById(R.id.characterCounter);
         password = findViewById(R.id.password);
         saveButton = findViewById(R.id.saveButton);
+
+        //Fragmento de utilidades (modo oscuro, idioma)
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Utilities utilitiesFragment = new Utilities();
+        fragmentTransaction.replace(R.id.fragment_container, utilitiesFragment);
+        fragmentTransaction.commit();
 
         //Contador de caracteres
         description.addTextChangedListener(new TextWatcher() {
@@ -84,11 +101,6 @@ public class EditProfile extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
 
     }
 }

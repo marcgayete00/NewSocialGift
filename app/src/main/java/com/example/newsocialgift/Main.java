@@ -1,0 +1,56 @@
+package com.example.newsocialgift;
+
+import android.os.Bundle;
+
+import androidx.annotation.DrawableRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+public class Main  extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_nav_bar);
+        setupBottomMenu();
+    }
+
+    private BottomNavigationView bottomNavigationView;
+
+    private void setupBottomMenu() {
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.page_message:
+                    showFragment(MessagesFragment.newInstance(R.drawable.baseline_mail_outline_24));
+                    break;
+                case R.id.page_notification:
+                    showFragment(NotificationsFragment.newInstance(R.drawable.baseline_notifications_24));
+                    break;
+                case R.id.page_home:
+                    showFragment(HomeFragment.newInstance(R.drawable.baseline_home_24));
+                    break;
+                case R.id.page_search:
+                    showFragment(SearchFragment.newInstance(R.drawable.baseline_search_24));
+                    break;
+                case R.id.page_create:
+                    showFragment(CreateFragment.newInstance(R.drawable.baseline_create_24));
+                    break;
+                default:
+                    throw new IllegalArgumentException("item not implemented : " + item.getItemId());
+            }
+            return true;
+        });
+        bottomNavigationView.setSelectedItemId(R.id.page_home);
+    }
+
+    private void showFragment(Fragment frg) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, frg)
+                .commit();
+
+    }
+}

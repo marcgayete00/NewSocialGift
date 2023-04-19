@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Codigo de prueba para probar la actividad EditProfile
-                Intent intent = new Intent(Login.this, EditProfile.class);
+                Intent intent = new Intent(Login.this, Main.class);
                 startActivity(intent);
 
             }

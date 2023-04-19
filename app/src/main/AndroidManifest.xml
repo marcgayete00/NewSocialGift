@@ -16,6 +16,10 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan"/>
         <activity
+            android:name=".Main"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
             android:name=".Register"
             android:exported="false" />
         <activity
