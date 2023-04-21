@@ -2,10 +2,14 @@ package com.example.newsocialgift;
 
 import android.os.Bundle;
 
-import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.newsocialgift.fragments.CreateFragment;
+import com.example.newsocialgift.fragments.HomeFragment;
+import com.example.newsocialgift.fragments.MessagesFragment;
+import com.example.newsocialgift.fragments.NotificationsFragment;
+import com.example.newsocialgift.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Main  extends AppCompatActivity {

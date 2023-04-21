@@ -1,7 +1,5 @@
-package com.example.newsocialgift;
+package com.example.newsocialgift.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,7 +16,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.newsocialgift.R;
+import com.example.newsocialgift.fragments.Utilities;
 
 public class EditProfile extends FragmentActivity {
 

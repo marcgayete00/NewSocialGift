@@ -1,4 +1,4 @@
-package com.example.newsocialgift;
+package com.example.newsocialgift.fragments;
 
 import android.os.Bundle;
 
@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
+
+import com.example.newsocialgift.R;
 
 public class Utilities extends Fragment {
 
