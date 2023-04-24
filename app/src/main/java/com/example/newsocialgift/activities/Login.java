@@ -58,6 +58,12 @@ public class Login extends AppCompatActivity {
                 String emailString = email.getText().toString();
                 String passwordString = password.getText().toString();
 
+                //Comprobar que los campos no estan vacios
+                if (emailString.isEmpty() || passwordString.isEmpty()) {
+                    Toast.makeText(Login.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
                 String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/login";
@@ -67,8 +73,9 @@ public class Login extends AppCompatActivity {
                             public void onResponse(String response) {
                                 //Obtener el código de respuesta
                                 NetworkResponse networkResponse = new NetworkResponse(response.getBytes());
+                                //Mostrar el código de respuesta en una Toast
+                                Toast.makeText(Login.this, String.valueOf(networkResponse.statusCode), Toast.LENGTH_SHORT).show();
                                 //Comparar codigo de respuesta
-                                System.out.println(networkResponse.statusCode);
                                 if (networkResponse.statusCode == 200) {
                                     Intent intent = new Intent(Login.this, Main.class);
                                     startActivity(intent);
@@ -80,7 +87,28 @@ public class Login extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                // Manejar el error de la solicitud
+                                Toast.makeText(Login.this, String.valueOf(error.networkResponse.statusCode), Toast.LENGTH_SHORT).show();
+
+                                /*
+                                switch (error.networkResponse.statusCode){
+                                    case 400:
+                                        Toast.makeText(Login.this, "Bad request", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case 401:
+                                        Toast.makeText(Login.this, "Unauthorized", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case 404:
+                                        Toast.makeText(Login.this, "Not found", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case 500:
+                                        Toast.makeText(Login.this, "Internal server error", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    default:
+                                        Toast.makeText(Login.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                        break;
+                                }
+
+                                 */
                             }
                         }) {
                     @Override
