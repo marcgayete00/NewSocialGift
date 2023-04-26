@@ -31,6 +31,11 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="create">Create</string>
+    <string name="nombre">Nombre:</string>
+    <string name="descripci_n">Descripción:</string>
+    <string name="fecha_de_creaci_n">Fecha de creación:</string>
+    <string name="fecha_de_finalizaci_n">Fecha de finalización:</string>
+    <string name="nombreunico">nombreunico</string>
 
 
 </resources>
