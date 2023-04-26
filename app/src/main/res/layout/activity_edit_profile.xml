@@ -75,85 +75,50 @@
         app:layout_constraintVertical_bias="0.311"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        style="@style/DefaultTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.423" />
 
     <EditText
         android:id="@+id/description"
-        android:layout_width="227dp"
-        android:layout_height="82dp"
+        android:layout_width="205dp"
+        android:layout_height="50dp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:lines="8"
+        android:maxLength="100"
         android:maxLines="10"
         android:minLines="6"
-        android:maxLength="100"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintHorizontal_bias="0.791"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.454" />
+        app:layout_constraintVertical_bias="0.433" />
 
     <TextView
         style="@style/DefaultTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/description"
+        android:text="@string/username"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.423" />
 
     <TextView
-        android:id="@+id/characterCounter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0/100"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.549" />
-
-    <TextView
         style="@style/DefaultTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/gender"
+        android:text="@string/Lastname"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.647" />
+        app:layout_constraintVertical_bias="0.526" />
 
-    <Spinner
-        android:id="@+id/spinner_ejemplo"
-        android:layout_width="226dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.645" />
+
 
     <TextView
         style="@style/DefaultTextView"

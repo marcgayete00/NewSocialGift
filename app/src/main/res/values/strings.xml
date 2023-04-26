@@ -18,8 +18,8 @@
     <!--String EditProfile-->
     <string name="deleteAccount">Delete account</string>
     <string name="editProfile">Edit profile</string>
-    <string name="description">Description</string>
-    <string name="gender">Gender</string>
+    <string name="username">User name</string>
+    <string name="Lastname">Last name</string>
     <string name="changePassword">Change password</string>
     <string name="save">Save</string>
     <string name="changePphoto">Profile photo</string>

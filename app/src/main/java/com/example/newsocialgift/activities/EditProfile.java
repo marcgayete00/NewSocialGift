@@ -22,9 +22,8 @@ import com.example.newsocialgift.fragments.Utilities;
 public class EditProfile extends FragmentActivity {
 
 
-    private TextView username;
     private Button deleteAccount;
-    private EditText description;
+    private EditText usernameInputText;
     private EditText password;
     private Button saveButton;
 
@@ -40,8 +39,7 @@ public class EditProfile extends FragmentActivity {
 
         username = findViewById(R.id.username);
         deleteAccount = findViewById(R.id.deleteAccount);
-        description = findViewById(R.id.description);
-        characterCounter = findViewById(R.id.characterCounter);
+        username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         saveButton = findViewById(R.id.saveButton);
 
@@ -52,44 +50,6 @@ public class EditProfile extends FragmentActivity {
         fragmentTransaction.replace(R.id.fragment_container, utilitiesFragment);
         fragmentTransaction.commit();
 
-        //Contador de caracteres
-        description.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No se usa en este ejemplo
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Actualizar el contador de caracteres
-                int currentLength = s.length();
-                characterCounter.setText(currentLength + "/100");
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // No se usa en este ejemplo
-            }
-        });
-
-        //Selector de genero
-        String[] opciones = {"Gender", "Man", "Women","Other"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(EditProfile.this, android.R.layout.simple_spinner_dropdown_item, opciones);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_ejemplo);
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String seleccion = parent.getItemAtPosition(position).toString();
-                // Aquí puedes agregar el código que se ejecutará cuando el usuario seleccione una opción
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Aquí puedes agregar el código que se ejecutará cuando el usuario no seleccione ninguna opción
-            }
-        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
