@@ -1,4 +1,4 @@
-package com.example.newsocialgift;
+package com.example.newsocialgift.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.newsocialgift.R;
+import com.example.newsocialgift.fragments.Utilities;
 
 public class Register extends AppCompatActivity {
 

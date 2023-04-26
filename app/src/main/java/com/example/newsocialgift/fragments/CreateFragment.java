@@ -1,4 +1,4 @@
-package com.example.newsocialgift;
+package com.example.newsocialgift.fragments;
 
 import android.os.Bundle;
 
