@@ -25,7 +25,7 @@ public class Main  extends AppCompatActivity {
 
     private void setupBottomMenu() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.page_message:
                     showFragment(MessagesFragment.newInstance(R.drawable.baseline_mail_outline_24));
