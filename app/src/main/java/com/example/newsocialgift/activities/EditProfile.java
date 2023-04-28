@@ -23,12 +23,14 @@ public class EditProfile extends FragmentActivity {
 
 
     private Button deleteAccount;
+
+    private TextView usernameTextView;
     private EditText usernameInputText;
+    private EditText lastNameInputText;
+    private EditText emailInputText;
     private EditText password;
+    private EditText password2;
     private Button saveButton;
-
-    private TextView characterCounter;
-
 
 
     @Override
@@ -36,11 +38,13 @@ public class EditProfile extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-
-        username = findViewById(R.id.username);
         deleteAccount = findViewById(R.id.deleteAccount);
-        username = findViewById(R.id.username);
+        usernameInputText = findViewById(R.id.usernameImput);
+        lastNameInputText = findViewById(R.id.lastnameInput);
+        emailInputText = findViewById(R.id.emailImput);
+        usernameTextView = findViewById(R.id.username);
         password = findViewById(R.id.password);
+        password2 = findViewById(R.id.password2);
         saveButton = findViewById(R.id.saveButton);
 
         //Fragmento de utilidades (modo oscuro, idioma)
