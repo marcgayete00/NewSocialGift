@@ -1,6 +1,7 @@
 package com.example.newsocialgift.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.newsocialgift.Main;
 import com.example.newsocialgift.R;
+import com.example.newsocialgift.fragments.HomeFragment;
 import com.example.newsocialgift.fragments.Utilities;
 
 import org.json.JSONException;
@@ -96,8 +98,13 @@ public class Login extends AppCompatActivity {
                                 // La petición fue exitosa
                                 try {
                                     // Obtener el token de la respuesta
-                                    String token = response.getString("token");
+                                    String token = response.getString("accessToken");
                                     Toast.makeText(Login.this, "JSON web token: " + token, Toast.LENGTH_SHORT).show();
+                                    //Redireccionar a la activity main
+                                    Intent intent = new Intent(Login.this, Main.class);
+                                    startActivity(intent);
+
+                                    startActivity(intent);
 
                                     // TODO: Guardar el token y navegar a la actividad principal
                                 } catch (JSONException e) {
