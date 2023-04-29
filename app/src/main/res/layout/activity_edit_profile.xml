@@ -61,6 +61,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
+        android:id="@+id/changePhoto"
         style="@style/TransparentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

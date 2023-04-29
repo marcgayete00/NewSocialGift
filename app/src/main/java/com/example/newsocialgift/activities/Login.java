@@ -46,7 +46,6 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        System.out.println("Hola");
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         login = findViewById(R.id.login);
@@ -61,6 +60,8 @@ public class Login extends AppCompatActivity {
 
         //Boton de login
         login.setOnClickListener(new View.OnClickListener() {
+            Intent intent = new Intent(Login.this, EditProfile.class);
+
             @Override
             public void onClick(View v) {
                 String emailString = email.getText().toString();
