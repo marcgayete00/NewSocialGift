@@ -107,6 +107,7 @@ public class Login extends AppCompatActivity {
 
                                     // Guardar el token en el SharedPreferences
                                     getSharedPreferences("SocialGift", MODE_PRIVATE).edit().putString("token", token).apply();
+                                    getSharedPreferences("SocialGift", MODE_PRIVATE).edit().putString("password", passwordString).apply();
                                     Toast.makeText(Login.this, "Login successful", Toast.LENGTH_SHORT).show();
                                     //Redireccionar a la activity main
                                     Intent intent = new Intent(Login.this, Main.class);
