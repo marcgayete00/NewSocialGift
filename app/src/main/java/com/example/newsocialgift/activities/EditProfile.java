@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +21,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.newsocialgift.R;
+import com.example.newsocialgift.User;
 import com.example.newsocialgift.fragments.Utilities;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.google.gson.Gson;
+
+import java.util.Base64;
+
 
 public class EditProfile extends FragmentActivity {
 
@@ -68,6 +76,7 @@ public class EditProfile extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+
         deleteAccount = findViewById(R.id.deleteAccount);
         usernameInputText = findViewById(R.id.usernameImput);
         lastNameInputText = findViewById(R.id.lastnameInput);
@@ -85,6 +94,17 @@ public class EditProfile extends FragmentActivity {
         fragmentTransaction.replace(R.id.fragment_container, utilitiesFragment);
         fragmentTransaction.commit();
 
+        //Obtener user del shared preferences
+        // Obtener la referencia al SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("SocialGift", MODE_PRIVATE);
+
+        String userJson = preferences.getString("user", "");
+
+        // Convertir la cadena JSON en un objeto User utilizando Gson
+        Gson gson = new Gson();
+        User user = gson.fromJson(userJson, User.class);
+
+        usernameTextView.setText(user.getUsername());
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +112,6 @@ public class EditProfile extends FragmentActivity {
                 //Codigo de prueba para probar la actividad EditProfile
                 Intent intent = new Intent(EditProfile.this, Login.class);
                 startActivity(intent);
-
             }
         });
 

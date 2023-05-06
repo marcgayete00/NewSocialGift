@@ -42,4 +42,10 @@
     <string name="nombreunico">nombreunico</string>
 
 
+    <!-- Strings Search fragment -->
+    <string name="search_hint">Search...</string>
+    <string name="cancel">Cancel</string>
+
+
+
 </resources>

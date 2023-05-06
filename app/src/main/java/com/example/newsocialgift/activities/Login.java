@@ -20,14 +20,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.newsocialgift.Main;
 import com.example.newsocialgift.R;
+import com.example.newsocialgift.User;
 import com.example.newsocialgift.fragments.HomeFragment;
 import com.example.newsocialgift.fragments.Utilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,11 +104,13 @@ public class Login extends AppCompatActivity {
                                 try {
                                     // Obtener el token de la respuesta
                                     String token = response.getString("accessToken");
-                                    Toast.makeText(Login.this, "JSON web token: " + token, Toast.LENGTH_SHORT).show();
+
+                                    // Guardar el token en el SharedPreferences
+                                    getSharedPreferences("SocialGift", MODE_PRIVATE).edit().putString("token", token).apply();
+                                    getSharedPreferences("SocialGift", MODE_PRIVATE).edit().putString("password", passwordString).apply();
+                                    Toast.makeText(Login.this, "Login successful", Toast.LENGTH_SHORT).show();
                                     //Redireccionar a la activity main
                                     Intent intent = new Intent(Login.this, Main.class);
-                                    startActivity(intent);
-
                                     startActivity(intent);
 
                                     // TODO: Guardar el token y navegar a la actividad principal
