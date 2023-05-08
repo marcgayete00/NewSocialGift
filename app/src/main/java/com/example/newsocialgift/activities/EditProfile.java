@@ -4,30 +4,23 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.PictureDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.newsocialgift.R;
 import com.example.newsocialgift.User;
 import com.example.newsocialgift.fragments.Utilities;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.gson.Gson;
-
-import java.util.Base64;
+import com.squareup.picasso.Picasso;
 
 
 public class EditProfile extends FragmentActivity {
@@ -35,6 +28,7 @@ public class EditProfile extends FragmentActivity {
 
     private Button deleteAccount;
 
+    private ImageView profileImage;
     private TextView usernameTextView;
     private EditText usernameInputText;
     private EditText lastNameInputText;
@@ -82,6 +76,7 @@ public class EditProfile extends FragmentActivity {
         lastNameInputText = findViewById(R.id.lastnameInput);
         emailInputText = findViewById(R.id.emailImput);
         usernameTextView = findViewById(R.id.username);
+        profileImage = findViewById(R.id.profileImage);
         password = findViewById(R.id.password);
         password2 = findViewById(R.id.password2);
         saveButton = findViewById(R.id.saveButton);
@@ -105,6 +100,12 @@ public class EditProfile extends FragmentActivity {
         User user = gson.fromJson(userJson, User.class);
 
         usernameTextView.setText(user.getUsername());
+        usernameInputText.setHint(user.getUsername());
+        lastNameInputText.setHint(user.getLastName());
+        emailInputText.setHint(user.getEmail());
+        //Cargar la imagen del usuario en el imageview
+
+        Picasso.get().load(user.getImage()).into(profileImage);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override

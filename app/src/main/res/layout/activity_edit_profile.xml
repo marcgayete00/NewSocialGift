@@ -21,6 +21,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageView
+        android:id="@+id/profileImage"
         android:layout_width="120dp"
         android:layout_height="115dp"
         android:src="@drawable/defaultprofilephoto"
@@ -41,6 +42,7 @@
         android:text="Pablo03"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.14" />
@@ -60,6 +62,7 @@
         app:layout_constraintVertical_bias="0.214"
         tools:ignore="MissingConstraints" />
 
+
     <Button
         android:id="@+id/changePhoto"
         style="@style/TransparentButton"
@@ -70,12 +73,11 @@
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.311"
         tools:ignore="MissingConstraints" />
-
 
     <EditText
         android:id="@+id/usernameImput"
@@ -186,6 +188,7 @@
         android:layout_width="205dp"
         android:layout_height="50dp"
         android:inputType="textPassword"
+        android:hint="@string/currentPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.087"
@@ -199,6 +202,7 @@
         android:layout_width="205dp"
         android:layout_height="50dp"
         android:inputType="textPassword"
+        android:hint="@string/newPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.087"
