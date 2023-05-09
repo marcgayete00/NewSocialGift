@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,15 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.caverock.androidsvg.SVG;
 import com.example.newsocialgift.R;
 import com.example.newsocialgift.User;
 import com.example.newsocialgift.fragments.Utilities;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-
-import java.net.URL;
 
 
 public class EditProfile extends FragmentActivity {
@@ -108,17 +103,9 @@ public class EditProfile extends FragmentActivity {
         usernameInputText.setHint(user.getUsername());
         lastNameInputText.setHint(user.getLastName());
         emailInputText.setHint(user.getEmail());
-        //Cargar la imagen svg del usuario en el imageview
-        try {
-            URL url = new URL(user.getImage());
-            SVG svg = SVG.getFromInputStream(url.openStream());
-            Drawable drawable = new PictureDrawable(svg.renderToPicture());
-            profileImage.setImageDrawable(drawable);
-        } catch (Exception e) {
-            Picasso.get().load(user.getImage()).into(profileImage);
-        }
+        //Cargar la imagen del usuario en el imageview
 
-
+        Picasso.get().load(user.getImage()).into(profileImage);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override

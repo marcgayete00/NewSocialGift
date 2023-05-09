@@ -41,6 +41,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.auth0:java-jwt:3.18.2'
     implementation 'com.google.code.gson:gson:2.8.9'
+
     implementation 'com.squareup.picasso:picasso:2.71828'
 
 }
