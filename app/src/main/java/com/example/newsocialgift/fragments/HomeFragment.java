@@ -14,8 +14,6 @@ import androidx.annotation.DrawableRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -24,25 +22,20 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.newsocialgift.HomeModel;
 import com.example.newsocialgift.User;
 import com.example.newsocialgift.activities.EditProfile;
 import com.example.newsocialgift.R;
-import com.example.newsocialgift.adapters.HomeAdapter;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
     private static final String ARG_ICON = "ARG_ICON";
-    private Button myButton;
-    private RecyclerView mRecyclerView;
-    private HomeAdapter mAdapter;
-    private List<HomeModel> mData = new ArrayList<>();
+    Button myButton;
+
+
 
     public static HomeFragment newInstance(@DrawableRes int iconId) {
         HomeFragment frg = new HomeFragment();
@@ -65,17 +58,6 @@ public class HomeFragment extends Fragment {
         Utilities utilitiesFragment = new Utilities();
         fragmentTransaction.replace(R.id.fragment_container, utilitiesFragment);
         fragmentTransaction.commit();
-
-        mRecyclerView = view.findViewById(R.id.recyclerView);
-
-        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 1", R.drawable.ic_more));
-        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 2", R.drawable.ic_more));
-        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 3", R.drawable.ic_more));
-
-        mAdapter = new HomeAdapter(mData);
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mAdapter);
 
         myButton = view.findViewById(R.id.myButton);
 
