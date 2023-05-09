@@ -104,9 +104,9 @@ public class EditProfile extends FragmentActivity {
         lastNameInputText.setHint(user.getLastName());
         emailInputText.setHint(user.getEmail());
         //Cargar la imagen del usuario en el imageview
-
+        /*
         Picasso.get().load(user.getImage()).into(profileImage);
-
+         */
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
