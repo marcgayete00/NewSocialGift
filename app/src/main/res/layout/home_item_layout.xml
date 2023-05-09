@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+<!-- Agrega la imagen -->
+<ImageView
+    android:id="@+id/profileImage"
+    android:layout_width="100dp"
+    android:layout_height="66dp"
+    android:src="@drawable/ic_profile"/>
+
+<!-- Agrega el texto -->
+<TextView
+    android:id="@+id/profileName"
+    android:layout_width="100dp"
+    android:layout_height="66dp"
+    android:text="Texto"
+    android:gravity="center_vertical"/>
+
+<!-- Agrega el botón con la imagen de 3 puntos -->
+<ImageButton
+    android:id="@+id/moreButton"
+    android:layout_width="100dp"
+    android:layout_height="66dp"
+    android:src="@drawable/ic_more"/>
+</LinearLayout>
