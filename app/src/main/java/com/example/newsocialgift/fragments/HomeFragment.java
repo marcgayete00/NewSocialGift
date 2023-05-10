@@ -71,9 +71,9 @@ public class HomeFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.recyclerView);
 
         // Agrega algunos datos al adaptador
-        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 1", R.drawable.ic_more));
-        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 2", R.drawable.ic_more));
-        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 3", R.drawable.ic_more));
+        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 1", R.drawable.ic_more, "Texto 1"));
+        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 2", R.drawable.ic_more, "Texto 2"));
+        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 3", R.drawable.ic_more, "Texto 3"));
 
         mAdapter = new HomeAdapter(mData);
 

@@ -3,6 +3,7 @@ package com.example.newsocialgift.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,18 +44,21 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         private ImageView mImageView;
         private TextView mTextView;
         private ImageButton mButton;
+        private TextView mTextView2;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.myImage);
             mTextView = itemView.findViewById(R.id.profileName);
             mButton = itemView.findViewById(R.id.moreButton);
+            mTextView2 = itemView.findViewById(R.id.rectangleWithText);
         }
 
         public void bind(HomeModel item) {
             mImageView.setImageResource(item.getImageResource());
             mTextView.setText(item.getText());
             mButton.setImageResource(item.getButtonImageResource());
+            mTextView2.setText(item.getRectangleWithText());
         }
     }
 }
