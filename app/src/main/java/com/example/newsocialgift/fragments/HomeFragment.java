@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.newsocialgift.HomeModel;
+import com.example.newsocialgift.RecyclerViewItemDecoration;
 import com.example.newsocialgift.User;
 import com.example.newsocialgift.activities.EditProfile;
 import com.example.newsocialgift.R;
@@ -69,6 +70,10 @@ public class HomeFragment extends Fragment {
         fragmentTransaction.commit();
 
         mRecyclerView = view.findViewById(R.id.recyclerView);
+
+        int spaceInPixels = getResources().getDimensionPixelSize(R.dimen.item_space);
+        RecyclerViewItemDecoration itemDecoration = new RecyclerViewItemDecoration(spaceInPixels);
+        mRecyclerView.addItemDecoration(itemDecoration);
 
         // Agrega algunos datos al adaptador
         mData.add(new HomeModel(R.drawable.ic_profile, "Texto 1", R.drawable.ic_more, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet eleifend enim ut dictum. Ut rutrum, libero non tempor mattis, purus erat varius metus, id imperdiet tortor nisi sit amet tortor. In tempus massa ac nunc sagittis, vel sagittis odio auctor. Nulla ullamcorper placerat finibus. Donec ut libero sit amet magna rutrum maximus ac vel mauris. Donec aliquet eros a commodo ultrices. Aenean vel hendrerit dolor, et ornare lorem. Nunc ullamcorper nisl orci, ut convallis felis finibus id. Maecenas id libero in urna rutrum egestas. Praesent et nisi a sem ornare rutrum. Nam sed quam eget massa ultricies mollis."));
