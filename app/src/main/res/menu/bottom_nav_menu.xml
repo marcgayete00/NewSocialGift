@@ -16,9 +16,12 @@
         android:id="@+id/page_search"
         android:icon="@drawable/baseline_search_24"
         android:title="@string/search" />
-    <item
+    <!--<item
         android:id="@+id/page_create"
         android:icon="@drawable/baseline_create_24"
-        android:title="@string/create" />
-
+        android:title="@string/create" />-->
+    <item
+        android:id="@+id/page_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile" />
 </menu>

@@ -9,6 +9,7 @@ import com.example.newsocialgift.fragments.CreateFragment;
 import com.example.newsocialgift.fragments.HomeFragment;
 import com.example.newsocialgift.fragments.MessagesFragment;
 import com.example.newsocialgift.fragments.NotificationsFragment;
+import com.example.newsocialgift.fragments.ProfileFragment;
 import com.example.newsocialgift.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -39,8 +40,11 @@ public class Main  extends AppCompatActivity {
                 case R.id.page_search:
                     showFragment(SearchFragment.newInstance(R.drawable.baseline_search_24));
                     break;
-                case R.id.page_create:
+                /*case R.id.page_create:
                     showFragment(CreateFragment.newInstance(R.drawable.baseline_create_24));
+                    break;*/
+                case R.id.page_profile:
+                    showFragment(ProfileFragment.newInstance(R.drawable.ic_profile));
                     break;
                 default:
                     throw new IllegalArgumentException("item not implemented : " + item.getItemId());
