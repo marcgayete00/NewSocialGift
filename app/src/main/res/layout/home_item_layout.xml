@@ -1,8 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -11,9 +13,9 @@
         <!-- Agrega la imagen -->
         <ImageView
             android:id="@+id/myImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_profile"/>
+            android:layout_width="51dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_profile" />
 
         <!-- Agrega el texto -->
         <TextView
@@ -32,10 +34,56 @@
             android:src="@drawable/ic_more" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/rectangleWithText"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle_background"
-        android:padding="16dp" />
+        android:background="@drawable/rectangle_background">
+
+        <TextView
+            android:id="@+id/wishlistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Texto"
+            android:textAlignment="center"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="188dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <TextView
+            android:id="@+id/wishlistDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Texto"
+            android:textAlignment="center"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="188dp"
+            tools:layout_editor_absoluteY="31dp" />
+
+        <ImageView
+            android:id="@+id/wishlistImage"
+            android:layout_width="101dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_profile"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="19dp"
+            tools:layout_editor_absoluteY="48dp" />
+
+        <TextView
+            android:id="@+id/changeMyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Texto"
+            android:textAlignment="center"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="188dp"
+            tools:layout_editor_absoluteY="120dp" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="359dp"
+            tools:layout_editor_absoluteY="107dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

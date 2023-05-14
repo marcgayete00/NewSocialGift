@@ -51,7 +51,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             mImageView = itemView.findViewById(R.id.myImage);
             mTextView = itemView.findViewById(R.id.profileName);
             mButton = itemView.findViewById(R.id.moreButton);
-            mTextView2 = itemView.findViewById(R.id.rectangleWithText);
+            mTextView2 = itemView.findViewById(R.id.wishlistName);
         }
 
         public void bind(HomeModel item) {
