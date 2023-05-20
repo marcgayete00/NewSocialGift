@@ -35,4 +35,24 @@ public class User {
     public String getImage() {
         return image;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }
