@@ -59,7 +59,7 @@ public class ProfileFragment  extends Fragment {
         items.add(new GridItem("Item 4", Color.RED));
         items.add(new GridItem("Item 5", Color.BLUE));
         items.add(new GridItem("Item 6", Color.GREEN));
-        //adapter = new GridAdapter(items);
+        adapter = new GridAdapter(items);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         recyclerView.setAdapter(adapter);
