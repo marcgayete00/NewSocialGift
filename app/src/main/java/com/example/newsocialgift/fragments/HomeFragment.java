@@ -109,6 +109,7 @@ public class HomeFragment extends Fragment {
         // URL de la API para hacer el login
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/" + id;
         System.out.println("URL "+url);
+        
         // Hacer la petición GET
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {

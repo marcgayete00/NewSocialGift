@@ -61,7 +61,7 @@
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/wishlistName"
-            app:layout_constraintVertical_bias="0.433"
+            app:layout_constraintVertical_bias="0.38"
             tools:ignore="MissingConstraints" />
 
         <ImageView
