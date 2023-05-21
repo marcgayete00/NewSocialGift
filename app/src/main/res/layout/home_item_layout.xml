@@ -18,15 +18,16 @@
             android:src="@drawable/ic_profile" />
 
         <!-- Agrega el texto -->
+
+        <!-- Agrega el botón con la imagen de 3 puntos -->
         <TextView
             android:id="@+id/profileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAlignment="center"
-            android:text="Texto"/>
+            android:text="Texto"
+            android:textAlignment="center" />
 
-        <!-- Agrega el botón con la imagen de 3 puntos -->
         <ImageButton
             android:id="@+id/moreButton"
             android:layout_width="wrap_content"
@@ -36,7 +37,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="132dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/rectangle_background">
 
         <TextView
@@ -47,10 +48,9 @@
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.117"
+            app:layout_constraintVertical_bias="0.097"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -64,7 +64,7 @@
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.352"
+            app:layout_constraintVertical_bias="0.424"
             tools:ignore="MissingConstraints" />
 
         <ImageView
