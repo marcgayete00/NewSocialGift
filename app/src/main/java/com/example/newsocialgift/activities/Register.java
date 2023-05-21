@@ -70,6 +70,13 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(Register.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                String[] aux = photoString.split("\\.");
+
+                if (aux[1].equals("svg")) {
+                    Toast.makeText(Register.this, "Please enter a valid image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 JsonObjectRequest jsonObjectRequest = null;
                 // Crear la cola de peticiones
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());

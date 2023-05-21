@@ -22,7 +22,7 @@
     <string name="Lastname">Last name</string>
     <string name="email2">E-mail</string>
     <string name="changePassword">Change password</string>
-    <string name="save">+</string>
+    <string name="save">Save</string>
     <string name="changePphoto">Profile photo</string>
     <string name="TittleChangePhoto"> Introduce URL: </string>
     <string name="url"> URL... </string>
