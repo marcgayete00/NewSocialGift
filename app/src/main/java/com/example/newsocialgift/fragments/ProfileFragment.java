@@ -51,7 +51,7 @@ public class ProfileFragment  extends Fragment {
 
     private static final String ARG_ICON = "ARG_ICON";
     private RecyclerView recyclerView;
-    private Button editProfile;
+    private Button moreOptions;
     private GridAdapter adapter;
     private TextView userName;
     private TextView userLastName;
@@ -86,7 +86,7 @@ public class ProfileFragment  extends Fragment {
         wishlistsButton = view.findViewById(R.id.wishlistsButton);
         numberOfFriends = view.findViewById(R.id.friendsNumber);
         friendsButton = view.findViewById(R.id.friendsButton);
-        editProfile = view.findViewById(R.id.editProfileButton);
+        moreOptions = view.findViewById(R.id.moreOptionsButton);
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -143,7 +143,7 @@ public class ProfileFragment  extends Fragment {
         });
 
 
-        editProfile.setOnClickListener(new View.OnClickListener() {
+        moreOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mostrarPopup();
