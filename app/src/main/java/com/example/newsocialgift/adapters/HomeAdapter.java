@@ -52,7 +52,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             mTextView = itemView.findViewById(R.id.profileName);
             mButton = itemView.findViewById(R.id.moreButton);
             mTextView2 = itemView.findViewById(R.id.wishlistName);
-
         }
 
         public void bind(HomeModel item) {
