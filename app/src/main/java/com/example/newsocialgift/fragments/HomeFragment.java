@@ -27,6 +27,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.newsocialgift.HomeModel;
 import com.example.newsocialgift.RecyclerViewItemDecoration;
 import com.example.newsocialgift.User;
+import com.example.newsocialgift.PresentItem;
 import com.example.newsocialgift.activities.EditProfile;
 import com.example.newsocialgift.R;
 import com.example.newsocialgift.adapters.HomeAdapter;
@@ -74,10 +75,12 @@ public class HomeFragment extends Fragment {
         RecyclerViewItemDecoration itemDecoration = new RecyclerViewItemDecoration(spaceInPixels);
         mRecyclerView.addItemDecoration(itemDecoration);
 
+        List<PresentItem> presentItems = cargarWishlists();
+
         // Agrega algunos datos al adaptador
-        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 1", R.drawable.ic_more, "Texto 1"));
-        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 2", R.drawable.ic_more, "Texto 2"));
-        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 3", R.drawable.ic_more, "Texto 3"));
+        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 1", R.drawable.ic_more, "Wishlist 1", "Description 1", presentItems));
+        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 2", R.drawable.ic_more, "Wishlist 2", "Description 2", presentItems));
+        mData.add(new HomeModel(R.drawable.ic_profile, "Texto 3", R.drawable.ic_more, "Wishlist 3", "Description 3", presentItems));
 
         mAdapter = new HomeAdapter(mData);
 
@@ -167,5 +170,11 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-
+    private List<PresentItem> cargarWishlists() {
+        List<PresentItem> presentItems = new ArrayList<>();
+        presentItems.add(new PresentItem(R.drawable.ic_profile, "Hola", false));
+        presentItems.add(new PresentItem(R.drawable.ic_profile, "Adeu", false));
+        presentItems.add(new PresentItem(R.drawable.ic_profile, "Benvingut", false));
+        return presentItems;
+    }
 }

@@ -3,15 +3,16 @@ package com.example.newsocialgift.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newsocialgift.HomeModel;
 import com.example.newsocialgift.R;
+import com.example.newsocialgift.PresentItem;
 
 import java.util.List;
 
@@ -33,6 +34,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         HomeModel item = mData.get(position);
         holder.bind(item);
+
+        // Configurar el RecyclerView interno
+        List<PresentItem> presentItems = item.getPresentItems();
+        PresentAdapter presentAdapter = new PresentAdapter(presentItems);
+        holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
+        holder.mRecyclerView.setAdapter(presentAdapter);
     }
 
     @Override
@@ -44,21 +51,26 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         private ImageView mImageView;
         private TextView mTextView;
         private ImageButton mButton;
-        private TextView mTextView2;
+        private TextView mWishlistName;
+        private TextView mWislistDescription;
+        private RecyclerView mRecyclerView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.myImage);
+            mImageView = itemView.findViewById(R.id.profileImage);
             mTextView = itemView.findViewById(R.id.profileName);
             mButton = itemView.findViewById(R.id.moreButton);
-            mTextView2 = itemView.findViewById(R.id.wishlistName);
+            mWishlistName = itemView.findViewById(R.id.wishlistName);
+            mWislistDescription = itemView.findViewById(R.id.wishlistDescription);
+            mRecyclerView = itemView.findViewById(R.id.recyclerView);
         }
 
         public void bind(HomeModel item) {
             mImageView.setImageResource(item.getImageResource());
             mTextView.setText(item.getText());
             mButton.setImageResource(item.getButtonImageResource());
-            mTextView2.setText(item.getRectangleWithText());
+            mWishlistName.setText(item.getWishlistName());
+            mWislistDescription.setText(item.getWishlistDescription());
         }
     }
 }
