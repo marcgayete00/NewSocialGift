@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.auth0.jwt.JWT;
@@ -33,6 +34,8 @@ import com.example.newsocialgift.R;
 import com.example.newsocialgift.adapters.HomeAdapter;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
@@ -45,8 +48,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private HomeAdapter mAdapter;
     private List<HomeModel> mData = new ArrayList<>();
-
-
+    private User[] friend;
 
     public static HomeFragment newInstance(@DrawableRes int iconId) {
         HomeFragment frg = new HomeFragment();
@@ -78,14 +80,20 @@ public class HomeFragment extends Fragment {
         RecyclerViewItemDecoration itemDecoration = new RecyclerViewItemDecoration(spaceInPixels);
         mRecyclerView.addItemDecoration(itemDecoration);
 
-        List<GiftItem> giftItems = loadGifts();
-
         // TODO: Crear funcions per carregar les dades dels amics i les seves wishlists
         // TODO: Canviar R.drawable.ic_profile per la imatge de perfil dels amics
+        // TODO: Canviar Profile Name per el nom dels amics
         // TODO: Canviar Wishlist Name i Wishlist Description per les dades de les wishlists dels amics
+
+        loadFriends();
+        List<GiftItem> giftItems = loadGifts();
+
+        for (int i = 0; i < friend.length; i++) {
+            mData.add(new HomeModel("Hola", friend[i].getUsername(), R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));
+        }
+        /*mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));
         mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));
-        mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));
-        mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));
+        mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));*/
 
         mAdapter = new HomeAdapter(mData);
 
@@ -101,6 +109,59 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    // TODO: Aquesta funció ha de carregar les dades dels amics de la api
+    private void loadFriends() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+
+        JsonArrayRequest jsonObjectRequest = null;
+
+        //Crear la cola de peticiones
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        //URL de la API para hacer el login
+        String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends";
+        System.out.println("URL "+url);
+
+        // TODO: Fer la petició GET a la api i obtenir les dades de tots els amics. Les dades s'han de guardar en un array de la classe User
+        jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> {
+                    friend = new User[response.length()];
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            String id = response.getJSONObject(i).getString("id");
+                            String name = response.getJSONObject(i).getString("name");
+                            String lastname = response.getJSONObject(i).getString("last_name");
+                            String email = response.getJSONObject(i).getString("email");
+                            String image = response.getJSONObject(i).getString("image");
+                            friend[i] = new User(id, name, lastname, email, image);
+                            System.out.println(friend[i].getId() + "\n" + friend[i].getUsername() + "\n" + friend[i].getLastName() + "\n" + friend[i].getEmail() + "\n" + friend[i].getImage());
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    System.out.println("Todo Fue bien");
+                    System.out.println(response);
+                },
+                error -> {
+                    // Error handling
+                    System.out.println("Something went wrong!");
+                    error.printStackTrace();
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                // Agregar los encabezados a la solicitud
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                headers.put("accept", "application/json");
+                return headers;
+            }
+        };
+
+        // Agregar la solicitud a la cola de peticiones
+        requestQueue.add(jsonObjectRequest);
     }
 
     // TODO: Adaptar aquesta funció perquè carregui els regals de la api per cada wishlist
