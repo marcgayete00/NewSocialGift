@@ -120,35 +120,24 @@ public class ProfileFragment  extends Fragment {
                 .circleCrop()
                 .into(profileImage);
 
-        wishlistsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                WishListFragment wishListFragment = new WishListFragment();
-                fragmentTransaction.replace(R.id.container, wishListFragment);
-                fragmentTransaction.commit();
-            }
+        wishlistsButton.setOnClickListener(v -> {
+            FragmentManager fragmentManager1 = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+            WishListFragment wishListFragment = new WishListFragment();
+            fragmentTransaction1.replace(R.id.container, wishListFragment);
+            fragmentTransaction1.commit();
         });
 
-        friendsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                FriendsFragment friendsFragment = new FriendsFragment();
-                fragmentTransaction.replace(R.id.container, friendsFragment);
-                fragmentTransaction.commit();
-            }
+        friendsButton.setOnClickListener(v -> {
+            FragmentManager fragmentManager12 = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction12 = fragmentManager12.beginTransaction();
+            FriendsFragment friendsFragment = new FriendsFragment();
+            fragmentTransaction12.replace(R.id.container, friendsFragment);
+            fragmentTransaction12.commit();
         });
 
 
-        moreOptions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarPopup();
-            }
-        });
+        moreOptions.setOnClickListener(v -> mostrarPopup());
 
         return view;
     }
