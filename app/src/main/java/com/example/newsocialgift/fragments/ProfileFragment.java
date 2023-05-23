@@ -46,6 +46,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ProfileFragment  extends Fragment {
 
@@ -90,18 +91,7 @@ public class ProfileFragment  extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        List<GridItem> items = new ArrayList<>();
-        items.add(new GridItem("Item 1", Color.RED));
-        items.add(new GridItem("Item 2", Color.BLUE));
-        items.add(new GridItem("Item 3", Color.GREEN));
-        items.add(new GridItem("Item 4", Color.RED));
-        items.add(new GridItem("Item 5", Color.BLUE));
-        items.add(new GridItem("Item 6", Color.GREEN));
-        adapter = new GridAdapter(items);
-
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        recyclerView.setAdapter(adapter);
-
+        getWishlists();
         getFriendsNumber();
         getWishlistsNumber();
 
@@ -140,6 +130,65 @@ public class ProfileFragment  extends Fragment {
         moreOptions.setOnClickListener(v -> mostrarPopup());
 
         return view;
+    }
+
+    private void getWishlists() {
+        //Obtener token del SharedPreferences
+        SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+        String userJson = preferences.getString("user", "");
+        // Convertir la cadena JSON en un objeto User utilizando Gson
+        Gson gson = new Gson();
+        User user = gson.fromJson(userJson, User.class);
+        String id = user.getId();
+
+        //Crear una nueva cola de solicitudes
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+
+        //Crear una nueva solicitud HTTP GET
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET,
+                "https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/" + id + "/wishlists",
+                null,
+                response -> {
+                    List<GridItem> items = new ArrayList<>();
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            String name = response.getJSONObject(i).getString("name");
+                            //Get a color between blue, green and red
+                            Random rnd = new Random();
+                            int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+
+                            items.add(new GridItem(name, color));
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    adapter = new GridAdapter(items);
+                    adapter.setOnItemClickListener(position -> {
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        //TODO: D'alguna forma passar les dades de la wishlist a la nova pantalla
+                        WishListFragment wishListFragment = new WishListFragment();
+                        fragmentTransaction.replace(R.id.container, wishListFragment);
+                        fragmentTransaction.commit();
+                    });
+                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+                    recyclerView.setAdapter(adapter);
+                },
+                error -> Toast.makeText(getActivity(), "Error al obtener los datos del usuario", Toast.LENGTH_SHORT).show()
+        ) {
+            //Agregar el token a los headers de la solicitud
+            @Override
+            public java.util.Map<String, String> getHeaders() {
+                java.util.Map<String, String> headers = new java.util.HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        //Agregar la solicitud a la cola de solicitudes
+        queue.add(request);
     }
 
     private void getWishlistsNumber() {

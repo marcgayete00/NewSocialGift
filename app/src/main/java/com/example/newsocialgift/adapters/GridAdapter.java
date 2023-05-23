@@ -1,5 +1,6 @@
 package com.example.newsocialgift.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,15 @@ import java.util.List;
 
 public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     private List<GridItem> items;
+    private OnItemClickListener listener; // Agregado: Listener de clic
 
     public GridAdapter(List<GridItem> items) {
         this.items = items;
+    }
+
+    // Agregado: Setter para el listener de clic
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -29,10 +36,20 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         GridItem item = items.get(position);
         holder.textView.setText(item.getText());
         holder.container.setBackgroundColor(item.getColor());
+
+        // Agregado: Configuración del clic en el ítem
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -50,5 +67,9 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
             container = itemView.findViewById(R.id.container);
         }
     }
-}
 
+    // Agregado: Interfaz personalizada para el listener de clic
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+}
