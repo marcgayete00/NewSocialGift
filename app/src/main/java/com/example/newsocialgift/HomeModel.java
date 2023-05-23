@@ -8,15 +8,15 @@ public class HomeModel {
     private int buttonImageResource;
     private String wishlistName;
     private String wishlistDescription;
-    private List<PresentItem> presentItems;
+    private List<GiftItem> giftItems;
 
-    public HomeModel(int imageResource, String text, int buttonImageResource, String wishlistName, String wishlistDescription, List<PresentItem> presentItems) {
+    public HomeModel(int imageResource, String text, int buttonImageResource, String wishlistName, String wishlistDescription, List<GiftItem> giftItems) {
         this.imageResource = imageResource;
         this.text = text;
         this.buttonImageResource = buttonImageResource;
         this.wishlistName = wishlistName;
         this.wishlistDescription = wishlistDescription;
-        this.presentItems = presentItems;
+        this.giftItems = giftItems;
     }
 
     public int getImageResource() {
@@ -39,7 +39,7 @@ public class HomeModel {
         return wishlistDescription;
     }
 
-    public List<PresentItem> getPresentItems() {
-        return presentItems;
+    public List<GiftItem> getPresentItems() {
+        return giftItems;
     }
 }

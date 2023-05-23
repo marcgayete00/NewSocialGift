@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newsocialgift.HomeModel;
 import com.example.newsocialgift.R;
-import com.example.newsocialgift.PresentItem;
+import com.example.newsocialgift.GiftItem;
 
 import java.util.List;
 
@@ -36,10 +36,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         holder.bind(item);
 
         // Configurar el RecyclerView interno
-        List<PresentItem> presentItems = item.getPresentItems();
-        PresentAdapter presentAdapter = new PresentAdapter(presentItems);
+        List<GiftItem> giftItems = item.getPresentItems();
+        GiftAdapter giftAdapter = new GiftAdapter(giftItems);
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-        holder.mRecyclerView.setAdapter(presentAdapter);
+        holder.mRecyclerView.setAdapter(giftAdapter);
     }
 
     @Override

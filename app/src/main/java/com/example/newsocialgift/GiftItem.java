@@ -1,11 +1,11 @@
 package com.example.newsocialgift;
 
-public class PresentItem {
+public class GiftItem {
     private int imageResId;
     private String changeName;
     private boolean checked;
 
-    public PresentItem(int imageResId, String changeName, boolean checked) {
+    public GiftItem(int imageResId, String changeName, boolean checked) {
         this.imageResId = imageResId;
         this.changeName = changeName;
         this.checked = checked;

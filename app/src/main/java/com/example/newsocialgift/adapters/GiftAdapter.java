@@ -10,27 +10,27 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newsocialgift.R;
-import com.example.newsocialgift.PresentItem;
+import com.example.newsocialgift.GiftItem;
 
 import java.util.List;
 
-public class PresentAdapter extends RecyclerView.Adapter<PresentAdapter.ViewHolder> {
-    private List<PresentItem> items;
+public class GiftAdapter extends RecyclerView.Adapter<GiftAdapter.ViewHolder> {
+    private List<GiftItem> items;
 
-    public PresentAdapter(List<PresentItem> items) {
+    public GiftAdapter(List<GiftItem> items) {
         this.items = items;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_item_presents_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_item_gifts_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PresentItem item = items.get(position);
+        GiftItem item = items.get(position);
         holder.wishlistImage.setImageResource(item.getImageResId());
         holder.changeMyName.setText(item.getChangeName());
         holder.checkBox.setChecked(item.isChecked());
