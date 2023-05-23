@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -67,8 +66,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         }
 
         public void bind(HomeModel item) {
-            Picasso.get().load(item.getImageResource()).into(mImageView);
-            //mImageView.setImageResource(item.getImageResource());
+            mImageView.setImageResource(item.getImageResource());
             mTextView.setText(item.getText());
             mButton.setImageResource(item.getButtonImageResource());
             mWishlistName.setText(item.getWishlistName());

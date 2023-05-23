@@ -3,14 +3,14 @@ package com.example.newsocialgift;
 import java.util.List;
 
 public class HomeModel {
-    private String imageResource;
+    private int imageResource;
     private String text;
     private int buttonImageResource;
     private String wishlistName;
     private String wishlistDescription;
     private List<GiftItem> giftItems;
 
-    public HomeModel(String imageResource, String text, int buttonImageResource, String wishlistName, String wishlistDescription, List<GiftItem> giftItems) {
+    public HomeModel(int imageResource, String text, int buttonImageResource, String wishlistName, String wishlistDescription, List<GiftItem> giftItems) {
         this.imageResource = imageResource;
         this.text = text;
         this.buttonImageResource = buttonImageResource;
@@ -19,7 +19,7 @@ public class HomeModel {
         this.giftItems = giftItems;
     }
 
-    public String getImageResource() {
+    public int getImageResource() {
         return imageResource;
     }
 

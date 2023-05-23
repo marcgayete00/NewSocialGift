@@ -80,20 +80,16 @@ public class HomeFragment extends Fragment {
         RecyclerViewItemDecoration itemDecoration = new RecyclerViewItemDecoration(spaceInPixels);
         mRecyclerView.addItemDecoration(itemDecoration);
 
+        loadFriends();
+        List<GiftItem> giftItems = loadGifts();
+
         // TODO: Crear funcions per carregar les dades dels amics i les seves wishlists
         // TODO: Canviar R.drawable.ic_profile per la imatge de perfil dels amics
         // TODO: Canviar Profile Name per el nom dels amics
         // TODO: Canviar Wishlist Name i Wishlist Description per les dades de les wishlists dels amics
-
-        loadFriends();
-        List<GiftItem> giftItems = loadGifts();
-
-        for (int i = 0; i < friend.length; i++) {
-            mData.add(new HomeModel("Hola", friend[i].getUsername(), R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));
-        }
-        /*mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));
         mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));
-        mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));*/
+        mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));
+        mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));
 
         mAdapter = new HomeAdapter(mData);
 
@@ -109,6 +105,19 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    // TODO: Adaptar aquesta funció perquè carregui els regals de la api per cada wishlist
+    // TODO: Aquesta funció hauria de rebre un paràmetre per saber de quina wishlist ha de carregar els regals
+    private List<GiftItem> loadGifts() {
+        List<GiftItem> giftItems = new ArrayList<>();
+        // TODO: Canviar R.drawable.ic_profile per la imatge del regal
+        // TODO: Canviar Gift Name per el nom del regal
+        // TODO: Canviar el camp checked per una variable booleana
+        giftItems.add(new GiftItem(R.drawable.ic_profile, "Gift Name", false));
+        giftItems.add(new GiftItem(R.drawable.ic_profile, "Gift Name", false));
+        giftItems.add(new GiftItem(R.drawable.ic_profile, "Gift Name", false));
+        return giftItems;
     }
 
     // TODO: Aquesta funció ha de carregar les dades dels amics de la api
@@ -162,19 +171,6 @@ public class HomeFragment extends Fragment {
 
         // Agregar la solicitud a la cola de peticiones
         requestQueue.add(jsonObjectRequest);
-    }
-
-    // TODO: Adaptar aquesta funció perquè carregui els regals de la api per cada wishlist
-    // TODO: Aquesta funció hauria de rebre un paràmetre per saber de quina wishlist ha de carregar els regals
-    private List<GiftItem> loadGifts() {
-        List<GiftItem> giftItems = new ArrayList<>();
-        // TODO: Canviar R.drawable.ic_profile per la imatge del regal
-        // TODO: Canviar Gift Name per el nom del regal
-        // TODO: Canviar el camp checked per una variable booleana
-        giftItems.add(new GiftItem(R.drawable.ic_profile, "Gift Name", false));
-        giftItems.add(new GiftItem(R.drawable.ic_profile, "Gift Name", false));
-        giftItems.add(new GiftItem(R.drawable.ic_profile, "Gift Name", false));
-        return giftItems;
     }
 
     private void createUserClass() {
