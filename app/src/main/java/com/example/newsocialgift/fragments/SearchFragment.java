@@ -79,9 +79,20 @@ public class SearchFragment  extends Fragment {
 
         List<String> names = new ArrayList<>();
         List<String> images = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         SearchAdapter sAdapter = new SearchAdapter(names, images);
+        sAdapter.setOnItemClickListener(position -> {
+            FragmentManager searchFragmentManager = getActivity().getSupportFragmentManager();
+            Bundle arguments = new Bundle();
+            arguments.putString("id", ids.get(position));
+            FragmentTransaction searchFragmentTransaction = searchFragmentManager.beginTransaction();
+            ProfileFragment profileFragment = new ProfileFragment();
+            profileFragment.setArguments(arguments);
+            searchFragmentTransaction.replace(R.id.container, profileFragment);
+            searchFragmentTransaction.commit();
+        });
         recyclerView.setAdapter(sAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -131,8 +142,10 @@ public class SearchFragment  extends Fragment {
                                     // Separar los datos y mostrarlos
                                     for (int i = 0; i < response.length(); i++) {
                                         JSONObject jsonObject = response.getJSONObject(i);
+                                        String id = jsonObject.getString("id");
                                         String name = jsonObject.getString("name");
                                         String image = jsonObject.getString("image");
+                                        ids.add(id);
                                         names.add(name);
                                         images.add(image);
                                     }

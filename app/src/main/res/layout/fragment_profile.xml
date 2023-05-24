@@ -150,20 +150,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.373" />
 
-        <Button
-            android:id="@+id/listaTextView"
-            style="@style/TransparentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Listas"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.172"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.43" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -177,19 +163,18 @@
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="0dp" />
 
-        <Button
+        <TextView
             android:id="@+id/wishlistsTextView"
             style="@style/TransparentButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lista de deseos"
-            android:textSize="20dp"
+            android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.861"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.43" />
+            app:layout_constraintVertical_bias="0.443" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
