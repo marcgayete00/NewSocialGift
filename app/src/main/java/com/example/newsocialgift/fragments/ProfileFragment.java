@@ -140,7 +140,18 @@ public class ProfileFragment  extends Fragment {
         // Convertir la cadena JSON en un objeto User utilizando Gson
         Gson gson = new Gson();
         User user = gson.fromJson(userJson, User.class);
-        String id = user.getId();
+        Bundle arguments = getArguments();
+        String id = null;
+        if (arguments != null) {
+            id = arguments.getString("id");
+            arguments.clear();
+        }
+
+        if (id == null) {
+            id = user.getId();
+        }
+        System.out.println("ID: " + id);
+        System.out.println(arguments);
 
         //Crear una nueva cola de solicitudes
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -199,7 +210,17 @@ public class ProfileFragment  extends Fragment {
         // Convertir la cadena JSON en un objeto User utilizando Gson
         Gson gson = new Gson();
         User user = gson.fromJson(userJson, User.class);
-        String id = user.getId();
+        Bundle arguments = getArguments();
+        String id = null;
+        // FIXME: No s'actualitza en nombre de wishlists
+        if (arguments != null) {
+            id = arguments.getString("id");
+            arguments.clear();
+        }
+
+        if (id == null) {
+            id = user.getId();
+        }
 
         //Crear una nueva cola de solicitudes
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -243,7 +264,16 @@ public class ProfileFragment  extends Fragment {
         // Convertir la cadena JSON en un objeto User utilizando Gson
         Gson gson = new Gson();
         User user = gson.fromJson(userJson, User.class);
-        String id = user.getId();
+        Bundle arguments = getArguments();
+        String id = null;
+        // FIXME: No s'actualitza el nombre d'amics
+        if (arguments != null) {
+            id = arguments.getString("id");
+        }
+
+        if (id == null) {
+            id = user.getId();
+        }
 
         //Crear una nueva cola de solicitudes
         RequestQueue queue = Volley.newRequestQueue(getActivity());

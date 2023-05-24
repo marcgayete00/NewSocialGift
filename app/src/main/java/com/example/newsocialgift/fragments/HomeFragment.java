@@ -326,7 +326,6 @@ public class HomeFragment extends Fragment {
                             String link = response.getString("link");
                             String photo = response.getString("photo");
                             float price = Float.parseFloat(response.getString("price"));
-                            //Pasar un array de la clase Gift de Json a Java con Gson
                             Gson gson = new Gson();
                             String[] ids = gson.fromJson(response.getJSONArray("ids").toString(), String[].class);
                             product = new Product(id, name, description, link, photo, price, ids);
