@@ -82,7 +82,6 @@ public class HomeFragment extends Fragment {
 
         loadFriends();
         List<GiftItem> giftItems = loadGifts();
-
         // TODO: Crear funcions per carregar les dades dels amics i les seves wishlists
         // TODO: Canviar R.drawable.ic_profile per la imatge de perfil dels amics
         // TODO: Canviar Profile Name per el nom dels amics
@@ -125,7 +124,7 @@ public class HomeFragment extends Fragment {
         SharedPreferences preferences = getActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
         String token = preferences.getString("token", "");
 
-        JsonArrayRequest jsonObjectRequest = null;
+        JsonArrayRequest jsonArrayRequest = null;
 
         //Crear la cola de peticiones
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -134,7 +133,7 @@ public class HomeFragment extends Fragment {
         System.out.println("URL "+url);
 
         // TODO: Fer la petició GET a la api i obtenir les dades de tots els amics. Les dades s'han de guardar en un array de la classe User
-        jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+        jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
                     friend = new User[response.length()];
                     for (int i = 0; i < response.length(); i++) {
@@ -170,7 +169,7 @@ public class HomeFragment extends Fragment {
         };
 
         // Agregar la solicitud a la cola de peticiones
-        requestQueue.add(jsonObjectRequest);
+        requestQueue.add(jsonArrayRequest);
     }
 
     private void createUserClass() {
