@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -67,8 +69,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         }
 
         public void bind(HomeModel item) {
-            mImageView.setImageResource(item.getImageResource());
+            //mImageView.setImageResource(item.getImageResource());
             //Picasso.get().load(item.getImageResource()).into(mImageView);
+            Glide.with(this.itemView.getContext())
+                    .load(item.getImageResource())
+                    .circleCrop()
+                    .into(mImageView);
             mTextView.setText(item.getText());
             mButton.setImageResource(item.getButtonImageResource());
             mWishlistName.setText(item.getWishlistName());

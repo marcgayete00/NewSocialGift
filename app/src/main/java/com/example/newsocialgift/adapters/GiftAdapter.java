@@ -32,7 +32,7 @@ public class GiftAdapter extends RecyclerView.Adapter<GiftAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         GiftItem item = items.get(position);
         holder.wishlistImage.setImageResource(item.getImageResId());
-        holder.changeMyName.setText(item.getChangeName());
+        holder.giftName.setText(item.getGiftName());
         holder.checkBox.setChecked(item.isChecked());
     }
 
@@ -43,16 +43,14 @@ public class GiftAdapter extends RecyclerView.Adapter<GiftAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView wishlistImage;
-        public TextView changeMyName;
+        public TextView giftName;
         public CheckBox checkBox;
 
         public ViewHolder(View itemView) {
             super(itemView);
             wishlistImage = itemView.findViewById(R.id.wishlistImage);
-            changeMyName = itemView.findViewById(R.id.changeMyName);
+            giftName = itemView.findViewById(R.id.giftName);
             checkBox = itemView.findViewById(R.id.checkBox);
         }
     }
 }
-
-    //TODO: mTextView2.setText(item.getRectangleWithText());

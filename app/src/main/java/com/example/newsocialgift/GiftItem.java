@@ -2,12 +2,12 @@ package com.example.newsocialgift;
 
 public class GiftItem {
     private int imageResId;
-    private String changeName;
+    private String giftName;
     private boolean checked;
 
-    public GiftItem(int imageResId, String changeName, boolean checked) {
+    public GiftItem(int imageResId, String giftName, boolean checked) {
         this.imageResId = imageResId;
-        this.changeName = changeName;
+        this.giftName = giftName;
         this.checked = checked;
     }
 
@@ -15,8 +15,8 @@ public class GiftItem {
         return imageResId;
     }
 
-    public String getChangeName() {
-        return changeName;
+    public String getGiftName() {
+        return giftName;
     }
 
     public boolean isChecked() {

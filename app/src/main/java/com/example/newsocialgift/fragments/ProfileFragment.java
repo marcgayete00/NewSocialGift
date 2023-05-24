@@ -111,19 +111,19 @@ public class ProfileFragment  extends Fragment {
                 .into(profileImage);
 
         wishlistsButton.setOnClickListener(v -> {
-            FragmentManager fragmentManager1 = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+            FragmentManager wishlistsFragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction wishlistsFragmentTransaction = wishlistsFragmentManager.beginTransaction();
             WishListFragment wishListFragment = new WishListFragment();
-            fragmentTransaction1.replace(R.id.container, wishListFragment);
-            fragmentTransaction1.commit();
+            wishlistsFragmentTransaction.replace(R.id.container, wishListFragment);
+            wishlistsFragmentTransaction.commit();
         });
 
         friendsButton.setOnClickListener(v -> {
-            FragmentManager fragmentManager12 = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction12 = fragmentManager12.beginTransaction();
+            FragmentManager friendsFragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction friendsFragmentTransaction = friendsFragmentManager.beginTransaction();
             FriendsFragment friendsFragment = new FriendsFragment();
-            fragmentTransaction12.replace(R.id.container, friendsFragment);
-            fragmentTransaction12.commit();
+            friendsFragmentTransaction.replace(R.id.container, friendsFragment);
+            friendsFragmentTransaction.commit();
         });
 
 
