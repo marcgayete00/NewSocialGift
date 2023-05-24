@@ -51,6 +51,8 @@ public class HomeFragment extends Fragment {
     private static final String ARG_ICON = "ARG_ICON";
     private Button addWishlistButton;
     private RecyclerView mRecyclerView;
+
+    private Button deleteButton;
     private HomeAdapter mAdapter;
     private List<HomeModel> mData = new ArrayList<>();
 
@@ -169,6 +171,13 @@ public class HomeFragment extends Fragment {
             addWishlistFragmentTransaction.replace(R.id.container, addWishListFragment);
             addWishlistFragmentTransaction.commit();
         });
+
+        // Aquí inflas el archivo de diseño del fragment_wishlist.xml
+        View itemview = inflater.inflate(R.layout.home_item_gifts_layout, container, false);
+
+        // Accede al botón "deleteButton" en el archivo de diseño del fragment_wishlist.xml
+        Button deleteButton = itemview.findViewById(R.id.deleteButton);
+        deleteButton.setVisibility(View.GONE);
 
         return view;
     }
