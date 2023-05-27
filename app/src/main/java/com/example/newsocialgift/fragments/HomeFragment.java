@@ -51,8 +51,6 @@ public class HomeFragment extends Fragment {
     private static final String ARG_ICON = "ARG_ICON";
     private Button addWishlistButton;
     private RecyclerView mRecyclerView;
-
-    private Button deleteButton;
     private HomeAdapter mAdapter;
     private List<HomeModel> mData = new ArrayList<>();
 
@@ -67,7 +65,7 @@ public class HomeFragment extends Fragment {
     }
 
     private interface ProductCallback {
-        void onSuccess(Product product, int wishlistIndex);
+        void onSuccess(Product product, int wishlistIndex, int giftIndex, List<GiftItem> giftItems);
         void onError(String error);
     }
 
@@ -112,12 +110,13 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onSuccess(Wishlist[] wishlists, int friendIndex) {
                             for (int j = 0; j < wishlists.length; j++) {
+                                List<GiftItem> giftItems = new ArrayList<>();
                                 for (int n = 0; n < wishlists[j].getGifts().length; n++) {
-                                    // FIXME: Hi ha un error amb l'inici de la petició GET. El que passa es que el product URL és NULL
-                                    loadProduct(wishlists[j].getGifts()[n].getProductUrl(), j, new ProductCallback() {
+                                    loadProduct(wishlists[j].getGifts()[n].getProductUrl(), j, n, giftItems, new ProductCallback() {
                                         @Override
-                                        public void onSuccess(Product product, int wishlistIndex) {
-                                            //
+                                        public void onSuccess(Product product, int wishlistIndex, int giftIndex, List<GiftItem> giftItems) {
+                                            addProductItem(product, giftItems, wishlists[wishlistIndex].getGifts()[giftIndex].isBooked());
+                                            System.out.println(giftItems.get(0).getGiftName());
                                         }
 
                                         @Override
@@ -127,8 +126,7 @@ public class HomeFragment extends Fragment {
                                         }
                                     });
                                 }
-
-                                List<GiftItem> giftItems = loadGifts();
+                                //List<GiftItem> giftItems = loadGifts();
                                 mData.add(new HomeModel(friends[friendIndex].getImage(), friends[friendIndex].getUsername(), R.drawable.ic_more, wishlists[j].getWishlistName(), wishlists[j].getWishlistDescription(), giftItems));
                                 mAdapter = new HomeAdapter(mData);
 
@@ -153,15 +151,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        /*mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));
-        mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));
-        mData.add(new HomeModel(R.drawable.ic_profile, "Profile Name", R.drawable.ic_more, "Wishlist Name", "Wishlist Description", giftItems));*/
-
-        /*mAdapter = new HomeAdapter(mData);
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mAdapter);*/
-
         addWishlistButton = view.findViewById(R.id.addWishlistButton);
 
         addWishlistButton.setOnClickListener(v -> {
@@ -172,20 +161,19 @@ public class HomeFragment extends Fragment {
             addWishlistFragmentTransaction.commit();
         });
 
-        // Aquí inflas el archivo de diseño del fragment_wishlist.xml
-        View itemview = inflater.inflate(R.layout.home_item_gifts_layout, container, false);
-
-        // Accede al botón "deleteButton" en el archivo de diseño del fragment_wishlist.xml
-        Button deleteButton = itemview.findViewById(R.id.deleteButton);
-        deleteButton.setVisibility(View.GONE);
-
         return view;
+    }
+
+    // FIXME: Per alguna raó no es carreguen els regals a la llista. S'ha de veure perquè
+    private void addProductItem(Product product, List<GiftItem> giftItems, int isBookedNumber) {
+        boolean isBooked = (isBookedNumber != 0);
+        giftItems.add(new GiftItem(product.getProductImage(), product.getProductName(), isBooked));
     }
 
     // TODO: Adaptar aquesta funció perquè carregui els regals de la api per cada wishlist
     //  IDEA: Aquesta funció possiblement es canvii després i mostri totes les dades de cop. Es faria la crida
     //   dins de onSuccess de la funció loadProduct. Se li hauria de passar la informació a mostrar
-    private List<GiftItem> loadGifts() {
+    /*private List<GiftItem> loadGifts() {
         List<GiftItem> giftItems = new ArrayList<>();
         // TODO: Canviar R.drawable.ic_profile per la imatge del regal
         // TODO: Canviar Gift Name per el nom del regal
@@ -194,7 +182,7 @@ public class HomeFragment extends Fragment {
         giftItems.add(new GiftItem(R.drawable.ic_profile, "Gift Name", false));
         giftItems.add(new GiftItem(R.drawable.ic_profile, "Gift Name", false));
         return giftItems;
-    }
+    }*/
 
     private void loadFriends(UserCallback callback) {
         SharedPreferences preferences = getActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
@@ -268,12 +256,22 @@ public class HomeFragment extends Fragment {
                             String name = response.getJSONObject(i).getString("name");
                             String description = response.getJSONObject(i).getString("description");
                             int userId = response.getJSONObject(i).getInt("user_id");
-                            // TODO: El product_url és NULL. S'ha de veure perquè
-                            //  NOTE: Sembla con si la funció fromJson no estigués funcionant
-                            Gson gson = new Gson();
                             String creationDate = response.getJSONObject(i).getString("creation_date");
                             String endDate = response.getJSONObject(i).getString("end_date");
-                            Gift[] gifts = gson.fromJson(response.getJSONObject(i).getJSONArray("gifts").toString(), Gift[].class);
+                            JSONArray giftsJson = response.getJSONObject(i).getJSONArray("gifts");
+                            Gift[] gifts = new Gift[giftsJson.length()];
+                            for (int n = 0; n < giftsJson.length(); n++) {
+                                try {
+                                    String giftId = giftsJson.getJSONObject(n).getString("id");
+                                    String wishlistId = giftsJson.getJSONObject(n).getString("wishlist_id");
+                                    String productURL = giftsJson.getJSONObject(n).getString("product_url");
+                                    int priority = giftsJson.getJSONObject(n).getInt("priority");
+                                    int booked = giftsJson.getJSONObject(n).getInt("booked");
+                                    gifts[n] = new Gift(giftId, wishlistId, productURL, priority, booked);
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
                             wishlists[i] = new Wishlist(id, name, description, userId, creationDate, endDate, gifts);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
@@ -303,7 +301,7 @@ public class HomeFragment extends Fragment {
         requestQueue.add(jsonArrayRequest);
     }
 
-    private void loadProduct(String productUrl, int wishlistIndex, ProductCallback callback) {
+    private void loadProduct(String productUrl, int wishlistIndex, int giftIndex, List<GiftItem> giftItems, ProductCallback callback) {
         SharedPreferences preferences = getActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
         String token = preferences.getString("token", "");
 
@@ -317,7 +315,6 @@ public class HomeFragment extends Fragment {
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, productUrl, null,
                 response -> {
                     Product product = null;
-                    //Product product = new Wishlist[response.length()];
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             String id = response.getString("id");
@@ -327,13 +324,14 @@ public class HomeFragment extends Fragment {
                             String photo = response.getString("photo");
                             float price = Float.parseFloat(response.getString("price"));
                             Gson gson = new Gson();
-                            String[] ids = gson.fromJson(response.getJSONArray("ids").toString(), String[].class);
-                            product = new Product(id, name, description, link, photo, price, ids);
+                            int isActive = response.getInt("is_active");
+                            String[] ids = gson.fromJson(response.getJSONArray("categoryIds").toString(), String[].class);
+                            product = new Product(id, name, description, link, photo, price, isActive, ids);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
                     }
-                    callback.onSuccess(product, wishlistIndex);
+                    callback.onSuccess(product, wishlistIndex, giftIndex, giftItems);
                     System.out.println("Todo Fue bien");
                     System.out.println(response);
                 },

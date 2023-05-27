@@ -104,9 +104,9 @@ public class WishListFragment extends Fragment {
                             //String productUrl = giftObject.getString("product_url");
                             System.out.println(booked);
                             // Create a GiftItem instance with the obtained data
-                            GiftItem giftItem = new GiftItem(R.drawable.ic_profile, "Prueba", checked);
+                            //GiftItem giftItem = new GiftItem(R.drawable.ic_profile, "Prueba", checked);
                             // Agregar a la lista giftItemList
-                            giftItemList.add(giftItem);
+                            //giftItemList.add(giftItem);
                         }
                         // Notificar al adaptador que los datos han cambiado
                         giftAdapter.notifyDataSetChanged();

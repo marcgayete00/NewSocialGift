@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.newsocialgift.R;
 import com.example.newsocialgift.GiftItem;
 
@@ -32,7 +34,10 @@ public class GiftAdapter extends RecyclerView.Adapter<GiftAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         GiftItem item = items.get(position);
-        holder.wishlistImage.setImageResource(item.getImageResId());
+        Glide.with(holder.itemView.getContext())
+                .load(item.getImageResId())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.wishlistImage);
         holder.giftName.setText(item.getGiftName());
         holder.checkBox.setChecked(item.isChecked());
     }

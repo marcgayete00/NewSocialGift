@@ -1,17 +1,17 @@
 package com.example.newsocialgift;
 
 public class GiftItem {
-    private int imageResId;
+    private String imageResId;
     private String giftName;
     private boolean checked;
 
-    public GiftItem(int imageResId, String giftName, boolean checked) {
+    public GiftItem(String imageResId, String giftName, boolean checked) {
         this.imageResId = imageResId;
         this.giftName = giftName;
         this.checked = checked;
     }
 
-    public int getImageResId() {
+    public String getImageResId() {
         return imageResId;
     }
 
