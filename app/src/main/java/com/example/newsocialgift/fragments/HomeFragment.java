@@ -128,6 +128,12 @@ public class HomeFragment extends Fragment {
                                         }
                                     });
                                 }
+                                if (wishlists[j].getGifts().length == 0) {
+                                    mData.add(new HomeModel(friends[friendIndex].getImage(), friends[friendIndex].getUsername(), R.drawable.ic_more, wishlists[j].getWishlistName(), wishlists[j].getWishlistDescription(), giftItems));
+                                    mAdapter = new HomeAdapter(mData);
+                                    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                    mRecyclerView.setAdapter(mAdapter);
+                                }
                             }
                         }
 
