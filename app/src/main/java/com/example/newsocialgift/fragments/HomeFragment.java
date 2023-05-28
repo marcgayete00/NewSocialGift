@@ -98,9 +98,6 @@ public class HomeFragment extends Fragment {
         RecyclerViewItemDecoration itemDecoration = new RecyclerViewItemDecoration(spaceInPixels);
         mRecyclerView.addItemDecoration(itemDecoration);
 
-        // TODO: Crear funcions per carregar les dades dels amics, les seves wishlists i els regals de cada una
-        // TODO: Les tres funcions a fer han d'esperar a que la seva petició GET acabi abans de continuar amb el codi
-        //loadFriends();
         loadFriends(new UserCallback() {
             @Override
             public void onSuccess(User[] friends) {
@@ -131,7 +128,6 @@ public class HomeFragment extends Fragment {
                                         }
                                     });
                                 }
-                                //List<GiftItem> giftItems = loadGifts();
                             }
                         }
 
@@ -164,25 +160,10 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    // FIXME: Per alguna raó no es carreguen els regals a la llista. S'ha de veure perquè
     private void addProductItem(Product product, List<GiftItem> giftItems, int isBookedNumber) {
         boolean isBooked = (isBookedNumber != 0);
         giftItems.add(new GiftItem(product.getProductImage(), product.getProductName(), isBooked));
     }
-
-    // TODO: Adaptar aquesta funció perquè carregui els regals de la api per cada wishlist
-    //  IDEA: Aquesta funció possiblement es canvii després i mostri totes les dades de cop. Es faria la crida
-    //   dins de onSuccess de la funció loadProduct. Se li hauria de passar la informació a mostrar
-    /*private List<GiftItem> loadGifts() {
-        List<GiftItem> giftItems = new ArrayList<>();
-        // TODO: Canviar R.drawable.ic_profile per la imatge del regal
-        // TODO: Canviar Gift Name per el nom del regal
-        // TODO: Canviar el camp checked per una variable booleana
-        giftItems.add(new GiftItem(R.drawable.ic_profile, "Gift Name", false));
-        giftItems.add(new GiftItem(R.drawable.ic_profile, "Gift Name", false));
-        giftItems.add(new GiftItem(R.drawable.ic_profile, "Gift Name", false));
-        return giftItems;
-    }*/
 
     private void loadFriends(UserCallback callback) {
         SharedPreferences preferences = getActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
