@@ -2,7 +2,6 @@ package com.example.newsocialgift.fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,8 +32,8 @@ import com.example.newsocialgift.RecyclerViewItemDecoration;
 import com.example.newsocialgift.User;
 import com.example.newsocialgift.GiftItem;
 import com.example.newsocialgift.Wishlist;
-import com.example.newsocialgift.activities.EditProfile;
 import com.example.newsocialgift.R;
+import com.example.newsocialgift.adapters.GiftAdapter;
 import com.example.newsocialgift.adapters.HomeAdapter;
 import com.google.gson.Gson;
 
@@ -117,6 +116,12 @@ public class HomeFragment extends Fragment {
                                         public void onSuccess(Product product, int wishlistIndex, int giftIndex, List<GiftItem> giftItems) {
                                             addProductItem(product, giftItems, wishlists[wishlistIndex].getGifts()[giftIndex].isBooked());
                                             System.out.println(giftItems.get(0).getGiftName());
+                                            if (giftIndex == wishlists[wishlistIndex].getGifts().length - 1) {
+                                                mData.add(new HomeModel(friends[friendIndex].getImage(), friends[friendIndex].getUsername(), R.drawable.ic_more, wishlists[wishlistIndex].getWishlistName(), wishlists[wishlistIndex].getWishlistDescription(), giftItems));
+                                                mAdapter = new HomeAdapter(mData);
+                                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                                mRecyclerView.setAdapter(mAdapter);
+                                            }
                                         }
 
                                         @Override
@@ -127,11 +132,6 @@ public class HomeFragment extends Fragment {
                                     });
                                 }
                                 //List<GiftItem> giftItems = loadGifts();
-                                mData.add(new HomeModel(friends[friendIndex].getImage(), friends[friendIndex].getUsername(), R.drawable.ic_more, wishlists[j].getWishlistName(), wishlists[j].getWishlistDescription(), giftItems));
-                                mAdapter = new HomeAdapter(mData);
-
-                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                mRecyclerView.setAdapter(mAdapter);
                             }
                         }
 
