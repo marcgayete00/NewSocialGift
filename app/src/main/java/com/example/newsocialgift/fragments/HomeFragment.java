@@ -173,14 +173,80 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
         System.out.println(giftId); // TODO: Això s'haurà de treure. Només és per fer proves
         if (isChecked) {
             // TODO: Fer funció per fer la petició POST a la api per fer la reserva del regal
+            reserveGift(giftId);
         } else {
             // TODO: Fer funció per fer la petició DELETE a la api per desfer la reserva del regal
+            unreserveGift(giftId);
         }
     }
 
     private void addProductItem(Product product, List<GiftItem> giftItems, int isBookedNumber, String giftId) {
         boolean isBooked = (isBookedNumber != 0);
         giftItems.add(new GiftItem(product.getProductImage(), product.getProductName(), isBooked, giftId));
+    }
+
+    private void reserveGift(String giftID) {
+        SharedPreferences preferences = getActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+
+        JsonObjectRequest jsonObjectRequest = null;
+
+        //Crear la cola de peticiones
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        //URL de la API para hacer el login
+        String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/" + giftID + "/book";
+        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
+
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                response -> {
+                    System.out.println("Reserva feta correctament"); // TODO: Això s'haurà de treure. Només és per fer proves
+                },
+                error -> {
+                    System.out.println("Error al fer la reserva"); // TODO: Això s'haurà de treure. Només és per fer proves
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                // Agregar los encabezados a la solicitud
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                headers.put("accept", "application/json");
+                return headers;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void unreserveGift(String giftID) {
+        SharedPreferences preferences = getActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+
+        JsonObjectRequest jsonObjectRequest = null;
+
+        //Crear la cola de peticiones
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        //URL de la API para hacer el login
+        String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/" + giftID + "/book";
+        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
+
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null,
+                response -> {
+                    System.out.println("Reserva desfeta correctament"); // TODO: Això s'haurà de treure. Només és per fer proves
+                },
+                error -> {
+                    System.out.println("Error al desfer la reserva"); // TODO: Això s'haurà de treure. Només és per fer proves
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                // Agregar los encabezados a la solicitud
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                headers.put("accept", "application/json");
+                return headers;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
     }
 
     private void loadFriends(UserCallback callback) {
