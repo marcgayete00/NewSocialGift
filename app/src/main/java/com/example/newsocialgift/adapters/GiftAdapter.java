@@ -18,10 +18,15 @@ import com.example.newsocialgift.GiftItem;
 import java.util.List;
 
 public class GiftAdapter extends RecyclerView.Adapter<GiftAdapter.ViewHolder> {
+    public interface GiftListener {
+        void onGiftChecked(boolean isChecked, int position);
+    }
     private List<GiftItem> items;
+    private GiftListener mListener;
 
-    public GiftAdapter(List<GiftItem> items) {
+    public GiftAdapter(List<GiftItem> items, GiftListener listener) {
         this.items = items;
+        mListener = listener;
     }
 
     @NonNull
@@ -40,6 +45,11 @@ public class GiftAdapter extends RecyclerView.Adapter<GiftAdapter.ViewHolder> {
                 .into(holder.wishlistImage);
         holder.giftName.setText(item.getGiftName());
         holder.checkBox.setChecked(item.isChecked());
+        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (mListener != null) {
+                mListener.onGiftChecked(isChecked, position);
+            }
+        });
     }
 
     @Override

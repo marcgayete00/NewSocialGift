@@ -19,11 +19,21 @@ import com.example.newsocialgift.GiftItem;
 
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> implements GiftAdapter.GiftListener {
     private List<HomeModel> mData;
+    private GiftAdapter.GiftListener mListener;
 
-    public HomeAdapter(List<HomeModel> data) {
+    public HomeAdapter(List<HomeModel> data, GiftAdapter.GiftListener listener) {
         mData = data;
+        mListener = listener;
+    }
+
+    @Override
+    public void onGiftChecked(boolean isChecked, int position) {
+        // Redirige el evento al HomeFragment
+        if (mListener != null) {
+            mListener.onGiftChecked(isChecked, position);
+        }
     }
 
     @Override
@@ -40,7 +50,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         // Configurar el RecyclerView interno
         List<GiftItem> giftItems = item.getPresentItems();
-        GiftAdapter giftAdapter = new GiftAdapter(giftItems);
+        GiftAdapter giftAdapter = new GiftAdapter(giftItems, this);
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.mRecyclerView.setAdapter(giftAdapter);
     }

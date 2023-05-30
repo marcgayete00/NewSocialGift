@@ -46,7 +46,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
     private static final String ARG_ICON = "ARG_ICON";
     private Button addWishlistButton;
     private RecyclerView mRecyclerView;
@@ -82,7 +82,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Utilities utilitiesFragment = new Utilities();
@@ -115,7 +114,7 @@ public class HomeFragment extends Fragment {
                                             System.out.println(giftItems.get(0).getGiftName());
                                             if (giftIndex == wishlists[wishlistIndex].getGifts().length - 1) {
                                                 mData.add(new HomeModel(friends[friendIndex].getImage(), friends[friendIndex].getUsername(), R.drawable.ic_more, wishlists[wishlistIndex].getWishlistName(), wishlists[wishlistIndex].getWishlistDescription(), giftItems));
-                                                mAdapter = new HomeAdapter(mData);
+                                                mAdapter = new HomeAdapter(mData, HomeFragment.this);
                                                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                                 mRecyclerView.setAdapter(mAdapter);
                                             }
@@ -130,7 +129,7 @@ public class HomeFragment extends Fragment {
                                 }
                                 if (wishlists[j].getGifts().length == 0) {
                                     mData.add(new HomeModel(friends[friendIndex].getImage(), friends[friendIndex].getUsername(), R.drawable.ic_more, wishlists[j].getWishlistName(), wishlists[j].getWishlistDescription(), giftItems));
-                                    mAdapter = new HomeAdapter(mData);
+                                    mAdapter = new HomeAdapter(mData, HomeFragment.this);
                                     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                     mRecyclerView.setAdapter(mAdapter);
                                 }
@@ -164,6 +163,15 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+    
+    @Override
+    public void onGiftChecked(boolean isChecked, int position) {
+        if (isChecked) {
+            // TODO: Fer funció per fer la petició POST a la api per fer la reserva del regal
+        } else {
+            // TODO: Fer funció per fer la petició DELETE a la api per desfer la reserva del regal
+        }
     }
 
     private void addProductItem(Product product, List<GiftItem> giftItems, int isBookedNumber) {
