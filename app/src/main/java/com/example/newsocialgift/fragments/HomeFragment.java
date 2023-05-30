@@ -80,7 +80,6 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -164,7 +163,9 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
 
         return view;
     }
-    
+
+    // TODO: D'alguna forma a aquesta funció s'ha de recuperar l'id del regal per poder fer la petició
+    //  a la api per fer o desfer la reserva del regal
     @Override
     public void onGiftChecked(boolean isChecked, int position) {
         if (isChecked) {
