@@ -39,7 +39,7 @@ public class HomeModel {
         return wishlistDescription;
     }
 
-    public List<GiftItem> getPresentItems() {
+    public List<GiftItem> getGiftItems() {
         return giftItems;
     }
 }

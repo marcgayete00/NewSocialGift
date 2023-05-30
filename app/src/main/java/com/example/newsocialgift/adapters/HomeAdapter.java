@@ -49,7 +49,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
         holder.bind(item);
 
         // Configurar el RecyclerView interno
-        List<GiftItem> giftItems = item.getPresentItems();
+        List<GiftItem> giftItems = item.getGiftItems();
         GiftAdapter giftAdapter = new GiftAdapter(giftItems, this);
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.mRecyclerView.setAdapter(giftAdapter);
