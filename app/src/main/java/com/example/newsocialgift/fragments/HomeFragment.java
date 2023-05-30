@@ -109,7 +109,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
                                     loadProduct(wishlists[j].getGifts()[n].getProductUrl(), j, n, giftItems, new ProductCallback() {
                                         @Override
                                         public void onSuccess(Product product, int wishlistIndex, int giftIndex, List<GiftItem> giftItems) {
-                                            addProductItem(product, giftItems, wishlists[wishlistIndex].getGifts()[giftIndex].isBooked());
+                                            addProductItem(product, giftItems, wishlists[wishlistIndex].getGifts()[giftIndex].isBooked(), wishlists[wishlistIndex].getGifts()[giftIndex].getId());
                                             System.out.println(giftItems.get(0).getGiftName());
                                             if (giftIndex == wishlists[wishlistIndex].getGifts().length - 1) {
                                                 mData.add(new HomeModel(friends[friendIndex].getImage(), friends[friendIndex].getUsername(), R.drawable.ic_more, wishlists[wishlistIndex].getWishlistName(), wishlists[wishlistIndex].getWishlistDescription(), giftItems));
@@ -175,9 +175,9 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
         }
     }
 
-    private void addProductItem(Product product, List<GiftItem> giftItems, int isBookedNumber) {
+    private void addProductItem(Product product, List<GiftItem> giftItems, int isBookedNumber, String giftId) {
         boolean isBooked = (isBookedNumber != 0);
-        giftItems.add(new GiftItem(product.getProductImage(), product.getProductName(), isBooked));
+        giftItems.add(new GiftItem(product.getProductImage(), product.getProductName(), isBooked, giftId));
     }
 
     private void loadFriends(UserCallback callback) {
