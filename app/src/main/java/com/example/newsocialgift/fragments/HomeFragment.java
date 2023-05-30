@@ -170,7 +170,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
         List<GiftItem> giftItems = homeModel.getGiftItems();
         GiftItem giftItem = giftItems.get(position);
         String giftId = giftItem.getGiftId();
-        System.out.println(giftId); // TODO: Això s'haurà de treure. Només es per fer proves
+        System.out.println(giftId); // TODO: Això s'haurà de treure. Només és per fer proves
         if (isChecked) {
             // TODO: Fer funció per fer la petició POST a la api per fer la reserva del regal
         } else {
@@ -193,7 +193,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         //URL de la API para hacer el login
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends";
-        System.out.println("URL "+url);
+        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
 
         jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -211,12 +211,12 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
                         }
                     }
                     callback.onSuccess(friends);
-                    System.out.println("Todo Fue bien");
-                    System.out.println(response);
+                    System.out.println("Todo Fue bien");    // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println(response);   // TODO: Això s'haurà de treure. Només és per fer proves
                 },
                 error -> {
                     // Error handling
-                    System.out.println("Something went wrong!");
+                    System.out.println("Something went wrong!");    // TODO: Això s'haurà de treure. Només és per fer proves
                     error.printStackTrace();
                 }
         ) {
@@ -244,7 +244,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         //URL de la API para hacer el login
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/" + friendId + "/wishlists";
-        System.out.println("URL "+url);
+        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
 
         jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -277,12 +277,12 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
                         }
                     }
                     callback.onSuccess(wishlists, friendIndex);
-                    System.out.println("Todo Fue bien");
-                    System.out.println(response);
+                    System.out.println("Todo Fue bien");    // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println(response);   // TODO: Això s'haurà de treure. Només és per fer proves
                 },
                 error -> {
                     // Error handling
-                    System.out.println("Something went wrong!");
+                    System.out.println("Something went wrong!");    // TODO: Això s'haurà de treure. Només és per fer proves
                     error.printStackTrace();
                 }
         ) {
@@ -309,7 +309,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
         //Crear la cola de peticiones
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         //URL de la API para hacer el login
-        System.out.println("URL " + productUrl);
+        System.out.println("URL " + productUrl);    // TODO: Això s'haurà de treure. Només és per fer proves
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, productUrl, null,
                 response -> {
@@ -331,12 +331,12 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
                         }
                     }
                     callback.onSuccess(product, wishlistIndex, giftIndex, giftItems);
-                    System.out.println("Todo Fue bien");
-                    System.out.println(response);
+                    System.out.println("Todo Fue bien");    // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println(response);   // TODO: Això s'haurà de treure. Només és per fer proves
                 },
                 error -> {
                     // Error handling
-                    System.out.println("Something went wrong!");
+                    System.out.println("Something went wrong!");    // TODO: Això s'haurà de treure. Només és per fer proves
                     error.printStackTrace();
                 }
         ) {
@@ -374,16 +374,16 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
 
         //Crear la cola de peticiones
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        System.out.println("Userid "+id);
+        System.out.println("Userid "+id);   // TODO: Això s'haurà de treure. Només és per fer proves
         //URL de la API para hacer el login
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/" + id;
-        System.out.println("URL "+url);
+        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
 
         //Hacer la petición GET
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
-                        System.out.println("Todo Fue bien");
+                        System.out.println("Todo Fue bien");    // TODO: Això s'haurà de treure. Només és per fer proves
                         //Obtener el nombre y el apellido del usuario
                         String name = response.getString("name");
                         String lastname = response.getString("last_name");
@@ -406,7 +406,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
                 },
                 error -> {
                     // Error handling
-                    System.out.println("Something went wrong!");
+                    System.out.println("Something went wrong!");    // TODO: Això s'haurà de treure. Només és per fer proves
                     error.printStackTrace();
                 }
         ) {
