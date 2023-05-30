@@ -1,5 +1,6 @@
 package com.example.newsocialgift.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.newsocialgift.fragments.HomeFragment;
 import com.squareup.picasso.Picasso;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +24,17 @@ import java.util.List;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> implements GiftAdapter.GiftListener {
     private List<HomeModel> mData;
     private GiftAdapter.GiftListener mListener;
+
+    public interface ButtonClickListener {
+        void onButtonClick(int position);
+    }
+
+    private ButtonClickListener moreButtonListener;
+
+    // Setter para el listener del botón
+    public void setButtonClickListener(ButtonClickListener listener) {
+        moreButtonListener = listener;
+    }
 
     public HomeAdapter(List<HomeModel> data, GiftAdapter.GiftListener listener) {
         mData = data;
@@ -44,7 +57,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         HomeModel item = mData.get(position);
         holder.bind(item);
 
@@ -53,6 +66,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
         GiftAdapter giftAdapter = new GiftAdapter(giftItems, this, position);
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.mRecyclerView.setAdapter(giftAdapter);
+        holder.mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Lógica del botón aquí
+                // Puedes llamar a un método en el HomeFragment pasando los datos necesarios
+                if (moreButtonListener != null) {
+                    moreButtonListener.onButtonClick(position);
+                }
+            }
+        });
     }
 
     @Override

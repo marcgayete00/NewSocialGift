@@ -46,7 +46,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
+public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, HomeAdapter.ButtonClickListener {
     private static final String ARG_ICON = "ARG_ICON";
     private Button addWishlistButton;
     private RecyclerView mRecyclerView;
@@ -116,6 +116,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
                                                 mAdapter = new HomeAdapter(mData, HomeFragment.this);
                                                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                                 mRecyclerView.setAdapter(mAdapter);
+                                                mAdapter.setButtonClickListener(HomeFragment.this);
                                             }
                                         }
 
@@ -162,6 +163,11 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
         });
 
         return view;
+    }
+
+    @Override
+    public void onButtonClick(int position) {
+        System.out.println("Hola");
     }
 
     @Override
