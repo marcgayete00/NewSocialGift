@@ -199,10 +199,10 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                 response -> {
-                    System.out.println("Reserva feta correctament"); // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println("Reserva feta correctament");
                 },
                 error -> {
-                    System.out.println("Error al fer la reserva"); // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println("Error al fer la reserva");
                 }
         ) {
             @Override
@@ -231,10 +231,10 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null,
                 response -> {
-                    System.out.println("Reserva desfeta correctament"); // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println("Reserva desfeta correctament");
                 },
                 error -> {
-                    System.out.println("Error al desfer la reserva"); // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println("Error al desfer la reserva");
                 }
         ) {
             @Override
@@ -277,12 +277,12 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
                         }
                     }
                     callback.onSuccess(friends);
-                    System.out.println("Todo Fue bien");    // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println("Todo Fue bien");
                     System.out.println(response);   // TODO: Això s'haurà de treure. Només és per fer proves
                 },
                 error -> {
                     // Error handling
-                    System.out.println("Something went wrong!");    // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println("Something went wrong!");
                     error.printStackTrace();
                 }
         ) {
@@ -343,12 +343,12 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
                         }
                     }
                     callback.onSuccess(wishlists, friendIndex);
-                    System.out.println("Todo Fue bien");    // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println("Todo Fue bien");
                     System.out.println(response);   // TODO: Això s'haurà de treure. Només és per fer proves
                 },
                 error -> {
                     // Error handling
-                    System.out.println("Something went wrong!");    // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println("Something went wrong!");
                     error.printStackTrace();
                 }
         ) {
@@ -397,12 +397,12 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
                         }
                     }
                     callback.onSuccess(product, wishlistIndex, giftIndex, giftItems);
-                    System.out.println("Todo Fue bien");    // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println("Todo Fue bien");
                     System.out.println(response);   // TODO: Això s'haurà de treure. Només és per fer proves
                 },
                 error -> {
                     // Error handling
-                    System.out.println("Something went wrong!");    // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println("Something went wrong!");
                     error.printStackTrace();
                 }
         ) {
@@ -449,7 +449,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
-                        System.out.println("Todo Fue bien");    // TODO: Això s'haurà de treure. Només és per fer proves
+                        System.out.println("Todo Fue bien");
                         //Obtener el nombre y el apellido del usuario
                         String name = response.getString("name");
                         String lastname = response.getString("last_name");
@@ -472,7 +472,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
                 },
                 error -> {
                     // Error handling
-                    System.out.println("Something went wrong!");    // TODO: Això s'haurà de treure. Només és per fer proves
+                    System.out.println("Something went wrong!");
                     error.printStackTrace();
                 }
         ) {
