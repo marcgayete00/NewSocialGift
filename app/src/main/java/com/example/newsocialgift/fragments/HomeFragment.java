@@ -173,10 +173,10 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
         System.out.println(giftId); // TODO: Això s'haurà de treure. Només és per fer proves
         if (isChecked) {
             // TODO: Fer funció per fer la petició POST a la api per fer la reserva del regal
-            reserveGift(giftId);
+            bookGift(giftId);
         } else {
             // TODO: Fer funció per fer la petició DELETE a la api per desfer la reserva del regal
-            unreserveGift(giftId);
+            unBookGift(giftId);
         }
     }
 
@@ -185,7 +185,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
         giftItems.add(new GiftItem(product.getProductImage(), product.getProductName(), isBooked, giftId));
     }
 
-    private void reserveGift(String giftID) {
+    private void bookGift(String giftID) {
         SharedPreferences preferences = getActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
         String token = preferences.getString("token", "");
 
@@ -217,7 +217,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void unreserveGift(String giftID) {
+    private void unbookGift(String giftID) {
         SharedPreferences preferences = getActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
         String token = preferences.getString("token", "");
 
