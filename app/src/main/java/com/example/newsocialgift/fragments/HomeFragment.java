@@ -217,7 +217,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void unbookGift(String giftID) {
+    private void unBookGift(String giftID) {
         SharedPreferences preferences = getActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
         String token = preferences.getString("token", "");
 
