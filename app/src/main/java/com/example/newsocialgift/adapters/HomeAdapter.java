@@ -29,10 +29,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
     }
 
     @Override
-    public void onGiftChecked(boolean isChecked, int position) {
+    public void onGiftChecked(boolean isChecked, int position, int homeAdapterPosition) {
         // Redirige el evento al HomeFragment
         if (mListener != null) {
-            mListener.onGiftChecked(isChecked, position);
+            mListener.onGiftChecked(isChecked, position, homeAdapterPosition);
         }
     }
 
@@ -50,7 +50,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
 
         // Configurar el RecyclerView interno
         List<GiftItem> giftItems = item.getGiftItems();
-        GiftAdapter giftAdapter = new GiftAdapter(giftItems, this);
+        GiftAdapter giftAdapter = new GiftAdapter(giftItems, this, position);
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.mRecyclerView.setAdapter(giftAdapter);
     }
@@ -58,6 +58,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    public HomeModel getItem(int homeAdapterPosition) {
+        return mData.get(homeAdapterPosition);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

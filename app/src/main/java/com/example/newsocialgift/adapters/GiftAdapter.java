@@ -19,14 +19,16 @@ import java.util.List;
 
 public class GiftAdapter extends RecyclerView.Adapter<GiftAdapter.ViewHolder> {
     public interface GiftListener {
-        void onGiftChecked(boolean isChecked, int position);
+        void onGiftChecked(boolean isChecked, int position, int homeAdapterPosition);
     }
     private List<GiftItem> items;
     private GiftListener mListener;
+    private int homeAdapterPosition;
 
-    public GiftAdapter(List<GiftItem> items, GiftListener listener) {
+    public GiftAdapter(List<GiftItem> items, GiftListener listener, int homeAdapterPosition) {
         this.items = items;
         mListener = listener;
+        this.homeAdapterPosition = homeAdapterPosition;
     }
 
     @NonNull
@@ -47,7 +49,7 @@ public class GiftAdapter extends RecyclerView.Adapter<GiftAdapter.ViewHolder> {
         holder.checkBox.setChecked(item.isChecked());
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (mListener != null) {
-                mListener.onGiftChecked(isChecked, position);
+                mListener.onGiftChecked(isChecked, position, homeAdapterPosition);
             }
         });
     }
