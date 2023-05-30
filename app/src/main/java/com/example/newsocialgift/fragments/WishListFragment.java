@@ -71,7 +71,7 @@ public class WishListFragment extends Fragment {
 
         List<GiftItem> giftItemList = new ArrayList<>();
         // Create and set the adapter
-        giftAdapter = new GiftAdapter(giftItemList);
+        //giftAdapter = new GiftAdapter(giftItemList);
         recyclerView.setAdapter(giftAdapter);
 
         tvNombre = view.findViewById(R.id.tvNombre);
