@@ -2,6 +2,8 @@ package com.example.newsocialgift.fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +35,8 @@ import com.example.newsocialgift.User;
 import com.example.newsocialgift.GiftItem;
 import com.example.newsocialgift.Wishlist;
 import com.example.newsocialgift.R;
+import com.example.newsocialgift.activities.EditProfile;
+import com.example.newsocialgift.activities.Login;
 import com.example.newsocialgift.adapters.GiftAdapter;
 import com.example.newsocialgift.adapters.HomeAdapter;
 import com.google.gson.Gson;
@@ -165,9 +169,40 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
         return view;
     }
 
+    private void mostrarPopup() {
+        // Inflar el diseño del pop-up
+        View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.home_popup, null);
+
+        // Obtener el botón submitURL del layout del popup
+        Button viewProfileOption = popupView.findViewById(R.id.viewProfileButton);
+        Button cancelOption = popupView.findViewById(R.id.cancelButton);
+
+        // Crear el pop-up
+        AlertDialog.Builder popupBuilder = new AlertDialog.Builder(getActivity())
+                .setView(popupView);
+
+        // Mostrar el pop-up
+        AlertDialog popup = popupBuilder.create();
+        popup.show();
+
+        // TODO: S'han d'enviar les dades de l'usuari a la pantalla de perfil
+        viewProfileOption.setOnClickListener(v -> {
+            FragmentManager profileFragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction profileFragmentTransaction = profileFragmentManager.beginTransaction();
+            ProfileFragment profileFragment = new ProfileFragment();
+            profileFragmentTransaction.replace(R.id.container, profileFragment);
+            profileFragmentTransaction.commit();
+            popup.dismiss();
+        });
+
+        cancelOption.setOnClickListener(v -> {
+            popup.dismiss();
+        });
+    }
+
     @Override
     public void onButtonClick(int position) {
-        System.out.println("Hola");
+        mostrarPopup();
     }
 
     @Override
