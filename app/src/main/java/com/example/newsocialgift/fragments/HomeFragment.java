@@ -184,7 +184,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
         // Mostrar el pop-up
         AlertDialog popup = popupBuilder.create();
         popup.show();
-        
+
         viewProfileOption.setOnClickListener(v -> {
             FragmentManager profileFragmentManager = getActivity().getSupportFragmentManager();
             Bundle arguments = new Bundle();
