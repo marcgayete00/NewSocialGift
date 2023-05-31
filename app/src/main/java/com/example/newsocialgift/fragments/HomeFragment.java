@@ -206,17 +206,14 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
     }
 
     @Override
-    public void onGiftChecked(boolean isChecked, int position, int homeAdapterPosition) {
+    public void onGiftChecked(boolean isChecked, int giftAdapterPosition, int homeAdapterPosition) {
         HomeModel homeModel = mAdapter.getItem(homeAdapterPosition);
         List<GiftItem> giftItems = homeModel.getGiftItems();
-        GiftItem giftItem = giftItems.get(position);
+        GiftItem giftItem = giftItems.get(giftAdapterPosition);
         String giftId = giftItem.getGiftId();
-        System.out.println(giftId); // TODO: Això s'haurà de treure. Només és per fer proves
         if (isChecked) {
-            // TODO: Fer funció per fer la petició POST a la api per fer la reserva del regal
             bookGift(giftId);
         } else {
-            // TODO: Fer funció per fer la petició DELETE a la api per desfer la reserva del regal
             unBookGift(giftId);
         }
     }
