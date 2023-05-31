@@ -106,9 +106,11 @@ public class ProfileFragment  extends Fragment {
         if (arguments != null) {
             id = arguments.getString("id");
             loadUser(id);
+            moreOptions.setVisibility(View.INVISIBLE);
         }
 
         if (id == null) {
+            id = user.getId();
             userName.setText(user.getUsername());
             userLastName.setText(user.getLastName());
             //Cargar la imagen del usuario en el imageview
@@ -116,12 +118,18 @@ public class ProfileFragment  extends Fragment {
                     .load(user.getImage())
                     .circleCrop()
                     .into(profileImage);
+            moreOptions.setVisibility(View.VISIBLE);
+            moreOptions.setOnClickListener(v -> mostrarPopup());
         }
 
+        String finalId = id;
         wishlistsButton.setOnClickListener(v -> {
             FragmentManager wishlistsFragmentManager = getActivity().getSupportFragmentManager();
             FragmentTransaction wishlistsFragmentTransaction = wishlistsFragmentManager.beginTransaction();
+            Bundle wishlistArguments = new Bundle();
+            wishlistArguments.putString("userID", finalId);
             WishListFragment wishListFragment = new WishListFragment();
+            wishListFragment.setArguments(wishlistArguments);
             wishlistsFragmentTransaction.replace(R.id.container, wishListFragment);
             wishlistsFragmentTransaction.commit();
         });
@@ -129,19 +137,13 @@ public class ProfileFragment  extends Fragment {
         friendsButton.setOnClickListener(v -> {
             FragmentManager friendsFragmentManager = getActivity().getSupportFragmentManager();
             FragmentTransaction friendsFragmentTransaction = friendsFragmentManager.beginTransaction();
+            Bundle friendsArguments = new Bundle();
+            friendsArguments.putString("userID", finalId);
             FriendsFragment friendsFragment = new FriendsFragment();
+            friendsFragment.setArguments(friendsArguments);
             friendsFragmentTransaction.replace(R.id.container, friendsFragment);
             friendsFragmentTransaction.commit();
         });
-
-        if (arguments != null) {
-            moreOptions.setVisibility(View.INVISIBLE);
-        }
-
-        if (id == null) {
-            moreOptions.setVisibility(View.VISIBLE);
-            moreOptions.setOnClickListener(v -> mostrarPopup());
-        }
 
         return view;
     }
@@ -219,12 +221,13 @@ public class ProfileFragment  extends Fragment {
                     List<GridItem> items = new ArrayList<>();
                     for (int i = 0; i < response.length(); i++) {
                         try {
+                            String wishlistID = response.getJSONObject(i).getString("id");
                             String name = response.getJSONObject(i).getString("name");
                             //Get a color between blue, green and red
                             Random rnd = new Random();
                             int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
 
-                            items.add(new GridItem(name, color));
+                            items.add(new GridItem(wishlistID, name, color));
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -233,8 +236,11 @@ public class ProfileFragment  extends Fragment {
                     adapter.setOnItemClickListener(position -> {
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        //TODO: D'alguna forma passar les dades de la wishlist a la nova pantalla
+                        Bundle wishlistArguments = new Bundle();
+                        String wishlistID = items.get(position).getWishlistID();
+                        wishlistArguments.putString("wishlistID", wishlistID);
                         WishListFragment wishListFragment = new WishListFragment();
+                        wishListFragment.setArguments(wishlistArguments);
                         fragmentTransaction.replace(R.id.container, wishListFragment);
                         fragmentTransaction.commit();
                     });
@@ -266,7 +272,6 @@ public class ProfileFragment  extends Fragment {
         User user = gson.fromJson(userJson, User.class);
         Bundle arguments = getArguments();
         String id = null;
-        // FIXME: No s'actualitza en nombre de wishlists
         if (arguments != null) {
             id = arguments.getString("id");
         }
@@ -319,7 +324,6 @@ public class ProfileFragment  extends Fragment {
         User user = gson.fromJson(userJson, User.class);
         Bundle arguments = getArguments();
         String id = null;
-        // FIXME: No s'actualitza el nombre d'amics
         if (arguments != null) {
             id = arguments.getString("id");
         }
@@ -380,7 +384,13 @@ public class ProfileFragment  extends Fragment {
         popup.show();
 
         editProfileOption.setOnClickListener(v -> {
+            SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+            String userJson = preferences.getString("user", "");
+            // Convertir la cadena JSON en un objeto User utilizando Gson
+            Gson gson = new Gson();
+            User user = gson.fromJson(userJson, User.class);
             Intent intent = new Intent(getActivity(), EditProfile.class);
+            intent.putExtra("id", user.getId());
             startActivity(intent);
             popup.dismiss();
         });
