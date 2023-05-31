@@ -101,14 +101,22 @@ public class ProfileFragment  extends Fragment {
         // Convertir la cadena JSON en un objeto User utilizando Gson
         Gson gson = new Gson();
         User user = gson.fromJson(userJson, User.class);
+        Bundle arguments = getArguments();
+        String id = null;
+        if (arguments != null) {
+            id = arguments.getString("id");
+            loadUser(id);
+        }
 
-        userName.setText(user.getUsername());
-        userLastName.setText(user.getLastName());
-        //Cargar la imagen del usuario en el imageview
-        Glide.with(this)
-                .load(user.getImage())
-                .circleCrop()
-                .into(profileImage);
+        if (id == null) {
+            userName.setText(user.getUsername());
+            userLastName.setText(user.getLastName());
+            //Cargar la imagen del usuario en el imageview
+            Glide.with(this)
+                    .load(user.getImage())
+                    .circleCrop()
+                    .into(profileImage);
+        }
 
         wishlistsButton.setOnClickListener(v -> {
             FragmentManager wishlistsFragmentManager = getActivity().getSupportFragmentManager();
@@ -126,10 +134,57 @@ public class ProfileFragment  extends Fragment {
             friendsFragmentTransaction.commit();
         });
 
+        if (arguments != null) {
+            moreOptions.setVisibility(View.INVISIBLE);
+        }
 
-        moreOptions.setOnClickListener(v -> mostrarPopup());
+        if (id == null) {
+            moreOptions.setVisibility(View.VISIBLE);
+            moreOptions.setOnClickListener(v -> mostrarPopup());
+        }
 
         return view;
+    }
+
+    private void loadUser(String id) {
+        SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+        // Convertir la cadena JSON en un objeto User utilizando Gson
+
+        //Crear una nueva cola de solicitudes
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+
+        //Crear una nueva solicitud HTTP GET
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET,
+                "https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/" + id,
+                null,
+                response -> {
+                    try {
+                        userName.setText(response.getString("name"));
+                        userLastName.setText(response.getString("last_name"));
+                        //Cargar la imagen del usuario en el imageview
+                        Glide.with(this)
+                                .load(response.getString("image"))
+                                .circleCrop()
+                                .into(profileImage);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Toast.makeText(getActivity(), "Error al obtener los datos del usuario", Toast.LENGTH_SHORT).show()
+        ) {
+            //Agregar el token a los headers de la solicitud
+            @Override
+            public java.util.Map<String, String> getHeaders() {
+                java.util.Map<String, String> headers = new java.util.HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+
+        //Agregar la solicitud a la cola de solicitudes
+        queue.add(request);
     }
 
     private void getWishlists() {
@@ -144,7 +199,6 @@ public class ProfileFragment  extends Fragment {
         String id = null;
         if (arguments != null) {
             id = arguments.getString("id");
-            arguments.clear();
         }
 
         if (id == null) {
@@ -215,7 +269,6 @@ public class ProfileFragment  extends Fragment {
         // FIXME: No s'actualitza en nombre de wishlists
         if (arguments != null) {
             id = arguments.getString("id");
-            arguments.clear();
         }
 
         if (id == null) {
