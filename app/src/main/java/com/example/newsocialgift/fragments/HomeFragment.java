@@ -116,7 +116,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
                                             addProductItem(product, giftItems, wishlists[wishlistIndex].getGifts()[giftIndex].isBooked(), wishlists[wishlistIndex].getGifts()[giftIndex].getId());
                                             System.out.println(giftItems.get(0).getGiftName());
                                             if (giftIndex == wishlists[wishlistIndex].getGifts().length - 1) {
-                                                mData.add(new HomeModel(friends[friendIndex].getImage(), friends[friendIndex].getUsername(), R.drawable.ic_more, wishlists[wishlistIndex].getWishlistName(), wishlists[wishlistIndex].getWishlistDescription(), giftItems));
+                                                mData.add(new HomeModel(friends[friendIndex].getId(), friends[friendIndex].getImage(), friends[friendIndex].getUsername(), R.drawable.ic_more, wishlists[wishlistIndex].getWishlistName(), wishlists[wishlistIndex].getWishlistDescription(), giftItems));
                                                 mAdapter = new HomeAdapter(mData, HomeFragment.this);
                                                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                                 mRecyclerView.setAdapter(mAdapter);
@@ -132,7 +132,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
                                     });
                                 }
                                 if (wishlists[j].getGifts().length == 0) {
-                                    mData.add(new HomeModel(friends[friendIndex].getImage(), friends[friendIndex].getUsername(), R.drawable.ic_more, wishlists[j].getWishlistName(), wishlists[j].getWishlistDescription(), giftItems));
+                                    mData.add(new HomeModel(friends[friendIndex].getId(), friends[friendIndex].getImage(), friends[friendIndex].getUsername(), R.drawable.ic_more, wishlists[j].getWishlistName(), wishlists[j].getWishlistDescription(), giftItems));
                                     mAdapter = new HomeAdapter(mData, HomeFragment.this);
                                     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                     mRecyclerView.setAdapter(mAdapter);
@@ -169,7 +169,7 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
         return view;
     }
 
-    private void mostrarPopup() {
+    private void mostrarPopup(String id) {
         // Inflar el diseño del pop-up
         View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.home_popup, null);
 
@@ -184,12 +184,14 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
         // Mostrar el pop-up
         AlertDialog popup = popupBuilder.create();
         popup.show();
-
-        // TODO: S'han d'enviar les dades de l'usuari a la pantalla de perfil
+        
         viewProfileOption.setOnClickListener(v -> {
             FragmentManager profileFragmentManager = getActivity().getSupportFragmentManager();
+            Bundle arguments = new Bundle();
+            arguments.putString("id", id);
             FragmentTransaction profileFragmentTransaction = profileFragmentManager.beginTransaction();
             ProfileFragment profileFragment = new ProfileFragment();
+            profileFragment.setArguments(arguments);
             profileFragmentTransaction.replace(R.id.container, profileFragment);
             profileFragmentTransaction.commit();
             popup.dismiss();
@@ -202,7 +204,8 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
 
     @Override
     public void onButtonClick(int position) {
-        mostrarPopup();
+        String id = mAdapter.getItem(position).getUserID();
+        mostrarPopup(id);
     }
 
     @Override

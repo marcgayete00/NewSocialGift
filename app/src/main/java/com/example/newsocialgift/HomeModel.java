@@ -3,6 +3,7 @@ package com.example.newsocialgift;
 import java.util.List;
 
 public class HomeModel {
+    private String userID;
     private String imageResource;
     private String text;
     private int buttonImageResource;
@@ -10,13 +11,18 @@ public class HomeModel {
     private String wishlistDescription;
     private List<GiftItem> giftItems;
 
-    public HomeModel(String imageResource, String text, int buttonImageResource, String wishlistName, String wishlistDescription, List<GiftItem> giftItems) {
+    public HomeModel(String userID, String imageResource, String text, int buttonImageResource, String wishlistName, String wishlistDescription, List<GiftItem> giftItems) {
+        this.userID = userID;
         this.imageResource = imageResource;
         this.text = text;
         this.buttonImageResource = buttonImageResource;
         this.wishlistName = wishlistName;
         this.wishlistDescription = wishlistDescription;
         this.giftItems = giftItems;
+    }
+
+    public String getUserID() {
+        return userID;
     }
 
     public String getImageResource() {
