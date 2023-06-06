@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class WishListFragment extends Fragment {
 
@@ -44,8 +45,7 @@ public class WishListFragment extends Fragment {
 
     private TextView tvNombre;
 
-    private RecyclerView recyclerView;
-    private static final String URL = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/8";
+    private static String URL = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/";
     private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI1LCJlbWFpbCI6ImFkbWluNkBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MjQ0NDd9.a-RQGEZwgvYJJfbI0yYcIV_0pESm1fTcvwlwjljCJjU";
     private static final String ARG_ICON = "ARG_ICON";
 
@@ -65,8 +65,13 @@ public class WishListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wishlist, container, false);
-
-        recyclerView = view.findViewById(R.id.recyclerViewSingle);
+        Bundle arguments = getArguments();
+        String wishlistID = null;
+        if(arguments != null) {
+            wishlistID = arguments.getString("wishlistID");
+        }
+        URL = URL.concat(wishlistID);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewSingle);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<GiftItem> giftItemList = new ArrayList<>();
@@ -76,15 +81,16 @@ public class WishListFragment extends Fragment {
 
         tvNombre = view.findViewById(R.id.tvNombre);
 
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Utilities utilitiesFragment = new Utilities();
         fragmentTransaction.replace(R.id.fragment_container, utilitiesFragment);
         fragmentTransaction.commit();
 
-        RequestQueue mQueue = Volley.newRequestQueue(getContext());
+        RequestQueue mQueue = Volley.newRequestQueue(requireContext());
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null,
+        //TODO: CREAR UN GIFTITEM SOLO PARA EL MIO y MIRAR EL GIFTADAPTER A VER
+        @SuppressLint("NotifyDataSetChanged") JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null,
                 response -> {
                     try {
                         // Get the gift data from the JSON response
@@ -96,10 +102,7 @@ public class WishListFragment extends Fragment {
                         for (int i = 0; i < giftsArray.length(); i++) {
                             JSONObject giftObject = giftsArray.getJSONObject(i);
                             int booked = giftObject.getInt("booked");
-                            boolean checked = false;
-                            if(booked == 1) {
-                                checked = true;
-                            }
+                            boolean checked = booked == 1;
                             //String name = giftObject.getString("name");
                             //String productUrl = giftObject.getString("product_url");
                             System.out.println(booked);
