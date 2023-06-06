@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +31,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.newsocialgift.GridItem;
-import com.example.newsocialgift.Main;
 import com.example.newsocialgift.R;
 import com.example.newsocialgift.User;
 import com.example.newsocialgift.activities.EditProfile;
@@ -42,7 +40,6 @@ import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +55,6 @@ public class ProfileFragment  extends Fragment {
     private TextView userLastName;
     private ImageView profileImage;
     private TextView numberOfWishlists;
-    private Button wishlistsButton; // TODO: S'ha de treure aquest botó i mirar quines parts de codi també s'han de treure
     private TextView numberOfFriends;
     private Button friendsButton;
 
@@ -84,7 +80,6 @@ public class ProfileFragment  extends Fragment {
         userLastName = view.findViewById(R.id.userlastname);
         profileImage = view.findViewById(R.id.profileImage);
         numberOfWishlists = view.findViewById(R.id.wishlistsNumber);
-        wishlistsButton = view.findViewById(R.id.wishlistsButton);
         numberOfFriends = view.findViewById(R.id.friendsNumber);
         friendsButton = view.findViewById(R.id.friendsButton);
         moreOptions = view.findViewById(R.id.moreOptionsButton);
@@ -122,19 +117,7 @@ public class ProfileFragment  extends Fragment {
             moreOptions.setOnClickListener(v -> mostrarPopup());
         }
 
-        // TODO: Això s'ha de treure. A wishlistFragment només es mostra una wishlist
         String finalId = id;
-        wishlistsButton.setOnClickListener(v -> {
-            FragmentManager wishlistsFragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction wishlistsFragmentTransaction = wishlistsFragmentManager.beginTransaction();
-            Bundle wishlistArguments = new Bundle();
-            wishlistArguments.putString("userID", finalId);
-            WishListFragment wishListFragment = new WishListFragment();
-            wishListFragment.setArguments(wishlistArguments);
-            wishlistsFragmentTransaction.replace(R.id.container, wishListFragment);
-            wishlistsFragmentTransaction.commit();
-        });
-
         friendsButton.setOnClickListener(v -> {
             FragmentManager friendsFragmentManager = getActivity().getSupportFragmentManager();
             FragmentTransaction friendsFragmentTransaction = friendsFragmentManager.beginTransaction();
