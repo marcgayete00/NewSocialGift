@@ -17,8 +17,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.newsocialgift.FriendItem;
 import com.example.newsocialgift.R;
+import com.example.newsocialgift.User;
 import com.example.newsocialgift.adapters.FriendAdapter;
 
 import org.json.JSONException;
@@ -52,7 +52,7 @@ public class FriendsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewFriends);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<FriendItem> friendItemList = new ArrayList<>();
+        List<User> friendItemList = new ArrayList<>();
         friendAdapter = new FriendAdapter(friendItemList);
         recyclerView.setAdapter(friendAdapter);
 
@@ -61,7 +61,6 @@ public class FriendsFragment extends Fragment {
         Utilities utilitiesFragment = new Utilities();
         fragmentTransaction.replace(R.id.fragment_container, utilitiesFragment);
         fragmentTransaction.commit();
-
         obtenerAmigos();
 
         return view;
@@ -72,7 +71,7 @@ public class FriendsFragment extends Fragment {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL, null,
                 response -> {
                     try {
-                        List<FriendItem> friendItemList = new ArrayList<>();
+                        List<User> friendItemList = new ArrayList<>();
 
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject friendObject = response.getJSONObject(i);
@@ -80,10 +79,10 @@ public class FriendsFragment extends Fragment {
                             String name = friendObject.getString("name");
                             String lastName = friendObject.getString("last_name");
                             String email = friendObject.getString("email");
-                            String image = friendObject.getString("image");
 
-                            FriendItem friendItem = new FriendItem(id, name, lastName, email, image);
-                            friendItemList.add(friendItem);
+                            String image = friendObject.getString("image");
+                            User user = new User(id, name, lastName, email, image);
+                            friendItemList.add(user);
                         }
 
                         friendAdapter.setFriendItemList(friendItemList);

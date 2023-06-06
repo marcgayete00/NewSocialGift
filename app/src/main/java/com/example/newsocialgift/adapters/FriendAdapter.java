@@ -1,28 +1,41 @@
 package com.example.newsocialgift.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.newsocialgift.FriendItem;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.newsocialgift.R;
+import com.example.newsocialgift.User;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendViewHolder> {
 
-    private List<FriendItem> friendItemList;
+    private static List<User> friendItemList;
 
-    public FriendAdapter(List<FriendItem> friendItemList) {
+
+    public FriendAdapter(List<User> friendItemList) {
         this.friendItemList = friendItemList;
     }
 
-    public void setFriendItemList(List<FriendItem> friendItemList) {
+    public void setFriendItemList(List<User> friendItemList) {
         this.friendItemList = friendItemList;
         notifyDataSetChanged();
     }
@@ -36,8 +49,12 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
 
     @Override
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
-        FriendItem friendItem = friendItemList.get(position);
-        holder.bind(friendItem);
+        User user = friendItemList.get(position);
+        Glide.with(holder.itemView.getContext())
+                .load(user.getImage())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.imageViewFriend);
+        holder.textViewName.setText(user.getUsername());
     }
 
     @Override
@@ -45,23 +62,62 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         return friendItemList.size();
     }
 
-    public static class FriendViewHolder extends RecyclerView.ViewHolder {
+    public class FriendViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView imageView;
-        private TextView textViewName;
+        private final ImageView imageViewFriend;
+
+        private final TextView textViewName;
 
         public FriendViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageViewFriend);
+            imageViewFriend = itemView.findViewById(R.id.imageViewFriend);
             textViewName = itemView.findViewById(R.id.textViewFriendName);
+            Button buttondeleteFriend = itemView.findViewById(R.id.buttonDeleteFriend);
+            buttondeleteFriend.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    User user = friendItemList.get(position);
+                    deleteFriend(user.getId());
+                }
+            });
         }
 
-        public void bind(FriendItem friendItem) {
+        public void bind(User user) {
             // Aquí puedes asignar los datos del amigo a las vistas correspondientes
-            // Por ejemplo:
-            textViewName.setText(friendItem.getName());
+            textViewName.setText(user.getUsername());
             // Puedes usar una biblioteca de carga de imágenes como Picasso o Glide para cargar la imagen
             // en el ImageView imageView.
+        }
+
+        private void deleteFriend(String friendId) {
+            String deleteUrl = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/" + friendId;
+
+            RequestQueue requestQueue = Volley.newRequestQueue(itemView.getContext());
+            StringRequest stringRequest = new StringRequest(Request.Method.DELETE, deleteUrl,
+                    response -> {
+                        // La solicitud DELETE se completó con éxito
+                        // Actualiza la lista de amigos eliminando el amigo correspondiente
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            friendItemList.remove(position);
+                            notifyItemRemoved(position);
+                        }
+                    },
+                    error -> {
+                        // Error al procesar la solicitud DELETE
+                        Log.e("DeleteFriend", "Error al eliminar el amigo: " + error.getMessage());
+                        Toast.makeText(itemView.getContext(), "Error al eliminar el amigo", Toast.LENGTH_SHORT).show();
+                    }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("accept", "application/json");
+                    headers.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxLCJlbWFpbCI6ImFkbWluc0BnbWFpbC5jb20iLCJpYXQiOjE2ODYwNjY3ODN9.jFHgr1Y91KsUbgoDQm0RoEDLVEue1riCIclhcyn4V70");
+                    return headers;
+                }
+            };
+
+            requestQueue.add(stringRequest);
         }
     }
 }

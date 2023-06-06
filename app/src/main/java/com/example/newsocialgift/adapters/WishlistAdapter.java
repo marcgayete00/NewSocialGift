@@ -39,10 +39,11 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
     public int getItemCount() {
         return items.size();
     }
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView wishlistImage;
         public TextView giftName;
         public CheckBox checkBox;
+
         public ViewHolder(View itemView) {
             super(itemView);
             wishlistImage = itemView.findViewById(R.id.wishlistImage);

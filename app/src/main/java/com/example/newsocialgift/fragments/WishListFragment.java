@@ -1,9 +1,12 @@
 package com.example.newsocialgift.fragments;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
@@ -26,9 +29,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -36,6 +43,8 @@ public class WishListFragment extends Fragment {
 
     private WishlistAdapter wishlistadapter;
     private TextView tvNombre;
+    private TextView WishlistDescription;
+    private TextView WishlistCaducidad;
     private static String URL;
     private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI1LCJlbWFpbCI6ImFkbWluNkBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MjQ0NDd9.a-RQGEZwgvYJJfbI0yYcIV_0pESm1fTcvwlwjljCJjU";
     private static final String ARG_ICON = "ARG_ICON";
@@ -48,6 +57,7 @@ public class WishListFragment extends Fragment {
         return frg;
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wishlist, container, false);
@@ -64,12 +74,12 @@ public class WishListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<GiftItem> giftItemList = new ArrayList<>();
-        // Create and set the adapter
         wishlistadapter = new WishlistAdapter(giftItemList);
         recyclerView.setAdapter(wishlistadapter);
 
         tvNombre = view.findViewById(R.id.tvNombre);
-
+        WishlistDescription = view.findViewById(R.id.WishlistDescription);
+        WishlistCaducidad = view.findViewById(R.id.WishlistCaducidad);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Utilities utilitiesFragment = new Utilities();
@@ -81,20 +91,30 @@ public class WishListFragment extends Fragment {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null,
                 response -> {
                     try {
-                        // Get the gift data from the JSON response
                         tvNombre.setText(response.getString("name"));
-                        System.out.println(response.getString("name"));
+                        WishlistDescription.setText(response.getString("description"));
+                        String fechacaducidad = response.getString("end_date");
+                        String[] parts = fechacaducidad.split("T");
+                        WishlistCaducidad.setText(parts[0]);
+                        Date currentDate = new Date();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        try {
+                            Date date = dateFormat.parse(WishlistCaducidad.getText().toString());
+                            if (date.before(currentDate)) {
+                                WishlistCaducidad.setTextColor(Color.RED);
+                            } else if (date.after(currentDate)) {
+                                WishlistCaducidad.setTextColor(Color.GREEN);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         JSONArray giftsArray = response.getJSONArray("gifts");
-                        System.out.println(giftsArray.length());
-                        System.out.println(giftsArray);
                         for (int i = 0; i < giftsArray.length(); i++) {
                             JSONObject giftObject = giftsArray.getJSONObject(i);
                             int booked = giftObject.getInt("booked");
                             boolean checked = booked == 1;
                             String giftId = giftObject.getString("id");
-                            System.out.println(giftId);
                             String productUrl = giftObject.getString("product_url");
-                            System.out.println(productUrl);
                             AtomicReference<String> photoUrl = new AtomicReference<>("");
                             AtomicReference<String> name = new AtomicReference<>("");
                             // Hacer una solicitud GET para obtener los datos del producto
@@ -102,19 +122,11 @@ public class WishListFragment extends Fragment {
                                     productResponse -> {
                                         try {
                                             name.set(productResponse.getString("name"));
-                                            System.out.println(name.get());
                                             // Obtener la URL de la imagen del producto
                                             photoUrl.set(productResponse.getString("photo"));
-                                            System.out.println(photoUrl.get());
-
-                                            System.out.println(booked);
-                                            System.out.println("name: " + name.get());
-                                            // Create a GiftItem instance with the obtained data
                                             GiftItem giftItem = new GiftItem(photoUrl.get(), String.valueOf(name.get()), checked, giftId);
                                             // Agregar a la lista giftItemList
                                             giftItemList.add(giftItem);
-
-                                            // Notificar al adaptador que los datos han cambiado
                                             wishlistadapter.notifyDataSetChanged();
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -127,7 +139,6 @@ public class WishListFragment extends Fragment {
                                     return headers;
                                 }
                             };
-                            // Agregar la solicitud del producto a la cola de solicitudes
                             mQueue.add(productRequest);
                         }
                     } catch (JSONException e) {
@@ -141,9 +152,7 @@ public class WishListFragment extends Fragment {
                 return headers;
             }
         };
-
         mQueue.add(request);
-
         return view;
     }
 }
