@@ -58,7 +58,7 @@ public class ProfileFragment  extends Fragment {
     private TextView userLastName;
     private ImageView profileImage;
     private TextView numberOfWishlists;
-    private Button wishlistsButton;
+    private Button wishlistsButton; // TODO: S'ha de treure aquest botó i mirar quines parts de codi també s'han de treure
     private TextView numberOfFriends;
     private Button friendsButton;
 
@@ -122,6 +122,7 @@ public class ProfileFragment  extends Fragment {
             moreOptions.setOnClickListener(v -> mostrarPopup());
         }
 
+        // TODO: Això s'ha de treure. A wishlistFragment només es mostra una wishlist
         String finalId = id;
         wishlistsButton.setOnClickListener(v -> {
             FragmentManager wishlistsFragmentManager = getActivity().getSupportFragmentManager();
