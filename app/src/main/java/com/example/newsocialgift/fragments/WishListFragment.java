@@ -45,6 +45,8 @@ public class WishListFragment extends Fragment {
     private TextView tvNombre;
     private TextView WishlistDescription;
     private TextView WishlistCaducidad;
+
+    private Button btnAddGift;
     private static String URL;
     private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI1LCJlbWFpbCI6ImFkbWluNkBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MjQ0NDd9.a-RQGEZwgvYJJfbI0yYcIV_0pESm1fTcvwlwjljCJjU";
     private static final String ARG_ICON = "ARG_ICON";
@@ -80,6 +82,8 @@ public class WishListFragment extends Fragment {
         tvNombre = view.findViewById(R.id.tvNombre);
         WishlistDescription = view.findViewById(R.id.WishlistDescription);
         WishlistCaducidad = view.findViewById(R.id.WishlistCaducidad);
+        btnAddGift = view.findViewById(R.id.addWishlistButton);
+        String finalWishlistID = wishlistID;
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Utilities utilitiesFragment = new Utilities();
@@ -87,7 +91,17 @@ public class WishListFragment extends Fragment {
         fragmentTransaction.commit();
 
         RequestQueue mQueue = Volley.newRequestQueue(getContext());
-
+        btnAddGift.setOnClickListener(v -> {
+            // Abrir el fragmento AddGiftFragment
+            FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+            Bundle wishlistArguments = new Bundle();
+            wishlistArguments.putString("wishlistID", finalWishlistID);
+            AddGiftFragment addGiftFragment = new AddGiftFragment();
+            addGiftFragment.setArguments(wishlistArguments);
+            fragmentTransaction2.replace(R.id.fragment_container, addGiftFragment);
+            fragmentTransaction2.commit();
+        });
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null,
                 response -> {
                     try {
