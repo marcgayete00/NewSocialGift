@@ -83,6 +83,7 @@ public class SearchFragment  extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         SearchAdapter sAdapter = new SearchAdapter(names, images);
+
         sAdapter.setOnItemClickListener(position -> {
             FragmentManager searchFragmentManager = getActivity().getSupportFragmentManager();
             Bundle arguments = new Bundle();
@@ -110,8 +111,6 @@ public class SearchFragment  extends Fragment {
         });
 
         searchButton.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
                 names.clear();

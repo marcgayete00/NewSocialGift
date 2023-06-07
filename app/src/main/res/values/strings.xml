@@ -49,5 +49,8 @@
     <string name="cancel">Cancel</string>
     <string name="profile">Profile</string>
 
+    <!-- Strings notifications fragment -->
+    <string name="title">Notifications</string>
+
 
 </resources>
