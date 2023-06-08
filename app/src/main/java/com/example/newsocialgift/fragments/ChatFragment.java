@@ -15,33 +15,23 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
-import com.example.newsocialgift.MessagesModel;
+import com.example.newsocialgift.ChatModel;
+import com.example.newsocialgift.MessageLayoutManager;
 import com.example.newsocialgift.R;
 import com.example.newsocialgift.User;
-import com.example.newsocialgift.adapters.MessagesAdapter;
+import com.example.newsocialgift.adapters.ChatAdapter;
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ChatFragment  extends Fragment {
     private static final String ARG_ICON = "ARG_ICON";
     private RecyclerView mRecyclerView;
-    private MessagesAdapter mAdapter;
-    private List<MessagesModel> mData = new ArrayList<>();
+    private ChatAdapter mAdapter;
+    private List<ChatModel> mData = new ArrayList<>();
 
-    public static MessagesFragment newInstance(@DrawableRes int iconId) {
-        MessagesFragment frg = new MessagesFragment();
+    public static ChatFragment newInstance(@DrawableRes int iconId) {
+        ChatFragment frg = new ChatFragment();
 
         Bundle args = new Bundle();
         args.putInt(ARG_ICON, iconId);
@@ -51,7 +41,7 @@ public class ChatFragment  extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_messages, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -59,23 +49,27 @@ public class ChatFragment  extends Fragment {
         fragmentTransaction.replace(R.id.fragment_container, utilitiesFragment);
         fragmentTransaction.commit();
 
+        SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String userJson = preferences.getString("user", "");
+        // Convertir la cadena JSON en un objeto User utilizando Gson
+        Gson gson = new Gson();
+        User user = gson.fromJson(userJson, User.class);
+        String userID = user.getId();
+
         Bundle arguments = getArguments();
-
-        String id = null;
-        if (arguments != null) {
-            id = arguments.getString("id");
-        }
-
-        if (id == null) {
-            SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
-            String userJson = preferences.getString("user", "");
-            // Convertir la cadena JSON en un objeto User utilizando Gson
-            Gson gson = new Gson();
-            User user = gson.fromJson(userJson, User.class);
-            id = user.getId();
-        }
+        String id = arguments.getString("userID");
 
         System.out.println("id: " + id);
+
+        mRecyclerView = view.findViewById(R.id.recyclerView);
+        mData.add(new ChatModel(id, "Hola"));
+        mData.add(new ChatModel(userID, "Como estas?"));
+        mData.add(new ChatModel(userID, "Bien y tu?"));
+        mData.add(new ChatModel(id, "Bien y tu?"));
+        mData.add(new ChatModel(userID, "Bien"));
+        mAdapter = new ChatAdapter(mData, userID);
+        mRecyclerView.setLayoutManager(new MessageLayoutManager(getContext(), userID, mRecyclerView));
+        mRecyclerView.setAdapter(mAdapter);
 
         return view;
     }
