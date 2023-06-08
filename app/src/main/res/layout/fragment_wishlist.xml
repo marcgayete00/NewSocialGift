@@ -20,6 +20,30 @@
 
     </FrameLayout>
 
+    <Button
+        android:id="@+id/btnDeleteList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DELETE WISHLIST"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addWishlistButton"
+        app:layout_constraintVertical_bias="0.109" />
+
+    <Button
+        android:id="@+id/btnEditList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EDIT WISHLIST"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addWishlistButton"
+        app:layout_constraintVertical_bias="0.109" />
+
     <TextView
         android:id="@+id/tvNombre"
         android:layout_width="419dp"
@@ -67,14 +91,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSingle"
-        android:layout_width="408dp"
-        android:layout_height="409dp"
+        android:layout_width="410dp"
+        android:layout_height="225dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/WishlistCaducidad"
-        app:layout_constraintVertical_bias="0.698" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/addWishlistButton"
@@ -88,6 +112,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.891" />
+        app:layout_constraintVertical_bias="0.81" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

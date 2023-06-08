@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.newsocialgift.fragments.CreateFragment;
 import com.example.newsocialgift.fragments.HomeFragment;
 import com.example.newsocialgift.fragments.MessagesFragment;
 import com.example.newsocialgift.fragments.NotificationsFragment;

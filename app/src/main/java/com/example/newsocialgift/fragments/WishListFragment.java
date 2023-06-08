@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.DrawableRes;
 import androidx.fragment.app.Fragment;
@@ -47,6 +48,8 @@ public class WishListFragment extends Fragment {
     private TextView WishlistCaducidad;
 
     private Button btnAddGift;
+
+    private Button btnDeleteWishlist;
     private static String URL;
     private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI1LCJlbWFpbCI6ImFkbWluNkBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MjQ0NDd9.a-RQGEZwgvYJJfbI0yYcIV_0pESm1fTcvwlwjljCJjU";
     private static final String ARG_ICON = "ARG_ICON";
@@ -74,7 +77,7 @@ public class WishListFragment extends Fragment {
         System.out.println(URL);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewSingle);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        String finalWishlistID = wishlistID;
         List<GiftItem> giftItemList = new ArrayList<>();
         wishlistadapter = new WishlistAdapter(giftItemList);
         recyclerView.setAdapter(wishlistadapter);
@@ -83,7 +86,10 @@ public class WishListFragment extends Fragment {
         WishlistDescription = view.findViewById(R.id.WishlistDescription);
         WishlistCaducidad = view.findViewById(R.id.WishlistCaducidad);
         btnAddGift = view.findViewById(R.id.addWishlistButton);
-        String finalWishlistID = wishlistID;
+        btnDeleteWishlist = view.findViewById(R.id.btnDeleteList);
+        btnDeleteWishlist.setOnClickListener(v -> {
+            deleteWishlistFromAPI(finalWishlistID);
+        });
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Utilities utilitiesFragment = new Utilities();
@@ -93,15 +99,16 @@ public class WishListFragment extends Fragment {
         RequestQueue mQueue = Volley.newRequestQueue(getContext());
         btnAddGift.setOnClickListener(v -> {
             // Abrir el fragmento AddGiftFragment
-            FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+            FragmentManager GiftFragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentGiftTransaction = GiftFragmentManager.beginTransaction();
             Bundle wishlistArguments = new Bundle();
             wishlistArguments.putString("wishlistID", finalWishlistID);
             AddGiftFragment addGiftFragment = new AddGiftFragment();
             addGiftFragment.setArguments(wishlistArguments);
-            fragmentTransaction2.replace(R.id.fragment_container, addGiftFragment);
-            fragmentTransaction2.commit();
+            fragmentGiftTransaction.replace(R.id.container, addGiftFragment);
+            fragmentGiftTransaction.commit();
         });
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null,
                 response -> {
                     try {
@@ -168,5 +175,31 @@ public class WishListFragment extends Fragment {
         };
         mQueue.add(request);
         return view;
+    }
+    private void deleteWishlistFromAPI(String wishlistID) {
+        String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/" + wishlistID;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, url, null,
+                response -> {
+                    // La solicitud de eliminación fue exitosa, maneja la respuesta aquí
+                    Toast.makeText(getContext(), "Wishlist deleted successfully", Toast.LENGTH_SHORT).show();
+                    // Realiza cualquier otra acción necesaria después de eliminar la lista
+                    // Por ejemplo, puedes navegar a otro fragmento o realizar una actualización de la interfaz de usuario
+                },
+                error -> {
+                    // Error al realizar la solicitud, maneja el error aquí
+                    Toast.makeText(getContext(), "Failed to delete wishlist", Toast.LENGTH_SHORT).show();
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("accept", "application/json");
+                headers.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxLCJlbWFpbCI6ImFkbWluc0BnbWFpbC5jb20iLCJpYXQiOjE2ODYyNDIxMDB9.XjG0sRNCFfYaQOXpDJYjyQef6YCzfkkDTHqdVDhaOyM");
+                return headers;
+            }
+        };
+
+        RequestQueue mQueue = Volley.newRequestQueue(getContext());
+        mQueue.add(request);
     }
 }
