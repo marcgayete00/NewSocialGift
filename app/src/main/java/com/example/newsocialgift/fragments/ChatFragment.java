@@ -68,7 +68,6 @@ public class ChatFragment  extends Fragment {
         mData.add(new ChatModel(id, "Bien y tu?"));
         mData.add(new ChatModel(userID, "Bien"));
         mAdapter = new ChatAdapter(mData, userID);
-        //mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setLayoutManager(new MessageLayoutManager(getContext(), userID, mRecyclerView));
         mRecyclerView.setAdapter(mAdapter);
 
