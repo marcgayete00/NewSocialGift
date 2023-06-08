@@ -66,6 +66,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return mData.size();
     }
 
+    public ChatModel getItem(int position) {
+        return mData.get(position);
+    }
+
     public static class CurrentUserViewHolder extends RecyclerView.ViewHolder {
         private TextView mMessageTextView;
 
