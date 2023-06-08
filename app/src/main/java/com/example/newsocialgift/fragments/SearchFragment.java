@@ -82,7 +82,7 @@ public class SearchFragment  extends Fragment {
         List<String> ids = new ArrayList<>();
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-        SearchAdapter sAdapter = new SearchAdapter(names, images);
+        SearchAdapter sAdapter = new SearchAdapter(ids, names, images);
 
         sAdapter.setOnItemClickListener(position -> {
             FragmentManager searchFragmentManager = getActivity().getSupportFragmentManager();
