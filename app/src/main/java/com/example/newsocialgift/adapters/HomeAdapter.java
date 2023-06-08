@@ -106,8 +106,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
         }
 
         public void bind(HomeModel item) {
-            //mImageView.setImageResource(item.getImageResource());
-            //Picasso.get().load(item.getImageResource()).into(mImageView);
             Glide.with(this.itemView.getContext())
                     .load(item.getImageResource())
                     .circleCrop()
