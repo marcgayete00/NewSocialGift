@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.google.android.flexbox.FlexboxLayoutManager;
+//import com.google.android.flexbox.FlexboxLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.newsocialgift.ChatModel;
 import com.example.newsocialgift.R;
@@ -66,8 +66,8 @@ public class ChatFragment  extends Fragment {
         mData.add(new ChatModel(id, "Bien y tu?"));
         mData.add(new ChatModel(userID, "Bien"));
         mAdapter = new ChatAdapter(mData, userID);
-        //mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setLayoutManager(new FlexboxLayoutManager(getContext()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //mRecyclerView.setLayoutManager(new FlexboxLayoutManager(getContext()));
         mRecyclerView.setAdapter(mAdapter);
 
         return view;
