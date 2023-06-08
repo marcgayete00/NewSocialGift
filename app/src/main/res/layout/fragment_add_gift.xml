@@ -1,41 +1,55 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <!-- Otros elementos del fragmento -->
 
-    <EditText
-        android:id="@+id/et_product_url"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Product URL"
-        android:inputType="textUri"
-        app:layout_constraintBottom_toTopOf="@+id/et_priority"
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="323dp"
+        android:layout_height="66dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.929" />
+        app:layout_constraintVertical_bias="0.024"
+        tools:ignore="MissingConstraints" >
+
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/et_product_url"
+        android:layout_width="301dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="76dp"
+        android:hint="Product ID"
+        app:layout_constraintBottom_toTopOf="@+id/et_priority"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.829" />
 
     <EditText
         android:id="@+id/et_priority"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_width="301dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="36dp"
         android:hint="Priority"
-        android:inputType="number"
+        android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/btn_add_gift"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_add_gift"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="144dp"
+        android:layout_marginBottom="280dp"
         android:text="Add Gift"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

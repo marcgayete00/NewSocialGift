@@ -42,17 +42,17 @@ public class AddGiftFragment extends Fragment {
         etProductUrl = view.findViewById(R.id.et_product_url);
         etPriority = view.findViewById(R.id.et_priority);
         btnAddGift = view.findViewById(R.id.btn_add_gift);
-
         btnAddGift.setOnClickListener(v -> addGift());
 
         return view;
     }
 
     private void addGift() {
-        String productUrl = etProductUrl.getText().toString();
-        int priority = Integer.parseInt(etPriority.getText().toString());
+        String productUrl = "https://balandrau.salle.url.edu/i3/mercadoexpress/api/v1/products/";
+        productUrl = productUrl.concat(etProductUrl.getText().toString());
+        String priority = etPriority.getText().toString();
         Bundle arguments = getArguments();
-
+        System.out.println(productUrl);
         String wishlistID = null;
         if (arguments != null) {
             wishlistID = arguments.getString("wishlistID");
@@ -60,13 +60,13 @@ public class AddGiftFragment extends Fragment {
         // Crear el objeto JSON con los datos del regalo
         JSONObject giftData = new JSONObject();
         try {
-            giftData.put("wishlist_id", wishlistID);  // Aquí debes obtener el ID de la wishlist actual
+            giftData.put("wishlist_id", wishlistID);
             giftData.put("product_url", productUrl);
             giftData.put("priority", priority);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        System.out.println(giftData);
         // Realizar la solicitud POST a la API para agregar el regalo
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, giftData,
                 response -> {
@@ -82,6 +82,7 @@ public class AddGiftFragment extends Fragment {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + TOKEN);
                 headers.put("Content-Type", "application/json");
+                headers.put("accept", "application/json");
                 return headers;
             }
         };

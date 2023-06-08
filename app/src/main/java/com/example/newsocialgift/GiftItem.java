@@ -25,6 +25,10 @@ public class GiftItem {
         return checked;
     }
 
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
     public String getGiftId() {
         return giftId;
     }
