@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -99,6 +100,7 @@ public class ChatFragment  extends Fragment {
         messageEditText = view.findViewById(R.id.message);
         sendButton = view.findViewById(R.id.sendButton);
         mRecyclerView = view.findViewById(R.id.recyclerView);
+
 
         String token = preferences.getString("token", "");
         try {
