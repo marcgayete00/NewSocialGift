@@ -49,6 +49,7 @@ public class WishListFragment extends Fragment {
 
     private Button btnAddGift;
 
+    private Button btnEditWishlist;
     private Button btnDeleteWishlist;
     private static String URL;
     private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI1LCJlbWFpbCI6ImFkbWluNkBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MjQ0NDd9.a-RQGEZwgvYJJfbI0yYcIV_0pESm1fTcvwlwjljCJjU";
@@ -87,6 +88,10 @@ public class WishListFragment extends Fragment {
         WishlistCaducidad = view.findViewById(R.id.WishlistCaducidad);
         btnAddGift = view.findViewById(R.id.addWishlistButton);
         btnDeleteWishlist = view.findViewById(R.id.btnDeleteList);
+        btnEditWishlist = view.findViewById(R.id.btnEditList);
+        btnEditWishlist.setOnClickListener(v -> {
+
+        });
         btnDeleteWishlist.setOnClickListener(v -> {
             deleteWishlistFromAPI(finalWishlistID);
         });
