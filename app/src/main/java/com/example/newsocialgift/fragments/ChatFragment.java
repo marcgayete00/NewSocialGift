@@ -121,11 +121,11 @@ public class ChatFragment  extends Fragment {
             }).on(Socket.EVENT_CONNECT_ERROR, args -> {
                 // Error de conexión
                 System.out.println("Error de conexión: " + args[0]);
-            }).on("login", new Emitter.Listener() {
+            }).on("user_id", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
                     // Procesar la respuesta del servidor
-                    System.out.println("Sockey logged in");
+                    System.out.println("LOGAPP: Socket logged in");
                 }
             }).on("welcome", new Emitter.Listener() {
                 @Override
