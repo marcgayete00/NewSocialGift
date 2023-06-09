@@ -80,7 +80,7 @@ public class WishListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         String finalWishlistID = wishlistID;
         List<GiftItem> giftItemList = new ArrayList<>();
-        wishlistadapter = new WishlistAdapter(giftItemList);
+        wishlistadapter = new WishlistAdapter(giftItemList, getContext());
         recyclerView.setAdapter(wishlistadapter);
 
         tvNombre = view.findViewById(R.id.tvNombre);
@@ -91,6 +91,18 @@ public class WishListFragment extends Fragment {
         btnEditWishlist = view.findViewById(R.id.btnEditList);
         btnEditWishlist.setOnClickListener(v -> {
 
+            // Crear un Bundle con los datos de la wishlist actual
+            Bundle bundle = new Bundle();
+            bundle.putString("wishlistID", finalWishlistID);
+
+            // Abrir el fragmento de edición de wishlist y pasarle los datos actuales
+            EditWishlistFragment editWishlistFragment = new EditWishlistFragment();
+            editWishlistFragment.setArguments(bundle);
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container, editWishlistFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         });
         btnDeleteWishlist.setOnClickListener(v -> {
             deleteWishlistFromAPI(finalWishlistID);

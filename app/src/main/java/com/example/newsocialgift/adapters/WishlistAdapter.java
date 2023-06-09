@@ -1,5 +1,7 @@
 package com.example.newsocialgift.adapters;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -21,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.newsocialgift.R;
 import com.example.newsocialgift.GiftItem;
+import com.example.newsocialgift.fragments.EditGiftFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +36,11 @@ import java.util.Map;
 public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHolder> {
     private List<GiftItem> items;
 
+    private Context context;
+
     private ViewHolder holderG;
-    public WishlistAdapter(List<GiftItem> items) {
+    public WishlistAdapter(List<GiftItem> items, Context context) {
+        this.context = context;
         this.items = items;
     }
 
@@ -60,6 +70,24 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
             } else {
                 cancelReservation(item.getGiftId());
             }
+        });
+        holder.editButton.setOnClickListener(v -> {
+
+            // Obtener el regalo seleccionado
+            GiftItem gift = items.get(position);
+
+            // Abrir el fragmento de edición de regalo y pasar los datos del regalo
+            Fragment editGiftFragment = new EditGiftFragment();
+            Bundle args = new Bundle();
+            args.putString("giftId", gift.getGiftId());
+            editGiftFragment.setArguments(args);
+
+            FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container, editGiftFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
         });
         holder.deletebutton.setOnClickListener(v -> {
             items.remove(position);
@@ -153,6 +181,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
         public ImageView wishlistImage;
         public TextView giftName;
 
+        public Button editButton;
         public Button deletebutton;
         public CheckBox checkBox;
 
@@ -160,6 +189,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
             super(itemView);
             wishlistImage = itemView.findViewById(R.id.wishlistImage);
             giftName = itemView.findViewById(R.id.giftName);
+            editButton = itemView.findViewById(R.id.editGiftButton);
             deletebutton = itemView.findViewById(R.id.deleteGiftButton);
             checkBox = itemView.findViewById(R.id.checkBox);
         }

@@ -51,15 +51,18 @@
             android:layout_width="35dp"
             android:layout_height="wrap_content" />
 
+        <Button
+            android:id="@+id/editGiftButton"
+            android:layout_width="58dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/baseline_edit_24" />
 
         <Button
             android:id="@+id/deleteGiftButton"
-            android:layout_width="68dp"
+            android:layout_width="58dp"
             android:layout_height="wrap_content"
             android:background="@drawable/baseline_cancel_24" />
-        <Space
-            android:layout_width="10dp"
-            android:layout_height="wrap_content" />
+
         <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
