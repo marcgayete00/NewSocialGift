@@ -102,8 +102,8 @@ public class ChatFragment  extends Fragment {
         sendButton = view.findViewById(R.id.sendButton);
         mRecyclerView = view.findViewById(R.id.recyclerView);
 
-
         String token = preferences.getString("token", "");
+
         try {
             IO.Options options = new IO.Options();
             options.transports = new String[]{WebSocket.NAME};
