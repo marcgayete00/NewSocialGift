@@ -31,6 +31,7 @@ import com.example.newsocialgift.ChatModel;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+import io.socket.engineio.client.transports.WebSocket;
 
 import com.example.newsocialgift.Message;
 import com.example.newsocialgift.MessageLayoutManager;
@@ -105,112 +106,73 @@ public class ChatFragment  extends Fragment {
         String token = preferences.getString("token", "");
         try {
             IO.Options options = new IO.Options();
-            options.path = "/i3/socialgift/socket.io";
-            socket = IO.socket("https://balandrau.salle.url.edu", options);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return view;
-        }
+            options.transports = new String[]{WebSocket.NAME};
+            String serverWS = "https://balandrau.salle.url.edu";
+            options.path = "/i3/socialgift/socket.io/";
 
-        if (socket != null) {
-            Log.e("mySocket", "is not null and not undefined");
+            socket = IO.socket(serverWS, options);
 
-            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+            // Agrega listeners de eventos
+            socket.on(Socket.EVENT_CONNECT, args -> {
+                // Conexión exitosa
+                System.out.println(socket.id());
+                System.out.println("Socket conectado");
+                socket.emit("login", token);
+            }).on(Socket.EVENT_CONNECT_ERROR, args -> {
+                // Error de conexión
+                System.out.println("Error de conexión: " + args[0]);
+            }).on("login", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    Log.i("Socket", "Connected to server");
-                    Log.i("Socket", socket.id());
-                    socket.emit("login", token);
+                    // Procesar la respuesta del servidor
+                    System.out.println("Sockey logged in");
                 }
-            });
-
-            socket.on("save_msg", new Emitter.Listener() {
+            }).on("welcome", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    // TODO: Obtenir les dades del missatge enviat i mostrar-lo per pantalla
-                    JSONObject saveMsg = (JSONObject) args[0];
-                    // Update UI or perform any necessary actions with the message
-                    Log.i("Socket", "Mensaje recibido: " + saveMsg);
+                    // Maneja la respuesta recibida
+                    String welcome = (String) args[0];
                 }
-            });
-
-            socket.on("send_msg", new Emitter.Listener() {
+            }).on("send_msg", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    String sendMsg = (String) args[0];
-                    Log.i("Socket", "sendMsg => " + sendMsg);
+                    // Maneja la respuesta recibida
+                    System.out.println("New message sent");
                 }
-            });
-
-            socket.on("query_user", new Emitter.Listener() {
+            }).on("new_msg", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    String queryUser = (String) args[0];
-                    Log.i("Socket", "queryUser => " + queryUser);
-                }
-            });
-
-            socket.on("historic_msg", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    String historicMsg = (String) args[0];
-                    Log.i("Socket", "historicMsg => " + historicMsg);
-                }
-            });
-
-            socket.on("new_msg", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
+                    // Maneja la respuesta recibida
+                    JSONObject response = (JSONObject) args[0];
+                    System.out.println("Arguments: " + response);
                     try {
-                        // TODO: Obtenir les dades del missatge del paràmetre args i mostrar-ho per pantalla
-                        String newMsg = (String) args[0];
-                        // Update UI or perform any necessary actions with the message
-                        Log.i("Socket", "newMsg => " + newMsg);
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                        String sender = response.getString("user_id_send");
+                        String message = response.getString("content");
+                        mData.add(new ChatModel(sender, message));
+                        mAdapter.notifyDataSetChanged();
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-            });
-
-            socket.on("connect_error", new Emitter.Listener() {
+            }).on("save_msg", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    Exception error = (Exception) args[0];
-                    Log.e("Socket", "TransportError: " + error.getMessage());
+                    mData.add(new ChatModel(userID, messageEditText.getText().toString()));
+                    mAdapter.notifyDataSetChanged();
+                }
+            }).on("query_user", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    System.out.println(args);
                 }
             });
 
-            socket.on("login", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    String login = (String) args[0];
-                    Log.i("Socket", "login => " + login);
-                }
-            });
-
-            socket.on("disconnect", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    String reason = (String) args[0];
-                    Log.i("Socket", "disconnect:");
-                    // Reconnect logic
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(1000);
-                                socket.connect();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }).start();
-                }
-            });
-            socket.connect();
-        } else {
-            Log.e("mySocket", "is null or undefined");
+            // Abre la conexión del socket
+            socket.open();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
         loadUser(otherUserID);
         loadMessages(otherUserID, new MessagesCallback() {
@@ -249,7 +211,7 @@ public class ChatFragment  extends Fragment {
             public void onClick(View v) {
                 String message = messageEditText.getText().toString();
                 if (!message.isEmpty()) {
-                    sendMessage(message, userID);
+                    sendMessage(message, userID, otherUserID);
                     messageEditText.setText("");
                 }
             }
@@ -258,15 +220,15 @@ public class ChatFragment  extends Fragment {
         return view;
     }
 
-    private void sendMessage(String message, String userID) {
+    private void sendMessage(String message, String userID, String otherUserID) {
         SharedPreferences preferences = getActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
         String token = preferences.getString("token", "");
 
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("token", token);
-            jsonObject.put("reciver", userID);
-            jsonObject.put("message", message);
+            jsonObject.put("content", message);
+            jsonObject.put("user_id_send", userID);
+            jsonObject.put("user_id_recived", otherUserID);
         } catch (JSONException e) {
             e.printStackTrace();
         }
