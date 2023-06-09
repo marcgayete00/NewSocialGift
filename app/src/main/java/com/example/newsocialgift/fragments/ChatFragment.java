@@ -105,7 +105,6 @@ public class ChatFragment  extends Fragment {
             IO.Options options = new IO.Options();
             options.path = "/i3/socialgift/socket.io";
             socket = IO.socket("https://balandrau.salle.url.edu", options);
-            socket.emit("login", token);
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return view;
@@ -206,6 +205,7 @@ public class ChatFragment  extends Fragment {
                     }).start();
                 }
             });
+            socket.connect();
         } else {
             Log.e("mySocket", "is null or undefined");
         }
@@ -225,6 +225,20 @@ public class ChatFragment  extends Fragment {
             @Override
             public void onError(String error) {
                 System.out.println(error);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager messagesFragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction messagesFragmentTransaction = messagesFragmentManager.beginTransaction();
+                Bundle userArguments = new Bundle();
+                userArguments.putString("userID", userID);
+                MessagesFragment messagesFragment = new MessagesFragment();
+                messagesFragment.setArguments(userArguments);
+                messagesFragmentTransaction.replace(R.id.container, messagesFragment);
+                messagesFragmentTransaction.commit();
             }
         });
 
