@@ -146,7 +146,7 @@ public class ChatFragment  extends Fragment {
                 @Override
                 public void call(Object... args) {
                     // Maneja la respuesta recibida
-                    System.out.println("args: " + args[0]);
+                    System.out.println("args: " + args[0]); // TODO: Eliminar. Només per debug
                     JSONObject response = new JSONObject();
                     try {
                         String jsonData = args[0].toString();
@@ -174,7 +174,7 @@ public class ChatFragment  extends Fragment {
                 @Override
                 public void call(Object... args) {
                     try {
-                        System.out.println("args: " + args[0]);
+                        System.out.println("args: " + args[0]); // TODO: Eliminar. Només per debug
                         System.out.println("Message saved");
                         System.out.println("message: " + messageEditText.getText());
                         runOnUiThread(new Runnable() {
