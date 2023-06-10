@@ -132,6 +132,7 @@ public class ChatFragment  extends Fragment {
                 public void call(Object... args) {
                     // Maneja la respuesta recibida
                     String welcome = (String) args[0];
+                    System.out.println("LOGAPP: " + welcome);
                 }
             }).on("send_msg", new Emitter.Listener() {
                 @Override
@@ -157,6 +158,7 @@ public class ChatFragment  extends Fragment {
             }).on("save_msg", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
+                    System.out.println("Message saved");
                     mData.add(new ChatModel(userID, messageEditText.getText().toString()));
                     mAdapter.notifyDataSetChanged();
                 }
@@ -224,8 +226,8 @@ public class ChatFragment  extends Fragment {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("content", message);
-            jsonObject.put("user_id_send", userID);
-            jsonObject.put("user_id_recived", otherUserID);
+            jsonObject.put("user_id_send", Integer.parseInt(userID));
+            jsonObject.put("user_id_recived", Integer.parseInt(otherUserID));
         } catch (JSONException e) {
             e.printStackTrace();
         }
