@@ -55,13 +55,15 @@
             android:id="@+id/editGiftButton"
             android:layout_width="58dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/baseline_edit_24" />
+            android:backgroundTint="#D8F8FF"
+            android:foreground="@drawable/ic_edit" />
 
         <Button
             android:id="@+id/deleteGiftButton"
             android:layout_width="58dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/baseline_cancel_24" />
+            android:backgroundTint="#D8F8FF"
+            android:foreground="@drawable/ic_cancel" />
 
         <CheckBox
             android:id="@+id/checkBox"

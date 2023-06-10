@@ -27,7 +27,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.newsocialgift.GiftItem;
 import com.example.newsocialgift.R;
+import com.example.newsocialgift.User;
 import com.example.newsocialgift.adapters.WishlistAdapter;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,8 +75,14 @@ public class WishListFragment extends Fragment {
         Bundle arguments = getArguments();
         SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
         String TOKEN = preferences.getString("token", "");
+        String userJson = preferences.getString("user", "");
+        Gson gson = new Gson();
+        User user = gson.fromJson(userJson, User.class);
+        String userID = user.getId();
         String wishlistID = null;
+        String userWishlist = null;
         if (arguments != null) {
+            userWishlist = arguments.getString("userID");
             wishlistID = arguments.getString("wishlistID");
         }
         URL = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/";
@@ -93,6 +101,11 @@ public class WishListFragment extends Fragment {
         btnAddGift = view.findViewById(R.id.addWishlistButton);
         btnDeleteWishlist = view.findViewById(R.id.btnDeleteList);
         btnEditWishlist = view.findViewById(R.id.btnEditList);
+        if(!userID.equals(userWishlist)){
+            btnAddGift.setVisibility(View.INVISIBLE);
+            btnDeleteWishlist.setVisibility(View.INVISIBLE);
+            btnEditWishlist.setVisibility(View.INVISIBLE);
+        }
         btnEditWishlist.setOnClickListener(v -> {
 
             // Crear un Bundle con los datos de la wishlist actual
