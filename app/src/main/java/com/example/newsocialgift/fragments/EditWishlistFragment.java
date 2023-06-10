@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,6 +24,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.newsocialgift.R;
+import com.example.newsocialgift.User;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -105,6 +109,10 @@ public class EditWishlistFragment extends Fragment {
         String endDate = etEndDate.getText().toString().trim();
         SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
         String TOKEN = preferences.getString("token", "");
+        String userJson = preferences.getString("user", "");
+        Gson gson = new Gson();
+        User user = gson.fromJson(userJson, User.class);
+        String userID = user.getId();
         System.out.println(name);
         System.out.println(description);
         System.out.println(endDate);
@@ -125,7 +133,15 @@ public class EditWishlistFragment extends Fragment {
                 response -> {
                     Toast.makeText(getContext(), "Wishlist updated successfully", Toast.LENGTH_SHORT).show();
                     // Realizar cualquier otra acción necesaria después de guardar los cambios
-                    // Por ejemplo, puedes volver al fragmento anterior o actualizar la interfaz de usuario
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Bundle wishlistArguments = new Bundle();
+                    wishlistArguments.putString("wishlistID", WishlistID);
+                    wishlistArguments.putString("userID", userID);
+                    WishListFragment wishListFragment = new WishListFragment();
+                    wishListFragment.setArguments(wishlistArguments);
+                    fragmentTransaction.replace(R.id.container, wishListFragment);
+                    fragmentTransaction.commit();
                 },
                 error -> {
                     Toast.makeText(getContext(), "Failed to update wishlist", Toast.LENGTH_SHORT).show();

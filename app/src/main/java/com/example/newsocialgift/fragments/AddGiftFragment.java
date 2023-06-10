@@ -23,6 +23,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.newsocialgift.R;
+import com.example.newsocialgift.User;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,6 +67,10 @@ public class AddGiftFragment extends Fragment {
         String wishlistID = null;
         SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
         String TOKEN = preferences.getString("token", "");
+        String userJson = preferences.getString("user", "");
+        Gson gson = new Gson();
+        User user = gson.fromJson(userJson, User.class);
+        String userID = user.getId();
         if (arguments != null) {
             wishlistID = arguments.getString("wishlistID");
         }
@@ -80,13 +86,21 @@ public class AddGiftFragment extends Fragment {
         }
         System.out.println(giftData);
         // Realizar la solicitud POST a la API para agregar el regalo
+        String finalWishlistID = wishlistID;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, giftData,
                 response -> {
                     Toast.makeText(requireContext(), "Gift created successfully", Toast.LENGTH_SHORT).show();
 
                     // Regresar al fragmento anterior
-                    requireActivity().getSupportFragmentManager().popBackStack();
-                },
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Bundle wishlistArguments = new Bundle();
+                    wishlistArguments.putString("wishlistID", finalWishlistID);
+                    wishlistArguments.putString("userID", userID);
+                    WishListFragment wishListFragment = new WishListFragment();
+                    wishListFragment.setArguments(wishlistArguments);
+                    fragmentTransaction.replace(R.id.container, wishListFragment);
+                    fragmentTransaction.commit();              },
                 error -> {
                     // Manejar el error de la solicitud
                     Toast.makeText(requireContext(), "Error al agregar el regalo", Toast.LENGTH_SHORT).show();

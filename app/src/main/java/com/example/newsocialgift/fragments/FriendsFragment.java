@@ -1,6 +1,9 @@
 package com.example.newsocialgift.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.newsocialgift.R;
 import com.example.newsocialgift.User;
 import com.example.newsocialgift.adapters.FriendAdapter;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +45,11 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
         Bundle arguments = getArguments();
-
+        SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String userJson = preferences.getString("user", "");
+        Gson gson = new Gson();
+        User user = gson.fromJson(userJson, User.class);
+        String mainID = user.getId();
         String userID = null;
         if (arguments != null) {
             userID = arguments.getString("userID");
@@ -53,7 +61,7 @@ public class FriendsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<User> friendItemList = new ArrayList<>();
-        friendAdapter = new FriendAdapter(friendItemList);
+        friendAdapter = new FriendAdapter(friendItemList,userID,mainID);
         recyclerView.setAdapter(friendAdapter);
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

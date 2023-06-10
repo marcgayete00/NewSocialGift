@@ -110,6 +110,10 @@ public class EditGiftFragment extends Fragment {
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/" + giftId;
         SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
         String TOKEN = preferences.getString("token", "");
+        String userJson = preferences.getString("user", "");
+        Gson gson = new Gson();
+        User user = gson.fromJson(userJson, User.class);
+        String userID = user.getId();
         JSONObject requestBody = new JSONObject();
         try {
             requestBody.put("wishlist_id", wishlistId);
@@ -125,8 +129,15 @@ public class EditGiftFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         // La solicitud de actualización fue exitosa, maneja la respuesta aquí
                         Toast.makeText(getContext(), "Gift updated successfully", Toast.LENGTH_SHORT).show();
-                        // Realiza cualquier otra acción necesaria después de actualizar el regalo
-                    }
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        Bundle wishlistArguments = new Bundle();
+                        wishlistArguments.putString("wishlistID", wishlistId);
+                        wishlistArguments.putString("userID", userID);
+                        WishListFragment wishListFragment = new WishListFragment();
+                        wishListFragment.setArguments(wishlistArguments);
+                        fragmentTransaction.replace(R.id.container, wishListFragment);
+                        fragmentTransaction.commit();                  }
                 },
                 new Response.ErrorListener() {
                     @Override

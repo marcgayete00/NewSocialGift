@@ -45,8 +45,14 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
 
     private String TOKEN;
 
+    private String userWishlist;
 
-    public WishlistAdapter(List<GiftItem> items, Context context, String token) {
+    private String userID;
+
+
+    public WishlistAdapter(List<GiftItem> items, Context context, String token, String userWishlist, String userID) {
+        this.userID = userID;
+        this.userWishlist = userWishlist;
         this.TOKEN = token;
         this.context = context;
         this.items = items;
@@ -101,6 +107,10 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
             notifyDataSetChanged();
             deleteGiftFromAPI(item.getGiftId());
         });
+        if(!userID.equals(userWishlist)){
+            holder.editButton.setVisibility(View.INVISIBLE);
+            holder.deletebutton.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void reserveGift(String giftId) {

@@ -92,7 +92,7 @@ public class WishListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         String finalWishlistID = wishlistID;
         List<GiftItem> giftItemList = new ArrayList<>();
-        wishlistadapter = new WishlistAdapter(giftItemList, getContext(),TOKEN);
+        wishlistadapter = new WishlistAdapter(giftItemList, getContext(),TOKEN, userWishlist,userID);
         recyclerView.setAdapter(wishlistadapter);
 
         tvNombre = view.findViewById(R.id.tvNombre);

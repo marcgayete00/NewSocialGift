@@ -46,7 +46,7 @@
         android:id="@+id/etEndDate"
         android:layout_width="301dp"
         android:layout_height="46dp"
-        android:hint="End Date"
+        android:hint="End Date (YYYY-MM-DD))"
         android:inputType="date"
         app:layout_constraintBottom_toBottomOf="@+id/btnCreate"
         app:layout_constraintEnd_toEndOf="parent"

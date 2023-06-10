@@ -1,5 +1,8 @@
 package com.example.newsocialgift.adapters;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.newsocialgift.R;
 import com.example.newsocialgift.User;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,8 +34,14 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
 
     private static List<User> friendItemList;
 
+    private String userFriends;
 
-    public FriendAdapter(List<User> friendItemList) {
+    private String userID;
+
+
+    public FriendAdapter(List<User> friendItemList, String userFriends, String userID) {
+        this.userID = userID;
+        this.userFriends = userFriends;
         this.friendItemList = friendItemList;
     }
 
@@ -73,6 +83,9 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
             imageViewFriend = itemView.findViewById(R.id.imageViewFriend);
             textViewName = itemView.findViewById(R.id.textViewFriendName);
             Button buttondeleteFriend = itemView.findViewById(R.id.buttonDeleteFriend);
+            if(!userID.equals(userFriends)){
+                buttondeleteFriend.setVisibility(View.INVISIBLE);
+            }
             buttondeleteFriend.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
