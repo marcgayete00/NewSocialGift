@@ -1,6 +1,9 @@
 package com.example.newsocialgift.adapters;
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +42,12 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
     private Context context;
 
     private ViewHolder holderG;
-    public WishlistAdapter(List<GiftItem> items, Context context) {
+
+    private String TOKEN;
+
+
+    public WishlistAdapter(List<GiftItem> items, Context context, String token) {
+        this.TOKEN = token;
         this.context = context;
         this.items = items;
     }
@@ -72,7 +80,6 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
             }
         });
         holder.editButton.setOnClickListener(v -> {
-
             // Obtener el regalo seleccionado
             GiftItem gift = items.get(position);
 
@@ -113,7 +120,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("accept", "application/json");
-                headers.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxLCJlbWFpbCI6ImFkbWluc0BnbWFpbC5jb20iLCJpYXQiOjE2ODYyNDIxMDB9.XjG0sRNCFfYaQOXpDJYjyQef6YCzfkkDTHqdVDhaOyM");
+                headers.put("Authorization", "Bearer " + TOKEN);
                 return headers;
             }
         };
@@ -139,7 +146,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("accept", "application/json");
-                headers.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxLCJlbWFpbCI6ImFkbWluc0BnbWFpbC5jb20iLCJpYXQiOjE2ODYyNDIxMDB9.XjG0sRNCFfYaQOXpDJYjyQef6YCzfkkDTHqdVDhaOyM");
+                headers.put("Authorization", "Bearer " + TOKEN);
                 return headers;
             }
         };
@@ -165,7 +172,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("accept", "application/json");
-                headers.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxLCJlbWFpbCI6ImFkbWluc0BnbWFpbC5jb20iLCJpYXQiOjE2ODYyNDIxMDB9.XjG0sRNCFfYaQOXpDJYjyQef6YCzfkkDTHqdVDhaOyM");
+                headers.put("Authorization", "Bearer " + TOKEN);
                 return headers;
             }
         };

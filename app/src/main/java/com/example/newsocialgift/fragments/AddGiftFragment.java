@@ -1,5 +1,8 @@
 package com.example.newsocialgift.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +14,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.newsocialgift.R;
@@ -32,13 +38,15 @@ public class AddGiftFragment extends Fragment {
 
     private String URL = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts";
 
-    private String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI1LCJlbWFpbCI6ImFkbWluNkBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MjQ0NDd9.a-RQGEZwgvYJJfbI0yYcIV_0pESm1fTcvwlwjljCJjU";
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_gift, container, false);
-
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Utilities utilitiesFragment = new Utilities();
+        fragmentTransaction.replace(R.id.fragment_container, utilitiesFragment);
+        fragmentTransaction.commit();
         etProductUrl = view.findViewById(R.id.et_product_url);
         etPriority = view.findViewById(R.id.et_priority);
         btnAddGift = view.findViewById(R.id.btn_add_gift);
@@ -53,10 +61,14 @@ public class AddGiftFragment extends Fragment {
         String priority = etPriority.getText().toString();
         Bundle arguments = getArguments();
         System.out.println(productUrl);
+        System.out.println(priority);
         String wishlistID = null;
+        SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String TOKEN = preferences.getString("token", "");
         if (arguments != null) {
             wishlistID = arguments.getString("wishlistID");
         }
+        System.out.println(wishlistID);
         // Crear el objeto JSON con los datos del regalo
         JSONObject giftData = new JSONObject();
         try {
@@ -70,6 +82,8 @@ public class AddGiftFragment extends Fragment {
         // Realizar la solicitud POST a la API para agregar el regalo
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, giftData,
                 response -> {
+                    Toast.makeText(requireContext(), "Gift created successfully", Toast.LENGTH_SHORT).show();
+
                     // Regresar al fragmento anterior
                     requireActivity().getSupportFragmentManager().popBackStack();
                 },
@@ -87,7 +101,7 @@ public class AddGiftFragment extends Fragment {
             }
         };
 
-        // Agregar la solicitud a la cola de solicitudes Volley
-        Volley.newRequestQueue(requireContext()).add(request);
+        RequestQueue mQueue = Volley.newRequestQueue(requireContext());
+        mQueue.add(request);
     }
 }

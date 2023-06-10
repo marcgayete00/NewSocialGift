@@ -1,6 +1,9 @@
 package com.example.newsocialgift.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -52,7 +55,7 @@ public class WishListFragment extends Fragment {
     private Button btnEditWishlist;
     private Button btnDeleteWishlist;
     private static String URL;
-    private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI1LCJlbWFpbCI6ImFkbWluNkBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MjQ0NDd9.a-RQGEZwgvYJJfbI0yYcIV_0pESm1fTcvwlwjljCJjU";
+
     private static final String ARG_ICON = "ARG_ICON";
 
     public static WishListFragment newInstance(@DrawableRes int iconId) {
@@ -68,7 +71,8 @@ public class WishListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wishlist, container, false);
         Bundle arguments = getArguments();
-
+        SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String TOKEN = preferences.getString("token", "");
         String wishlistID = null;
         if (arguments != null) {
             wishlistID = arguments.getString("wishlistID");
@@ -80,7 +84,7 @@ public class WishListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         String finalWishlistID = wishlistID;
         List<GiftItem> giftItemList = new ArrayList<>();
-        wishlistadapter = new WishlistAdapter(giftItemList, getContext());
+        wishlistadapter = new WishlistAdapter(giftItemList, getContext(),TOKEN);
         recyclerView.setAdapter(wishlistadapter);
 
         tvNombre = view.findViewById(R.id.tvNombre);
@@ -195,7 +199,8 @@ public class WishListFragment extends Fragment {
     }
     private void deleteWishlistFromAPI(String wishlistID) {
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/" + wishlistID;
-
+        SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String TOKEN = preferences.getString("token", "");
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, url, null,
                 response -> {
                     // La solicitud de eliminación fue exitosa, maneja la respuesta aquí
@@ -211,7 +216,7 @@ public class WishListFragment extends Fragment {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("accept", "application/json");
-                headers.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxLCJlbWFpbCI6ImFkbWluc0BnbWFpbC5jb20iLCJpYXQiOjE2ODYyNDIxMDB9.XjG0sRNCFfYaQOXpDJYjyQef6YCzfkkDTHqdVDhaOyM");
+                headers.put("Authorization", "Bearer " + TOKEN);
                 return headers;
             }
         };

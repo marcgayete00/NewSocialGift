@@ -1,6 +1,9 @@
 package com.example.newsocialgift.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,10 +40,6 @@ public class EditWishlistFragment extends Fragment {
 
     private String URL = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/";
 
-
-    private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI1LCJlbWFpbCI6ImFkbWluNkBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MjQ0NDd9.a-RQGEZwgvYJJfbI0yYcIV_0pESm1fTcvwlwjljCJjU";
-
-
     @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
@@ -69,7 +68,8 @@ public class EditWishlistFragment extends Fragment {
 
     private void getWishlistDetails() {
         String url = URL + "wishlists/" + WishlistID;
-
+        SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String TOKEN = preferences.getString("token", "");
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
@@ -103,7 +103,8 @@ public class EditWishlistFragment extends Fragment {
         String name = etName.getText().toString().trim();
         String description = etDescription.getText().toString().trim();
         String endDate = etEndDate.getText().toString().trim();
-
+        SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String TOKEN = preferences.getString("token", "");
         System.out.println(name);
         System.out.println(description);
         System.out.println(endDate);
@@ -138,7 +139,6 @@ public class EditWishlistFragment extends Fragment {
                 return headers;
             }
         };
-
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(request);
     }

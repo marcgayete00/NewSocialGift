@@ -1,5 +1,8 @@
 package com.example.newsocialgift.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.DrawableRes;
@@ -83,7 +86,8 @@ public class AddWishListFragment extends Fragment {
         String name = etName.getText().toString();
         String description = etDescription.getText().toString();
         String endDate = etEndDate.getText().toString();
-
+        SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String TOKEN = preferences.getString("token", "");
         // Validar los campos de entrada (puedes agregar tus propias validaciones)
 
         // Crear el objeto JSON con los datos de la wishlist
@@ -115,7 +119,7 @@ public class AddWishListFragment extends Fragment {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("accept", "application/json");
-                headers.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxLCJlbWFpbCI6ImFkbWluc0BnbWFpbC5jb20iLCJpYXQiOjE2ODYxNTczOTR9.Sf_cx3sYWF2rN5_pTgy9uf6MlRMuAPpJMLv8ULsUUcA");
+                headers.put("Authorization", "Bearer "+ TOKEN);
                 return headers;
             }
         };
