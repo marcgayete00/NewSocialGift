@@ -93,7 +93,6 @@ public class MessagesFragment  extends Fragment implements MessagesAdapter.OnIte
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         //URL de la API para hacer el login
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/messages/users";
-        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
 
         jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -112,7 +111,6 @@ public class MessagesFragment  extends Fragment implements MessagesAdapter.OnIte
                     }
                     callback.onSuccess(users);
                     System.out.println("Todo Fue bien");
-                    System.out.println(response);   // TODO: Això s'haurà de treure. Només és per fer proves
                 },
                 error -> {
                     // Error handling

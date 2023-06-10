@@ -126,27 +126,22 @@ public class ChatFragment  extends Fragment {
             }).on("user_id", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    // Procesar la respuesta del servidor
                     System.out.println("LOGAPP: Socket logged in");
                 }
             }).on("welcome", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    // Maneja la respuesta recibida
                     String welcome = (String) args[0];
                     System.out.println("LOGAPP: " + welcome);
                 }
             }).on("send_msg", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    // Maneja la respuesta recibida
                     System.out.println("New message sent");
                 }
             }).on("new_msg", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    // Maneja la respuesta recibida
-                    System.out.println("args: " + args[0]); // TODO: Eliminar. Només per debug
                     JSONObject response = new JSONObject();
                     try {
                         String jsonData = args[0].toString();
@@ -174,7 +169,6 @@ public class ChatFragment  extends Fragment {
                 @Override
                 public void call(Object... args) {
                     try {
-                        System.out.println("args: " + args[0]); // TODO: Eliminar. Només per debug
                         System.out.println("Message saved");
                         System.out.println("message: " + messageEditText.getText());
                         runOnUiThread(new Runnable() {
@@ -276,10 +270,8 @@ public class ChatFragment  extends Fragment {
 
         //Crear la cola de peticiones
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        System.out.println("Userid "+otherUserID);   // TODO: Això s'haurà de treure. Només és per fer proves
         //URL de la API para hacer el login
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/" + otherUserID;
-        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
 
         //Hacer la petición GET
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -326,7 +318,6 @@ public class ChatFragment  extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         //URL de la API para hacer el login
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/messages/" + userID;
-        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
 
         jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -342,7 +333,6 @@ public class ChatFragment  extends Fragment {
                     }
                     callback.onSuccess(messages);
                     System.out.println("Todo Fue bien");
-                    System.out.println(response);   // TODO: Això s'haurà de treure. Només és per fer proves
                 },
                 error -> {
                     // Error handling

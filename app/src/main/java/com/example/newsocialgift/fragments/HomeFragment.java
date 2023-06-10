@@ -236,7 +236,6 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         //URL de la API para hacer el login
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/" + giftID + "/book";
-        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null,
                 response -> {
@@ -268,7 +267,6 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         //URL de la API para hacer el login
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/" + giftID + "/book";
-        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null,
                 response -> {
@@ -300,7 +298,6 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         //URL de la API para hacer el login
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends";
-        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
 
         jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -319,7 +316,6 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
                     }
                     callback.onSuccess(friends);
                     System.out.println("Todo Fue bien");
-                    System.out.println(response);   // TODO: Això s'haurà de treure. Només és per fer proves
                 },
                 error -> {
                     // Error handling
@@ -351,7 +347,6 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         //URL de la API para hacer el login
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/" + friendId + "/wishlists";
-        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
 
         jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 response -> {
@@ -385,7 +380,6 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
                     }
                     callback.onSuccess(wishlists, friendIndex);
                     System.out.println("Todo Fue bien");
-                    System.out.println(response);   // TODO: Això s'haurà de treure. Només és per fer proves
                 },
                 error -> {
                     // Error handling
@@ -416,7 +410,6 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
         //Crear la cola de peticiones
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         //URL de la API para hacer el login
-        System.out.println("URL " + productUrl);    // TODO: Això s'haurà de treure. Només és per fer proves
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, productUrl, null,
                 response -> {
@@ -439,7 +432,6 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
                     }
                     callback.onSuccess(product, wishlistIndex, giftIndex, giftItems);
                     System.out.println("Todo Fue bien");
-                    System.out.println(response);   // TODO: Això s'haurà de treure. Només és per fer proves
                 },
                 error -> {
                     // Error handling
@@ -481,10 +473,8 @@ public class HomeFragment extends Fragment implements GiftAdapter.GiftListener, 
 
         //Crear la cola de peticiones
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        System.out.println("Userid "+id);   // TODO: Això s'haurà de treure. Només és per fer proves
         //URL de la API para hacer el login
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/" + id;
-        System.out.println("URL "+url); // TODO: Això s'haurà de treure. Només és per fer proves
 
         //Hacer la petición GET
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,

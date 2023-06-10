@@ -190,8 +190,6 @@ public class ProfileFragment  extends Fragment {
         if (id == null) {
             id = user.getId();
         }
-        System.out.println("ID: " + id);
-        System.out.println(arguments);
 
         //Crear una nueva cola de solicitudes
         RequestQueue queue = Volley.newRequestQueue(getActivity());
