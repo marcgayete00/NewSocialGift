@@ -221,9 +221,6 @@ public class ChatFragment  extends Fragment {
     }
 
     private void sendMessage(String message, String userID, String otherUserID) {
-        SharedPreferences preferences = getActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
-        String token = preferences.getString("token", "");
-
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("content", message);
