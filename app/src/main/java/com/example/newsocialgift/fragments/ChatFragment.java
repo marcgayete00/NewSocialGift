@@ -4,6 +4,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -157,8 +159,13 @@ public class ChatFragment  extends Fragment {
                         String message = response.getString("content");
                         System.out.println("Sender: " + sender);
                         System.out.println("Message: " + message);
-                        mData.add(new ChatModel(sender, message));
-                        mAdapter.notifyDataSetChanged();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mData.add(new ChatModel(sender, message));
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        });
                     } catch (Exception e) {
                         System.out.println("Error: " + e);
                     }
@@ -167,9 +174,17 @@ public class ChatFragment  extends Fragment {
                 @Override
                 public void call(Object... args) {
                     try {
+                        System.out.println("args: " + args[0]);
                         System.out.println("Message saved");
-                        mData.add(new ChatModel(userID, messageEditText.getText().toString()));
-                        mAdapter.notifyDataSetChanged();
+                        System.out.println("message: " + messageEditText.getText());
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mData.add(new ChatModel(userID, messageEditText.getText().toString()));
+                                mAdapter.notifyDataSetChanged();
+                                messageEditText.setText("");
+                            }
+                        });
                     } catch (Exception e) {
                         System.out.println("Error: " + e);
                     }
@@ -226,12 +241,16 @@ public class ChatFragment  extends Fragment {
                 String message = messageEditText.getText().toString();
                 if (!message.isEmpty()) {
                     sendMessage(message, userID, otherUserID);
-                    messageEditText.setText("");
                 }
             }
         });
 
         return view;
+    }
+
+    private void runOnUiThread(Runnable runnable) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(runnable);
     }
 
     private void sendMessage(String message, String userID, String otherUserID) {
