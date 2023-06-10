@@ -54,13 +54,8 @@ public class AddWishListFragment extends Fragment {
 
         return frg;
     }
-
     private EditText etName, etDescription, etEndDate;
     private Button btnCreate;
-
-    private Calendar calendar;
-    private SimpleDateFormat apiDateFormat;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_wish_list, container, false);
@@ -73,9 +68,6 @@ public class AddWishListFragment extends Fragment {
         etDescription = view.findViewById(R.id.etDescription);
         etEndDate = view.findViewById(R.id.etEndDate);
         btnCreate = view.findViewById(R.id.btnCreate);
-
-        // Obtener la instancia del calendario
-        calendar = Calendar.getInstance();
         btnCreate.setOnClickListener(v -> createWishlist());
 
         return view;
@@ -95,10 +87,7 @@ public class AddWishListFragment extends Fragment {
         try {
             requestData.put("name", name);
             requestData.put("description", description);
-
-            // Obtener la fecha y hora actual en el formato deseado
-            String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-            requestData.put("end_date", currentDate + "T" + new SimpleDateFormat("HH:mm:ss.SSS'Z'", Locale.getDefault()).format(new Date()));
+            requestData.put("end_date", endDate);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -110,6 +99,11 @@ public class AddWishListFragment extends Fragment {
                     // La solicitud fue exitosa, maneja la respuesta aquí
                     Toast.makeText(requireContext(), "Wishlist created successfully", Toast.LENGTH_SHORT).show();
                     // Realizar cualquier otra acción necesaria después de crear la wishlist
+                    FragmentManager profileFragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction profileFragmentTransaction = profileFragmentManager.beginTransaction();
+                    ProfileFragment profileFragment = new ProfileFragment();
+                    profileFragmentTransaction.replace(R.id.container, profileFragment);
+                    profileFragmentTransaction.commit();
                 },
                 error -> {
                     // Error al realizar la solicitud, maneja el error aquí

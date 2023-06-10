@@ -22,32 +22,40 @@
 
     <Button
         android:id="@+id/btnDeleteList"
+        style="@style/DefaultButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DELETE WISHLIST"
+        android:textSize="17sp"
+        android:paddingLeft="14sp"
+        android:paddingRight="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintHorizontal_bias="0.032"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addWishlistButton"
-        app:layout_constraintVertical_bias="0.109" />
+        app:layout_constraintVertical_bias="0.113" />
 
     <Button
         android:id="@+id/btnEditList"
+        style="@style/DefaultButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="24sp"
+        android:paddingRight="24sp"
         android:text="EDIT WISHLIST"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintHorizontal_bias="0.940"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addWishlistButton"
-        app:layout_constraintVertical_bias="0.109" />
+        app:layout_constraintVertical_bias="0.113" />
 
     <TextView
         android:id="@+id/tvNombre"
-        android:layout_width="419dp"
-        android:layout_height="74dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="16dp"
         android:text="NOMBRE"
@@ -55,9 +63,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.133" />
+        app:layout_constraintVertical_bias="0.11" />
 
     <TextView
         android:id="@+id/WishlistDescription"
@@ -69,10 +78,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.216" />
+        app:layout_constraintVertical_bias="0.245" />
 
     <TextView
         android:id="@+id/WishlistCaducidad"

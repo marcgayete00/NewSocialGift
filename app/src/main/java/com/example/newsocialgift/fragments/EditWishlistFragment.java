@@ -133,7 +133,7 @@ public class EditWishlistFragment extends Fragment {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
-                headers.put("Accept", "application/json");
+                headers.put("accept", "application/json");
                 headers.put("Authorization", "Bearer " + TOKEN);
                 headers.put("Content-Type", "application/json");
                 return headers;
