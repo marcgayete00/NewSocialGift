@@ -197,6 +197,7 @@ public class ProfileFragment  extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
 
         //Crear una nueva solicitud HTTP GET
+        String finalId = id;
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
                 "https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/" + id + "/wishlists",
@@ -223,6 +224,7 @@ public class ProfileFragment  extends Fragment {
                         Bundle wishlistArguments = new Bundle();
                         String wishlistID = items.get(position).getWishlistID();
                         wishlistArguments.putString("wishlistID", wishlistID);
+                        wishlistArguments.putString("userID", finalId);
                         WishListFragment wishListFragment = new WishListFragment();
                         wishListFragment.setArguments(wishlistArguments);
                         fragmentTransaction.replace(R.id.container, wishListFragment);
