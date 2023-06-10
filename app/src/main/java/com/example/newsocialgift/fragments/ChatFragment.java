@@ -144,23 +144,35 @@ public class ChatFragment  extends Fragment {
                 @Override
                 public void call(Object... args) {
                     // Maneja la respuesta recibida
-                    JSONObject response = (JSONObject) args[0];
-                    System.out.println("Arguments: " + response);
+                    System.out.println("args: " + args[0]);
+                    JSONObject response = new JSONObject();
+                    try {
+                        String jsonData = args[0].toString();
+                        response = new JSONObject(jsonData);
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e);
+                    }
                     try {
                         String sender = response.getString("user_id_send");
                         String message = response.getString("content");
+                        System.out.println("Sender: " + sender);
+                        System.out.println("Message: " + message);
                         mData.add(new ChatModel(sender, message));
                         mAdapter.notifyDataSetChanged();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e);
                     }
                 }
             }).on("save_msg", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    System.out.println("Message saved");
-                    mData.add(new ChatModel(userID, messageEditText.getText().toString()));
-                    mAdapter.notifyDataSetChanged();
+                    try {
+                        System.out.println("Message saved");
+                        mData.add(new ChatModel(userID, messageEditText.getText().toString()));
+                        mAdapter.notifyDataSetChanged();
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e);
+                    }
                 }
             }).on("query_user", new Emitter.Listener() {
                 @Override
@@ -226,14 +238,14 @@ public class ChatFragment  extends Fragment {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("content", message);
-            jsonObject.put("user_id_send", Integer.parseInt(userID));
-            jsonObject.put("user_id_recived", Integer.parseInt(otherUserID));
+            jsonObject.put("user_id_send", userID);
+            jsonObject.put("user_id_recived", otherUserID);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        socket.emit("query_user", jsonObject);
-        socket.emit("save_msg", jsonObject);
+        socket.emit("query_user", jsonObject.toString());
+        socket.emit("send_msg", jsonObject.toString());
     }
 
     private void loadUser(String otherUserID) {
