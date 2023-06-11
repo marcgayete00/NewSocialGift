@@ -62,8 +62,6 @@ public class AddGiftFragment extends Fragment {
         productUrl = productUrl.concat(etProductUrl.getText().toString());
         String priority = etPriority.getText().toString();
         Bundle arguments = getArguments();
-        System.out.println(productUrl);
-        System.out.println(priority);
         String wishlistID = null;
         SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
         String TOKEN = preferences.getString("token", "");
@@ -74,7 +72,6 @@ public class AddGiftFragment extends Fragment {
         if (arguments != null) {
             wishlistID = arguments.getString("wishlistID");
         }
-        System.out.println(wishlistID);
         // Crear el objeto JSON con los datos del regalo
         JSONObject giftData = new JSONObject();
         try {
@@ -84,7 +81,6 @@ public class AddGiftFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println(giftData);
         // Realizar la solicitud POST a la API para agregar el regalo
         String finalWishlistID = wishlistID;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, giftData,

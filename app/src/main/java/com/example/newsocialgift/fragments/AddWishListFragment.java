@@ -74,7 +74,6 @@ public class AddWishListFragment extends Fragment {
     }
 
     private void createWishlist() {
-        System.out.println("createWishlist");
         String name = etName.getText().toString();
         String description = etDescription.getText().toString();
         String endDate = etEndDate.getText().toString();

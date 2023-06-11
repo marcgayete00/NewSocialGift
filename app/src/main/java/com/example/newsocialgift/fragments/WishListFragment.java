@@ -87,7 +87,6 @@ public class WishListFragment extends Fragment {
         }
         URL = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/";
         URL = URL.concat(wishlistID);
-        System.out.println(URL);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewSingle);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         String finalWishlistID = wishlistID;
@@ -219,7 +218,11 @@ public class WishListFragment extends Fragment {
                     // La solicitud de eliminación fue exitosa, maneja la respuesta aquí
                     Toast.makeText(getContext(), "Wishlist deleted successfully", Toast.LENGTH_SHORT).show();
                     // Realiza cualquier otra acción necesaria después de eliminar la lista
-                    // Por ejemplo, puedes navegar a otro fragmento o realizar una actualización de la interfaz de usuario
+                    FragmentManager profileFragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction profileFragmentTransaction = profileFragmentManager.beginTransaction();
+                    ProfileFragment profileFragment = new ProfileFragment();
+                    profileFragmentTransaction.replace(R.id.container, profileFragment);
+                    profileFragmentTransaction.commit();
                 },
                 error -> {
                     // Error al realizar la solicitud, maneja el error aquí

@@ -20,6 +20,19 @@
 
     </FrameLayout>
 
+
+    <TextView
+        style="@style/DefaultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wishlist ID"
+        app:layout_constraintBottom_toTopOf="@+id/et_wishlistid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.182"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.935" />
+
     <EditText
         android:id="@+id/et_wishlistid"
         android:layout_width="301dp"
@@ -31,6 +44,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.278" />
 
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/DefaultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product URL"
+        app:layout_constraintBottom_toTopOf="@+id/et_product_url"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.197"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.968" />
+
     <EditText
         android:id="@+id/et_product_url"
         android:layout_width="301dp"
@@ -41,7 +67,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_wishlistid"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.258" />
+
+    <TextView
+        style="@style/DefaultTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Priority"
+        app:layout_constraintBottom_toTopOf="@+id/et_priority"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
 
     <EditText
         android:id="@+id/et_priority"
@@ -53,14 +91,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_product_url"
-        app:layout_constraintVertical_bias="0.357" />
+        app:layout_constraintVertical_bias="0.538" />
 
     <Button
         android:id="@+id/btn_save_changes"
         style="@style/DefaultButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="212dp"
+        android:layout_marginBottom="112dp"
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -56,7 +56,6 @@ public class FriendsFragment extends Fragment {
         }
         URL = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/";
         URL = URL.concat(userID).concat("/friends");
-        System.out.println(URL);
         recyclerView = view.findViewById(R.id.recyclerViewFriends);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

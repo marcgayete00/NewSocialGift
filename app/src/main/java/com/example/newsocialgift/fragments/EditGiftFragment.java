@@ -73,7 +73,6 @@ public class EditGiftFragment extends Fragment {
 
     private void getGiftDetails(){
         String url = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/" + giftId;
-        System.out.println(url);
         SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
         String TOKEN = preferences.getString("token", "");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -88,7 +87,6 @@ public class EditGiftFragment extends Fragment {
                 },
                 error -> {
                     // Error handling
-                    System.out.println("Something went wrong!");
                     error.printStackTrace();
                 }
         ) {
@@ -122,7 +120,6 @@ public class EditGiftFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println(requestBody);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, requestBody,
                 new Response.Listener<JSONObject>() {
                     @Override

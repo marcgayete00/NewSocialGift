@@ -113,9 +113,6 @@ public class EditWishlistFragment extends Fragment {
         Gson gson = new Gson();
         User user = gson.fromJson(userJson, User.class);
         String userID = user.getId();
-        System.out.println(name);
-        System.out.println(description);
-        System.out.println(endDate);
         // Construir el objeto JSON con los datos actualizados de la wishlist
         JSONObject wishlistData = new JSONObject();
         try {
@@ -128,7 +125,6 @@ public class EditWishlistFragment extends Fragment {
 
         // Realizar la llamada a la API para actualizar la wishlist
         String url = URL + "wishlists/" + WishlistID;
-        System.out.println(url);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, wishlistData,
                 response -> {
                     Toast.makeText(getContext(), "Wishlist updated successfully", Toast.LENGTH_SHORT).show();
