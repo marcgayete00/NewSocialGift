@@ -53,6 +53,7 @@ public class Utilities extends Fragment {
             }
         });
 
+
         return view;
     }
 }
