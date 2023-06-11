@@ -49,7 +49,11 @@ public class EditWishlistFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_wishlist, container, false);
-
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Utilities utilitiesFragment = new Utilities();
+        fragmentTransaction.replace(R.id.fragment_container, utilitiesFragment);
+        fragmentTransaction.commit();
         etName = view.findViewById(R.id.et_name);
         etDescription = view.findViewById(R.id.et_description);
         etEndDate = view.findViewById(R.id.et_end_date);
