@@ -134,11 +134,6 @@ public class ChatFragment  extends Fragment {
                     String welcome = (String) args[0];
                     System.out.println("LOGAPP: " + welcome);
                 }
-            }).on("send_msg", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    System.out.println("New message sent");
-                }
             }).on("new_msg", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
@@ -182,11 +177,6 @@ public class ChatFragment  extends Fragment {
                     } catch (Exception e) {
                         System.out.println("Error: " + e);
                     }
-                }
-            }).on("query_user", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    System.out.println(args);
                 }
             });
 
