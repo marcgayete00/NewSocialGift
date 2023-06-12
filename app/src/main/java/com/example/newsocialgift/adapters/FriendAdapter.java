@@ -1,8 +1,5 @@
 package com.example.newsocialgift.adapters;
 
-import static android.content.Context.MODE_PRIVATE;
-
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +21,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.newsocialgift.R;
 import com.example.newsocialgift.User;
-import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,8 +34,11 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
 
     private String userID;
 
+    private String TOKEN;
 
-    public FriendAdapter(List<User> friendItemList, String userFriends, String userID) {
+
+    public FriendAdapter(List<User> friendItemList, String userFriends, String userID, String TOKEN) {
+        this.TOKEN = TOKEN;
         this.userID = userID;
         this.userFriends = userFriends;
         this.friendItemList = friendItemList;
@@ -95,13 +94,6 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
             });
         }
 
-        public void bind(User user) {
-            // Aquí puedes asignar los datos del amigo a las vistas correspondientes
-            textViewName.setText(user.getUsername());
-            // Puedes usar una biblioteca de carga de imágenes como Picasso o Glide para cargar la imagen
-            // en el ImageView imageView.
-        }
-
         private void deleteFriend(String friendId) {
             String deleteUrl = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/" + friendId;
 
@@ -125,7 +117,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> headers = new HashMap<>();
                     headers.put("accept", "application/json");
-                    headers.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxLCJlbWFpbCI6ImFkbWluc0BnbWFpbC5jb20iLCJpYXQiOjE2ODYwNjY3ODN9.jFHgr1Y91KsUbgoDQm0RoEDLVEue1riCIclhcyn4V70");
+                    headers.put("Authorization", "Bearer: " + TOKEN);
                     return headers;
                 }
             };

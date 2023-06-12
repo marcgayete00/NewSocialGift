@@ -38,7 +38,7 @@ public class FriendsFragment extends Fragment {
     private FriendAdapter friendAdapter;
 
     private static String URL = "";
-    private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxLCJlbWFpbCI6ImFkbWluc0BnbWFpbC5jb20iLCJpYXQiOjE2ODYwNjY3ODN9.jFHgr1Y91KsUbgoDQm0RoEDLVEue1riCIclhcyn4V70";
+    private static String TOKEN = null;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,6 +46,7 @@ public class FriendsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
         Bundle arguments = getArguments();
         SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        TOKEN = preferences.getString("token", "");
         String userJson = preferences.getString("user", "");
         Gson gson = new Gson();
         User user = gson.fromJson(userJson, User.class);
@@ -60,7 +61,7 @@ public class FriendsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<User> friendItemList = new ArrayList<>();
-        friendAdapter = new FriendAdapter(friendItemList,userID,mainID);
+        friendAdapter = new FriendAdapter(friendItemList,userID,mainID, TOKEN);
         recyclerView.setAdapter(friendAdapter);
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

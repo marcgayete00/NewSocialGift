@@ -146,7 +146,6 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
                 response -> {
                     // La cancelación de la reserva del regalo fue exitosa, maneja la respuesta aquí
                     Toast.makeText(holderG.itemView.getContext(), "Gift reservation cancelled successfully", Toast.LENGTH_SHORT).show();
-                    // Realiza cualquier otra acción necesaria después de cancelar la reserva del regalo
                 },
                 error -> {
                     // Error al realizar la solicitud de cancelación de reserva, maneja el error aquí

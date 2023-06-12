@@ -92,6 +92,7 @@ public class ProfileFragment  extends Fragment {
 
         //Obtener token del SharedPreferences
         SharedPreferences preferences = requireActivity().getSharedPreferences("SocialGift", MODE_PRIVATE);
+        String TOKEN = preferences.getString("token", "");
         String userJson = preferences.getString("user", "");
         // Convertir la cadena JSON en un objeto User utilizando Gson
         Gson gson = new Gson();
